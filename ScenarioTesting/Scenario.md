@@ -26,7 +26,7 @@
 | Playground ouverture<br /> écrire : OrderedCollection<br /> tout selectionné <br /> Ctrl i<br /> clique sur l'inspecteur<br /> clique pour browse la classe |                |          |
 | Playground ouverture<br /> écrire : OrderedCollection<br /> tout selectionné <br /> Ctrl i<br /> clique sur l'inspecteur<br /> clique sur layout |                |          |
 | Playground ouverture<br /> écrire : OrderedCollection<br /> tout selectionné <br /> Ctrl i<br /> clique sur l'inspecteur<br /> clique sur layout<br /> clique sur host<br /> reviens a l'onglet 1 |                |          |
-|                                                              |                |          |
+| Playground ouverture<br /> écrire : OrderedCollection<br /> tout selectionné <br /> Ctrl i<br /> clique sur l'inspecteur<br /> clique sur refresh |                |          |
 |                                                              |                |          |
 |                                                              |                |          |
 |                                                              |                |          |
