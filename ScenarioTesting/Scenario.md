@@ -1,7 +1,7 @@
 | Index | Scénario                                                                                 | Fichier généré                                | isTested |
 |------|--------------------------------------------------------------------------------------------|-----------------------------------------------|---------|
 |      | **Browser**                                                                                 |                                               |         |
-| 001  | 1. Playground ouverture<br />2. écrire : Object<br />3. Ctrl a + Ctrl b<br />4. clique sur le browser | 01_run1      |         |
+| 001  | 1. Playground ouverture<br />2. écrire : Object<br />3. Ctrl a + Ctrl b<br />4. clique sur le browser | 001_run1     |         |
 | 002  |                                                                                           |                                               |         |
 | 003  |                                                                                           |                                               |         |
 | 004  |                                                                                           |                                               |         |
@@ -17,7 +17,7 @@
 | 013  | 1. Playground ouverture<br />2. écrire : 1+1<br />3. Ctrl a + Ctrl i<br />4. clique sur l'inspecteur |                                               |         |
 | 014  | 1. Playground ouverture<br />2. écrire : OrderedCollection<br />3. tout sélectionné<br />4. Ctrl i<br />5. clique sur l'inspecteur<br />6. clique pour browser la classe |                                               |         |
 | 015  | 1. Playground ouverture<br />2. écrire : OrderedCollection<br />3. tout sélectionné<br />4. Ctrl i<br />5. clique sur l'inspecteur<br />6. clique sur layout |                                               |         |
-| 016  | 1. Playground ouverture<br />2. écrire : OrderedCollection<br />3. tout sélectionné<br />4. Ctrl i<br />5. clique sur l'inspecteur<br />6. clique sur layout<br />7. clique sur host<br />8. reviens à l'onglet 1 |                                               |         |
+| 016  | 1. Playground ouverture<br />2. écrire : OrderedCollection<br />3. tout sélectionné<br />4. Ctrl i<br />5. clique sur l'inspecteur<br />6. clique sur layout<br />7. clique sur host<br />8. reviens à l'onglet 1 | 016_run1 |         |
 | 017  | 1. Playground ouverture<br />2. écrire : OrderedCollection<br />3. tout sélectionné<br />4. Ctrl i<br />5. clique sur l'inspecteur<br />6. clique sur refresh |                                               |         |
 | 018  |                                                                                           |                                               |         |
 | 019  |                                                                                           |                                               |         |
@@ -36,7 +36,7 @@
 | 031  | 1. Playground ouverture<br />2. écrire : Object isMorph<br />3. sélectionné isMorph<br />4. Ctrl shift d<br />5. clique sur le débuggeur<br />6. clique sur step into<br />7. clique sur proceed |                                               |         |
 | 032  | 1. Playground ouverture<br />2. écrire : Object isMorph<br />3. sélectionné isMorph<br />4. Ctrl shift d<br />5. clique sur le débuggeur<br />6. clique sur step over<br />7. clique sur proceed |                                               |         |
 | 033  | 1. Playground ouverture<br />2. écrire : OrderedCollection new<br />3. tout sélectionné<br />4. Ctrl shift d<br />5. clique sur le débuggeur<br />6. clique sur step into X 10<br />7. clique sur proceed |                                               |         |
-| 034  | 1. Playground ouverture<br />2. écrire : OrderedCollection new<br />3. tout sélectionné<br />4. Ctrl shift d<br />5. clique sur le débuggeur<br />6. clique sur step into X 10<br />7. clique sur step over X 2<br />8. clique sur proceed |                                               |         |
+| 034  | 1. Playground ouverture<br />2. écrire : OrderedCollection new<br />3. tout sélectionné<br />4. Ctrl shift d<br />5. clique sur le débuggeur<br />6. clique sur step into X 10<br />7. clique sur step over X 2<br />8. clique sur proceed | 034_run1 |         |
 | 035  | 1. Playground ouverture<br />2. écrire : OrderedCollection new<br />3. tout sélectionné<br />4. Ctrl shift d<br />5. clique sur le débuggeur<br />6. clique sur step through |                                               |         |
 | 036  |                                                                                           |                                               |         |
 | 037  |                                                                                           |                                               |         |
