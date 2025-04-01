@@ -23,13 +23,20 @@ Class {
 }
 
 { #category : 'instance creation' }
+DSRecordHistory class >> fromSTON: aSTONStringRecord [
+
+	^ self on: (STON fromString: aSTONStringRecord)
+]
+
+{ #category : 'instance creation' }
 DSRecordHistory class >> on: anArray [
 	^self new processRecords: anArray
 ]
 
 { #category : 'instance creation' }
 DSRecordHistory class >> readTrace: aStringOrFilename [
-	^self on: (STON fromString: aStringOrFilename asFileReference contents)
+
+	^ self fromSTON: aStringOrFilename asFileReference contents
 ]
 
 { #category : 'constants' }
