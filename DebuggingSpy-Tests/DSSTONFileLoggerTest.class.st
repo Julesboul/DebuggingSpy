@@ -18,8 +18,8 @@ DSSTONFileLoggerTest >> setUp [
 	oldLogger := DSSpy logger.
 	logger := DSSTONFileLogger new.
 	DSSpy logger: logger.
-	survey := DSSurvey new.
-	task := DSTask new
+	survey := DSTestSurvey new.
+	task := DSTestTask new
 ]
 
 { #category : 'running' }

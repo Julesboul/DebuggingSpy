@@ -194,8 +194,8 @@ DSSpyTest >> removeTestMethod [
 DSSpyTest >> setUp [
 
 	super setUp.
-	task := DSTask new.
-	survey := DSSurvey new.
+	task := DSTestTask new.
+	survey := DSTestSurvey new.
 	instrumenter := DSSpyInstrumenter new.
 	DSRecordRegistry current reset.
 	DSSpy packagesMonitoredForSourceCodeChanges: nil.
@@ -285,18 +285,18 @@ DSSpyTest >> testCloseSurvey [
 	
 	record := self registry first.
 	self assert: record class equals: DSStartTaskRecord.
-	self assert: record taskName equals: DSTask dsTaskDescription.
-	self assert: record description equals: DSTask dsTaskDescription.
+	self assert: record taskName equals: DSTestTask dsTaskDescription.
+	self assert: record description equals: DSTestTask dsTaskDescription.
 	
 	record := self registry last.
 	self assert: record class equals: DSSurveyRecord.
 	self assert: record answer equals: survey answer.
-	self assert: record description equals: DSSurvey dsSurveyDescription.
+	self assert: record description equals: DSTestSurvey dsSurveyDescription.
 	
 	recordedSurvey := (STON fromString: (DSSpy logger loggingDirectory / (DSSpy logger filenameForSurvey: survey)) readStream contents) first.
 	self assert: recordedSurvey class equals: DSSurveyRecord.
 	self assert: recordedSurvey answer equals: survey answer.
-	self assert: recordedSurvey description equals: DSSurvey dsSurveyDescription.
+	self assert: recordedSurvey description equals: DSTestSurvey dsSurveyDescription.
 	(DSSpy logger loggingDirectory / (DSSpy logger filenameForSurvey: survey)) delete
 	
 ]
@@ -313,9 +313,9 @@ DSSpyTest >> testEndTask [
 	self assert: self registry size equals: 1.
 	record := self registry first.
 	self assert: record class equals: DSEndingTaskRecord.
-	self assert: record taskName equals: DSTask dsTaskDescription.
-	self assert: record description equals: DSTask dsTaskDescription.
-	self assert: record answer equals: DSTask dsTaskDescription
+	self assert: record taskName equals: DSTestTask dsTaskDescription.
+	self assert: record description equals: DSTestTask dsTaskDescription.
+	self assert: record answer equals: DSTestTask dsTaskDescription
 ]
 
 { #category : 'tests - halts events' }
@@ -828,8 +828,8 @@ DSSpyTest >> testStartTask [
 	self assert: self registry size equals: 1.
 	record := self registry first.
 	self assert: record class equals: DSStartTaskRecord.
-	self assert: record taskName equals: DSTask dsTaskDescription.
-	self assert: record description equals: DSTask dsTaskDescription
+	self assert: record taskName equals: DSTestTask dsTaskDescription.
+	self assert: record description equals: DSTestTask dsTaskDescription
 ]
 
 { #category : 'tests - task management' }
