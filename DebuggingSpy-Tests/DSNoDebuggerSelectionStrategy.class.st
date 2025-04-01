@@ -4,9 +4,9 @@ I am a debugger opening strategy that eat all debugger opening requests to avoid
 Class {
 	#name : 'DSNoDebuggerSelectionStrategy',
 	#superclass : 'OupsDebuggerSelectionStrategy',
-	#category : 'DebuggingSpy-Tests-Tests - model',
+	#category : 'DebuggingSpy-Tests-Utils',
 	#package : 'DebuggingSpy-Tests',
-	#tag : 'Tests - model'
+	#tag : 'Utils'
 }
 
 { #category : 'iterating' }
