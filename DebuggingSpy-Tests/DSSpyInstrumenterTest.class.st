@@ -12,8 +12,9 @@ Class {
 		'methodsToRemove',
 		'recordSourceCode'
 	],
-	#category : 'DebuggingSpy-Tests',
-	#package : 'DebuggingSpy-Tests'
+	#category : 'DebuggingSpy-Tests-Tests - model',
+	#package : 'DebuggingSpy-Tests',
+	#tag : 'Tests - model'
 }
 
 { #category : 'assertions' }
@@ -1342,7 +1343,7 @@ DSSpyInstrumenterTest >> testLoggingInteractionsWithNoSourceCode [
 			equals: DSSpy recordSourceCodeDisabledErrorMessage ]
 ]
 
-{ #category : #'tests - exceptions' }
+{ #category : 'tests - exceptions' }
 DSSpyInstrumenterTest >> testRecordDNU [
 	|capturedDNU|
 	
@@ -1361,7 +1362,7 @@ DSSpyInstrumenterTest >> testRecordDNU [
 	self assert: record method equals: (self class>>#methodWithDNU) selector	
 ]
 
-{ #category : #'tests - exceptions' }
+{ #category : 'tests - exceptions' }
 DSSpyInstrumenterTest >> testRecordException [
 	|capturedException|
 	

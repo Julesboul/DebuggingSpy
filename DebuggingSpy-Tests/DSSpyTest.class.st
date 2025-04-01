@@ -13,8 +13,9 @@ Class {
 		'recordSourceCode',
 		'breakpointHash'
 	],
-	#category : 'DebuggingSpy-Tests',
-	#package : 'DebuggingSpy-Tests'
+	#category : 'DebuggingSpy-Tests-Tests - model',
+	#package : 'DebuggingSpy-Tests',
+	#tag : 'Tests - model'
 }
 
 { #category : 'assertions' }

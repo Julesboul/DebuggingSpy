@@ -5,8 +5,9 @@ My purpose is to ease testing of instrumented methods from RubTextEditor without
 Class {
 	#name : 'DSFakeTextEditor',
 	#superclass : 'RubSmalltalkEditor',
-	#category : 'DebuggingSpy-Tests',
-	#package : 'DebuggingSpy-Tests'
+	#category : 'DebuggingSpy-Tests-Tests - model',
+	#package : 'DebuggingSpy-Tests',
+	#tag : 'Tests - model'
 }
 
 { #category : 'accessing' }

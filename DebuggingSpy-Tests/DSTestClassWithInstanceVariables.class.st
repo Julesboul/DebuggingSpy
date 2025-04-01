@@ -10,8 +10,9 @@ Class {
 		'c',
 		'd'
 	],
-	#category : 'DebuggingSpy-Tests',
-	#package : 'DebuggingSpy-Tests'
+	#category : 'DebuggingSpy-Tests-Utils',
+	#package : 'DebuggingSpy-Tests',
+	#tag : 'Utils'
 }
 
 { #category : 'accessing' }
