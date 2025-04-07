@@ -1,7 +1,7 @@
 | Index | Scénario                                                     | Fichier généré | isTested |
 | ----- | ------------------------------------------------------------ | -------------- | -------- |
-|       | **playground**                                                |                |          |
-| 1001  |                                                              |                |          |
+|       | **playground**                                               |                |          |
+| 1001  | 1. Playground ouverture<br/>2. écrire : "Hello"<br />3. Faire un retour a la ligne<br />4. écrire Object<br />5. Fait Echap |                |          |
 | 1002  |                                                              |                |          |
 | 1003  |                                                              |                |          |
 | 1004  |                                                              |                |          |

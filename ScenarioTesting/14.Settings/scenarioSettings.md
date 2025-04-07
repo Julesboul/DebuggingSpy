@@ -1,7 +1,7 @@
 | Index | Scénario                                                     | Fichier généré | isTested |
 | ----- | ------------------------------------------------------------ | -------------- | -------- |
-|       | **setting**                                                   |                |          |
-| 1401  |                                                              |                |          |
+|       | **setting**                                                  |                |          |
+| 1401  | 1. Clique sur settings,<br />2. attend 10 seconde <br />3. Ferme le settings |                |          |
 | 1402  |                                                              |                |          |
 | 1403  |                                                              |                |          |
 | 1404  |                                                              |                |          |
