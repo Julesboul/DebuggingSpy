@@ -1,0 +1,13 @@
+[DSLoggingErrorRecord{#dateTime:DateAndTime['2025-04-15T11:33:44.120107+02:00'],#uuid:UUID{#uuidData:ByteArray['f5ba0a9a2fef0d00ab9e507005d23132']},#event:#INSPECTOR_INSPECT},
+DSWindowOpenedRecord{#dateTime:DateAndTime['2025-04-15T11:33:44.203332+02:00'],#windowId:808323840,#uuid:UUID{#uuidData:ByteArray['6dc80b9a2fef0d00aba00e6905d23132']},#windowName:'Window'},
+DSPlaygroundOpenedRecord{#dateTime:DateAndTime['2025-04-15T11:33:44.205947+02:00'],#windowId:808323840,#uuid:UUID{#uuidData:ByteArray['84d20b9a2fef0d00aba13cfd05d23132']}},
+DSPlaygroundWriteRecord{#dateTime:DateAndTime['2025-04-15T11:33:45.306686+02:00'],#windowId:808323840,#uuid:UUID{#uuidData:ByteArray['8e9e1c9a2fef0d00aba2d79905d23132']}},
+DSPlaygroundWriteRecord{#dateTime:DateAndTime['2025-04-15T11:33:45.739357+02:00'],#windowId:808323840,#uuid:UUID{#uuidData:ByteArray['e138239a2fef0d00aba3d47c05d23132']}},
+DSPlaygroundWriteRecord{#dateTime:DateAndTime['2025-04-15T11:33:48.12997+02:00'],#windowId:808323840,#uuid:UUID{#uuidData:ByteArray['f2b2479a2fef0d00aba420d905d23132']}},
+DSPlaygroundWriteRecord{#dateTime:DateAndTime['2025-04-15T11:33:48.822774+02:00'],#windowId:808323840,#uuid:UUID{#uuidData:ByteArray['4b45529a2fef0d00aba5b1e805d23132']}},
+DSPlaygroundWriteRecord{#dateTime:DateAndTime['2025-04-15T11:33:49.287829+02:00'],#windowId:808323840,#uuid:UUID{#uuidData:ByteArray['e95d599a2fef0d00aba6ffe305d23132']}},
+DSInspectObjectRecord{#dateTime:DateAndTime['2025-04-15T11:33:50.22096+02:00'],#windowId:0,#uuid:UUID{#uuidData:ByteArray['af9a679a2fef0d00aba72b9405d23132']},#inspectedObject:'2',#inspectedObjectHash:3329050},
+DSSelectInspectorPageRecord{#dateTime:DateAndTime['2025-04-15T11:33:50.224889+02:00'],#windowId:0,#uuid:UUID{#uuidData:ByteArray['21aa679a2fef0d00aba8d66705d23132']},#inspectedObject:'2',#inspectedObjectHash:3329050,#pageTitle:'Integer'},
+DSWindowOpenedRecord{#dateTime:DateAndTime['2025-04-15T11:33:50.313121+02:00'],#windowId:1040850176,#uuid:UUID{#uuidData:ByteArray['c202699a2fef0d00abaa395c05d23132']},#windowName:'Window'},
+DSMouseLeaveWindowRecord{#dateTime:DateAndTime['2025-04-15T11:33:53.105182+02:00'],#windowId:134905088,#uuid:UUID{#uuidData:ByteArray['6c9d939a2fef0d00abab386c05d23132']},#itemElement:''},
+DSMouseEnterWindowRecord{#dateTime:DateAndTime['2025-04-15T11:33:53.106527+02:00'],#windowId:1040850176,#uuid:UUID{#uuidData:ByteArray['2fab939a2fef0d00abac3e2f05d23132']},#itemElement:''}]

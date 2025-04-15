@@ -1,7 +1,7 @@
 | Index | Scénario                                                     | Fichier généré | isTested |
 | ----- | ------------------------------------------------------------ | -------------- | -------- |
 |       | **Browser**                                                  |                |          |
-| 101   | 1. Playground ouverture<br />2. écrire : Object<br />3. Ctrl a + Ctrl b<br />4. clique sur le browser | 101_run1       |          |
+| 101   | 1. Playground ouverture<br />2. écrire : Object<br />3. Ctrl a + Ctrl b<br />4. clique sur le browser | 101_run2       |          |
 | 102   |                                                              |                |          |
 | 103   |                                                              |                |          |
 | 104   |                                                              |                |          |
