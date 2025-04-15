@@ -409,6 +409,23 @@ DSRecordHistory >> initialize [
 ]
 
 { #category : 'private - history' }
+DSRecordHistory >> mergeContinuousEvents [
+
+	| newRecords merge record |
+	newRecords := OrderedCollection new.
+	merge := OrderedCollection new.
+	record := records first.
+	merge add: record.
+	(records copy asOrderedCollection removeFirst; yourself) do: [ :next |
+		record class = next class ifFalse: [
+			newRecords add: merge.
+			merge := OrderedCollection new ].
+		merge add: next.
+		record := next ].
+	^ newRecords
+]
+
+{ #category : 'private - history' }
 DSRecordHistory >> mergeFilteredWindowJumps [
 
 	| currentJump |

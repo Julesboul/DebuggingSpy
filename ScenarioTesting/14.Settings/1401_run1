@@ -1,0 +1,12 @@
+[DSMouseLeaveWindowRecord{#dateTime:DateAndTime['2025-04-15T12:12:41.667348+02:00'],#windowId:134905088,#uuid:UUID{#uuidData:ByteArray['35c15e2530ef0d00830eed7500e468a4']},#itemElement:''},
+DSMouseEnterWindowRecord{#dateTime:DateAndTime['2025-04-15T12:12:41.676968+02:00'],#windowId:52775680,#uuid:UUID{#uuidData:ByteArray['eccc5e2530ef0d00831033e300e468a4']},#itemElement:''},
+DSMouseLeaveWindowRecord{#dateTime:DateAndTime['2025-04-15T12:12:41.683906+02:00'],#windowId:52775680,#uuid:UUID{#uuidData:ByteArray['d7e75e2530ef0d008311bf4700e468a4']},#itemElement:''},
+DSWindowOpenedRecord{#dateTime:DateAndTime['2025-04-15T12:12:44.246176+02:00'],#windowId:863083776,#uuid:UUID{#uuidData:ByteArray['cc00862530ef0d008312bc1400e468a4']},#windowName:'Settings Browser'},
+DSMouseEnterWindowRecord{#dateTime:DateAndTime['2025-04-15T12:12:53.867401+02:00'],#windowId:52775680,#uuid:UUID{#uuidData:ByteArray['b0d0182630ef0d0083138f0d00e468a4']},#itemElement:''},
+DSMouseLeaveWindowRecord{#dateTime:DateAndTime['2025-04-15T12:12:53.935001+02:00'],#windowId:52775680,#uuid:UUID{#uuidData:ByteArray['47d8192630ef0d008314a0a000e468a4']},#itemElement:''},
+DSMouseEnterWindowRecord{#dateTime:DateAndTime['2025-04-15T12:12:53.936492+02:00'],#windowId:134905088,#uuid:UUID{#uuidData:ByteArray['c0dd192630ef0d008315608500e468a4']},#itemElement:''},
+DSMouseLeaveWindowRecord{#dateTime:DateAndTime['2025-04-15T12:12:54.149569+02:00'],#windowId:134905088,#uuid:UUID{#uuidData:ByteArray['b41e1d2630ef0d0083164e2e00e468a4']},#itemElement:''},
+DSMouseEnterWindowRecord{#dateTime:DateAndTime['2025-04-15T12:12:54.152097+02:00'],#windowId:863083776,#uuid:UUID{#uuidData:ByteArray['bb271d2630ef0d008317f37500e468a4']},#itemElement:''},
+DSWindowClosedRecord{#dateTime:DateAndTime['2025-04-15T12:12:54.661358+02:00'],#windowId:863083776,#uuid:UUID{#uuidData:ByteArray['41ed242630ef0d008318f03500e468a4']},#windowName:'Settings Browser'},
+DSMouseLeaveWindowRecord{#dateTime:DateAndTime['2025-04-15T12:12:54.668155+02:00'],#windowId:863083776,#uuid:UUID{#uuidData:ByteArray['8807252630ef0d008319938c00e468a4']},#itemElement:''},
+DSMouseEnterWindowRecord{#dateTime:DateAndTime['2025-04-15T12:12:54.668476+02:00'],#windowId:134905088,#uuid:UUID{#uuidData:ByteArray['d008252630ef0d00831ab77800e468a4']},#itemElement:''}]

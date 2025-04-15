@@ -24,6 +24,9 @@ DSSpyBrowserTest >> testBrowserRUN1 [
 	browserEntering := history allRecordsOfKind: DSWindowActivatedRecord.
 	
 	self assert: openedPlaygrounds size equals: 1.
-	self flag: 'use the history for fine event detection'
+	self assert: playgroundsAction notEmpty.
+	self assert: history mergedWindowJumps first type equals: 'Playground'.
+	self assert: history mergedWindowJumps last type equals: 'Browser'.
+
 	
 ]
