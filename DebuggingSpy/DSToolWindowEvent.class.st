@@ -5,8 +5,7 @@ Class {
 	#name : 'DSToolWindowEvent',
 	#superclass : 'DSAbstractEventRecord',
 	#instVars : [
-		'toolClassName',
-		'toolIdentityHash'
+		'toolInfo'
 	],
 	#category : 'DebuggingSpy-Records',
 	#package : 'DebuggingSpy',
@@ -16,13 +15,8 @@ Class {
 { #category : 'accessing' }
 DSToolWindowEvent >> eventName [
 
-	^ [
-	  String streamContents: [ :str |
-		  str << (toolClassName ifNil: [ 'missing tool name' ]).
-		  str space.
-		  str << 'opening' ] ]
-		  on: Error
-		  do: [ '[ERROR] Tool opening' ]
+	toolInfo ifNil: [ ^ '[ERROR] Missing tool info' ].
+	^ String streamContents: [ :str | toolInfo printOn: str ]
 ]
 
 { #category : 'actions api' }
@@ -34,7 +28,9 @@ DSToolWindowEvent >> record: window [
 	tool := (window model isKindOf: SpWindowPresenter)
 		        ifTrue: [ window model presenter ]
 		        ifFalse: [ window model ].
-
-	toolClassName := tool class name.
-	toolIdentityHash := tool identityHash
+	tool ifNil: [ ^ self ].
+	toolInfo := DSToolInfo
+		            toolNamed: tool class name
+		            id: tool identityHash
+		            windowId: windowId
 ]
