@@ -105,6 +105,9 @@ DSSpy class >> logOnlyWhenTaskStarted: anObject [
 { #category : 'events - windows' }
 DSSpy class >> logWindowActivated: anEvent [
 
+	[ DSToolWindowActivatedEventRecord for: anEvent window ]
+		on: Error
+		do: [ self log: #ERROR key: #WINDOW_TOOL_OPENED ].
 	[ DSWindowActivatedRecord for: anEvent ]
 		on: Error
 		do: [ self log: #ERROR key: #WINDOW_ACTIVATED ]
