@@ -24,10 +24,7 @@ DSToolWindowEvent >> record: window [
 
 	| tool |
 	super record: window.
-
-	tool := (window model isKindOf: SpWindowPresenter)
-		        ifTrue: [ window model presenter ]
-		        ifFalse: [ window model ].
+	tool := DSSpy toolInWindow: window.
 	tool ifNil: [ ^ self ]. 
 	toolInfo := DSToolInfo
 		            toolNamed: tool class name

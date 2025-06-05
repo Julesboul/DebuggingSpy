@@ -348,3 +348,11 @@ DSSpy class >> taskStarted [
 
 	^ taskStarted ifNil: [ taskStarted := false ]
 ]
+
+{ #category : 'utils' }
+DSSpy class >> toolInWindow: window [
+
+	^ (window model isKindOf: SpWindowPresenter)
+		  ifTrue: [ window model presenter ]
+		  ifFalse: [ window model ]
+]
