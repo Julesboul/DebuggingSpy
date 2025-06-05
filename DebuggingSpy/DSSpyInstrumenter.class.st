@@ -643,15 +643,15 @@ DSSpyInstrumenter >> instrumentSpCodePrintIt [
 
 { #category : 'system-instrumentation' }
 DSSpyInstrumenter >> instrumentSystem [
-	self instrumentDebuggerOpening.
+	"self instrumentDebuggerOpening."
 	self logTextEditorsClipbardActions.
-	self logClyBrowsersOpenings.
+	"self logClyBrowsersOpenings."
 	self logCodeInteractions.
 	self logDebuggerInteractions.
 	self logHaltAndBreakpointEvents.
 	self logInspectorInteractions.
 	self logMouseEvents.
-	self logPlaygroundOpenings.
+	"self logPlaygroundOpenings."
 	self listenToWindowEvents.
 	self listenToMethodChanges
 ]

@@ -35,7 +35,8 @@ DSDebuggerOpeningRecord >> primarySourcesOfWindowOpenings [
 	^ ({
 		   DSBreakpointRecord.
 		   DSAbstractBreakpointEventRecord.
-		   DSHaltHitRecord } collect: [ :c | c withAllSubclasses ])
+		   DSHaltHitRecord.
+		   DSUnhandledExceptionRecord } collect: [ :c | c withAllSubclasses ])
 		  flattened
 ]
 
