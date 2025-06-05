@@ -26,6 +26,14 @@ DSToolInfo class >> toolNamed: aToolName id: aToolId windowId: aWindowId [
 		  yourself
 ]
 
+{ #category : 'instance creation' }
+DSToolInfo class >> toolNamed: aToolName id: aToolId windowId: aWindowId action: aString [
+
+	^ (self toolNamed: aToolName id: aToolId windowId: aWindowId)
+		  toolAction: aString;
+		  yourself
+]
+
 { #category : 'printing' }
 DSToolInfo >> printOn: str [
 

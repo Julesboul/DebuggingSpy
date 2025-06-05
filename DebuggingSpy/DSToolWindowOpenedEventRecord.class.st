@@ -8,3 +8,8 @@ Class {
 	#package : 'DebuggingSpy',
 	#tag : 'Records'
 }
+
+{ #category : 'accessing' }
+DSToolWindowOpenedEventRecord >> toolAction [
+	^'opened'
+]

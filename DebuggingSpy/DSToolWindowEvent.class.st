@@ -28,9 +28,15 @@ DSToolWindowEvent >> record: window [
 	tool := (window model isKindOf: SpWindowPresenter)
 		        ifTrue: [ window model presenter ]
 		        ifFalse: [ window model ].
-	tool ifNil: [ ^ self ].
+	tool ifNil: [ ^ self ]. 
 	toolInfo := DSToolInfo
 		            toolNamed: tool class name
 		            id: tool identityHash
 		            windowId: windowId
+		            action: self toolAction
+]
+
+{ #category : 'accessing' }
+DSToolWindowEvent >> toolAction [
+	 ^self subclassResponsibility 
 ]
