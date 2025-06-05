@@ -1,6 +1,6 @@
 Class {
 	#name : 'DSToolWindowOpenedEventRecord',
-	#superclass : 'DSAbstractToolWindowEvent',
+	#superclass : 'DSToolWindowEvent',
 	#category : 'DebuggingSpy-Records',
 	#package : 'DebuggingSpy',
 	#tag : 'Records'

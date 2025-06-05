@@ -1,5 +1,5 @@
 Class {
-	#name : 'DSAbstractToolWindowEvent',
+	#name : 'DSToolWindowEvent',
 	#superclass : 'DSAbstractEventRecord',
 	#instVars : [
 		'toolClassName',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : 'accessing' }
-DSAbstractToolWindowEvent >> eventName [
+DSToolWindowEvent >> eventName [
 
 	^ [
 	  String streamContents: [ :str |
@@ -23,7 +23,7 @@ DSAbstractToolWindowEvent >> eventName [
 ]
 
 { #category : 'actions api' }
-DSAbstractToolWindowEvent >> record: window [
+DSToolWindowEvent >> record: window [
 
 	| tool |
 	super record: window.
