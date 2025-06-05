@@ -32,3 +32,8 @@ DSMouseEnterWindowRecord >> record: morphsAndWindow [
 		            windowId: windowId
 		            action: 'enter'
 ]
+
+{ #category : 'accessing' }
+DSMouseEnterWindowRecord >> toolInfo [
+	^ toolInfo
+]

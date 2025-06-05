@@ -37,3 +37,8 @@ DSToolWindowEvent >> record: window [
 DSToolWindowEvent >> toolAction [
 	 ^self subclassResponsibility 
 ]
+
+{ #category : 'accessing' }
+DSToolWindowEvent >> toolInfo [
+	^ toolInfo
+]
