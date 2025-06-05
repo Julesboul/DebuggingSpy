@@ -606,6 +606,13 @@ DSRecordHistory >> timeTaken [
 ]
 
 { #category : 'accessing' }
+DSRecordHistory >> toolInfosFor: anInteger [
+
+	^ ((windows groupedBy: #windowId) at: anInteger ifAbsent: [ ^ nil ])
+		  first toolInfos
+]
+
+{ #category : 'accessing' }
 DSRecordHistory >> user [
 
 	^ user
