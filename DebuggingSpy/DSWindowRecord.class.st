@@ -8,7 +8,8 @@ Class {
 		'activePeriods',
 		'sourceEvent',
 		'idleTime',
-		'trueIdleTime'
+		'trueIdleTime',
+		'toolInfos'
 	],
 	#category : 'DebuggingSpy-Records-Extensions',
 	#package : 'DebuggingSpy',
@@ -158,6 +159,9 @@ DSWindowRecord >> printOn: ws [
 { #category : 'printing' }
 DSWindowRecord >> printTypeOn: aStream [
 
+	toolInfos ifNotNil: [
+		aStream << toolInfos first toolClassName.
+		^ self ].
 	type isString ifTrue: [
 		aStream << type.
 		^ self ].
@@ -174,6 +178,18 @@ DSWindowRecord >> sourceEvent [
 DSWindowRecord >> sourceEvent: anObject [
 
 	sourceEvent := anObject
+]
+
+{ #category : 'accessing' }
+DSWindowRecord >> toolInfos [
+
+	^ toolInfos
+]
+
+{ #category : 'accessing' }
+DSWindowRecord >> toolInfos: anObject [
+
+	toolInfos := anObject
 ]
 
 { #category : 'accessing' }
