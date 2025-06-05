@@ -1,3 +1,6 @@
+"
+I record when a tool is activated, ie, a window having this tool as model is activated
+"
 Class {
 	#name : 'DSToolWindowActivatedEventRecord',
 	#superclass : 'DSToolWindowEvent',

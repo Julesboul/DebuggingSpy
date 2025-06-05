@@ -1,3 +1,6 @@
+"
+I record info about tools opened by windows
+"
 Class {
 	#name : 'DSToolWindowEvent',
 	#superclass : 'DSAbstractEventRecord',
