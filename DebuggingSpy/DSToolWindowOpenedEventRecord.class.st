@@ -23,12 +23,11 @@ DSToolWindowOpenedEventRecord >> eventName [
 ]
 
 { #category : 'actions api' }
-DSToolWindowOpenedEventRecord >> record: aWindowEvent [
+DSToolWindowOpenedEventRecord >> record: window [
 
-	| window tool |
-	window := aWindowEvent window.
+	| tool |
 	super record: window.
-	
+
 	tool := (window model isKindOf: SpWindowPresenter)
 		        ifTrue: [ window model presenter ]
 		        ifFalse: [ window model ].

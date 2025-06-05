@@ -119,8 +119,12 @@ DSSpy class >> logWindowClosed: anEvent [
 
 { #category : 'events - windows' }
 DSSpy class >> logWindowOpened: anEvent [
+
 	| window |
 	window := anEvent window.
+	[ DSToolWindowOpenedEventRecord for: window ]
+		on: Error
+		do: [ self log: #ERROR key: #WINDOW_TOOL_OPENED ].
 	[ DSWindowOpenedRecord for: anEvent ]
 		on: Error
 		do: [ self log: #ERROR key: #WINDOW_OPENED ].
