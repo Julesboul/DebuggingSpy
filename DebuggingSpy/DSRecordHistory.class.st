@@ -537,6 +537,21 @@ DSRecordHistory >> reconstructSourcesOfDebuggerOpenings [
 		w sourceEvent: sourceEvent ]
 ]
 
+{ #category : 'API-history' }
+DSRecordHistory >> reconstructWindowsToolInfo [
+
+	| toolInfos |
+	toolInfos := (((records select: [ :r |
+		                (r isKindOf: DSToolWindowEvent) or: [
+			                r class = DSMouseEnterWindowRecord ] ]) collect:
+		               #toolInfo) reject: #isNil) asOrderedCollection
+		             groupedBy: #windowIdentityHash.
+	(windows groupedBy: #name) keysAndValuesDo: [ :id :col |
+		| window |
+		window := col first.
+		window toolInfos: (toolInfos at: id) ]
+]
+
 { #category : 'accessing' }
 DSRecordHistory >> records [
 
