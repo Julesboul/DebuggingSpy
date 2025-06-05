@@ -129,10 +129,83 @@ DSWindowRecord >> idleTime [
 ]
 
 { #category : 'testing' }
+DSWindowRecord >> isBreakpointBrowser [
+
+	toolInfos ifNil: [ ^ false ].
+	toolInfos ifEmpty: [ ^ false ].
+	^ toolInfos first toolClassName = 'DebugPointBrowserPresenter'
+]
+
+{ #category : 'testing' }
+DSWindowRecord >> isBrowser [
+
+	toolInfos ifNil: [ ^ false ].
+	toolInfos ifEmpty: [ ^ false ].
+	^ toolInfos first toolClassName = 'ClyFullBrowserMorph'
+]
+
+{ #category : 'testing' }
+DSWindowRecord >> isCritiqueBrowser [
+
+	toolInfos ifNil: [ ^ false ].
+	toolInfos ifEmpty: [ ^ false ].
+	^ toolInfos first toolClassName = 'StCritiquePackageSelectorPresenter' 
+]
+
+{ #category : 'testing' }
 DSWindowRecord >> isDebugger [
 
-	events ifEmpty: [ ^ false ].
-	^ events first class == DSDebuggerOpeningRecord
+	toolInfos ifNil: [ ^ false ].
+	toolInfos ifEmpty: [ ^ false ].
+	^ toolInfos first toolClassName = 'StDebugger'
+]
+
+{ #category : 'testing' }
+DSWindowRecord >> isEpicea [
+
+	toolInfos ifNil: [ ^ false ].
+	toolInfos ifEmpty: [ ^ false ].
+	^ toolInfos first toolClassName = 'EpUnifiedBrowserPresenter'
+]
+
+{ #category : 'testing' }
+DSWindowRecord >> isIceberg [
+
+	toolInfos ifNil: [ ^ false ].
+	toolInfos ifEmpty: [ ^ false ].
+	^ toolInfos first toolClassName = 'IceTipRepositoryBrowser'
+]
+
+{ #category : 'testing' }
+DSWindowRecord >> isInspector [
+
+	toolInfos ifNil: [ ^ false ].
+	toolInfos ifEmpty: [ ^ false ].
+	^ toolInfos first toolClassName = 'StInspectorPresenter'
+]
+
+{ #category : 'testing' }
+DSWindowRecord >> isPlayground [
+
+	toolInfos ifNil: [ ^ false ].
+	toolInfos ifEmpty: [ ^ false ].
+	^ toolInfos first toolClassName = 'StPlaygroundPresenter'
+]
+
+{ #category : 'testing' }
+DSWindowRecord >> isQueryTool [
+
+	toolInfos ifNil: [ ^ false ].
+	toolInfos ifEmpty: [ ^ false ].
+	^ toolInfos first toolClassName = 'ClyQueryBrowserMorph'
+]
+
+{ #category : 'testing' }
+DSWindowRecord >> isRewriter [
+
+	toolInfos ifNil: [ ^ false ].
+	toolInfos ifEmpty: [ ^ false ].
+	^ toolInfos first toolClassName = 'StRewriterExpressionFinderPresenter' 
 ]
 
 { #category : 'accessing' }
