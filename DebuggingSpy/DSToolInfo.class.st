@@ -25,6 +25,14 @@ DSToolInfo class >> toolNamed: aToolName id: aToolId windowId: aWindowId [
 		  yourself
 ]
 
+{ #category : 'printing' }
+DSToolInfo >> printOn: str [
+
+	str << (toolClassName ifNil: [ 'missing tool name' ]).
+	str space.
+	str << 'opening'
+]
+
 { #category : 'accessing' }
 DSToolInfo >> toolClassName [
 
