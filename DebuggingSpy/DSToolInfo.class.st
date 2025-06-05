@@ -15,6 +15,16 @@ Class {
 	#tag : 'Records'
 }
 
+{ #category : 'instance creation' }
+DSToolInfo class >> toolNamed: aToolName id: aToolId windowId: aWindowId [
+
+	^ self new
+		  toolClassName: aToolName;
+		  toolIdentityHash: aToolId;
+		  windowIdentityHash: aWindowId;
+		  yourself
+]
+
 { #category : 'accessing' }
 DSToolInfo >> toolClassName [
 
