@@ -98,9 +98,9 @@ DSAbstractEventRecord >> realRecord [
 DSAbstractEventRecord >> record: aWindow [
 
 	windowId := aWindow identityHash.
-	(aWindow isKindOf: ClyBrowserMorph) ifFalse: [ ^ self ].
+"	(aWindow isKindOf: ClyBrowserMorph) ifFalse: [ ^ self ].
 	aWindow activeWindow ifNil:[^self].
-	windowId := aWindow activeWindow identityHash
+	windowId := aWindow activeWindow identityHash"
 ]
 
 { #category : 'API-history' }
