@@ -50,7 +50,6 @@ DSWindowActivityRecord >> annotation: anObject [
 
 { #category : 'accessing' }
 DSWindowActivityRecord >> duration [
-
 	^ events last dateTime - events first dateTime
 ]
 
