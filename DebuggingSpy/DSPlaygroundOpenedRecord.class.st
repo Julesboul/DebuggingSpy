@@ -13,3 +13,8 @@ Class {
 DSPlaygroundOpenedRecord >> eventName [
 	^'Playground open' 
 ]
+
+{ #category : 'accessing - structure variables' }
+DSPlaygroundOpenedRecord >> glyph [
+	^'P'
+]

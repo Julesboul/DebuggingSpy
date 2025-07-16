@@ -55,6 +55,11 @@ DSInspectAttributeRecord >> eventName [
 	^'Inspect object'
 ]
 
+{ #category : 'accessing - structure variables' }
+DSInspectAttributeRecord >> glyph [
+	^'InA'
+]
+
 { #category : 'actions api' }
 DSInspectAttributeRecord >> record: inspectorNodeWithInspectedObjectWithWindow [
 

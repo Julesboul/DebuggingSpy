@@ -9,6 +9,11 @@ Class {
 	#tag : 'Records'
 }
 
+{ #category : 'accessing - structure variables' }
+DSExpandAttributeRecord >> glyph [
+	^'EA'
+]
+
 { #category : 'actions api' }
 DSExpandAttributeRecord >> record: aFTTableItem [
 	|window|

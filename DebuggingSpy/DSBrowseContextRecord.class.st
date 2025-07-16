@@ -25,6 +25,17 @@ DSBrowseContextRecord >> eventName [
 	^'Browse context'
 ]
 
+{ #category : 'accessing - structure variables' }
+DSBrowseContextRecord >> glyph [
+	^'Br'
+]
+
+{ #category : 'accessing - structure variables' }
+DSBrowseContextRecord >> glyphColor [
+
+	^ Color orange
+]
+
 { #category : 'accessing' }
 DSBrowseContextRecord >> receiver [
 

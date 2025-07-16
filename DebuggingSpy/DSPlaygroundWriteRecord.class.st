@@ -13,3 +13,8 @@ Class {
 DSPlaygroundWriteRecord >> eventName [
 	^'Playground write' 
 ]
+
+{ #category : 'accessing - structure variables' }
+DSPlaygroundWriteRecord >> glyph [
+	^'PW'
+]

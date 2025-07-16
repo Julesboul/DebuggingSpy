@@ -13,6 +13,11 @@ Class {
 	#tag : 'Records'
 }
 
+{ #category : 'accessing - structure variables' }
+DSInspectorRecord >> glyphColor [
+	^Color green darker
+]
+
 { #category : 'accessing' }
 DSInspectorRecord >> inspectedObject [
 

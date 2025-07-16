@@ -37,15 +37,41 @@ DSStepActionRecord >> context [
 	^ context
 ]
 
+{ #category : 'as yet unclassified' }
+DSStepActionRecord >> debuggingGlyphs [
+
+	^ Dictionary newFromPairs:
+		  { 'Over'. '>'. 'Into'. 'V'. 'Through'. '>>'. 'Restart'. 'R'. 'Proceed'.
+		  'P' }
+]
+
 { #category : 'accessing' }
 DSStepActionRecord >> eventName [
 	^eventName
+]
+
+{ #category : 'as yet unclassified' }
+DSStepActionRecord >> glyph [
+
+	^ self debuggingGlyphs at: self eventName
+]
+
+{ #category : 'as yet unclassified' }
+DSStepActionRecord >> glyphColor [
+
+	^ Color red darker
 ]
 
 { #category : 'accessing' }
 DSStepActionRecord >> node [
 
 	^ node
+]
+
+{ #category : 'accessing' }
+DSStepActionRecord >> printContext [
+
+	^ self context asString , self node
 ]
 
 { #category : 'printing' }

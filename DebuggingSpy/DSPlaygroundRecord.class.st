@@ -10,6 +10,11 @@ Class {
 	#tag : 'Records'
 }
 
+{ #category : 'accessing - structure variables' }
+DSPlaygroundRecord >> glyphColor [ 
+	^Color blue darker
+]
+
 { #category : 'actions api' }
 DSPlaygroundRecord >> record: aPresenter [
 	super record: aPresenter window window

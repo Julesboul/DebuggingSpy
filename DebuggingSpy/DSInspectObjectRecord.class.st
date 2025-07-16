@@ -14,6 +14,11 @@ DSInspectObjectRecord >> eventName [
 	^'Inspect object'
 ]
 
+{ #category : 'accessing - structure variables' }
+DSInspectObjectRecord >> glyph [
+	^'InO'
+]
+
 { #category : 'accessing' }
 DSInspectObjectRecord >> windowName [
 

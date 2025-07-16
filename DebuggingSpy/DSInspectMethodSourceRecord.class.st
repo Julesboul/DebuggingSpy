@@ -12,6 +12,11 @@ Class {
 	#tag : 'Records'
 }
 
+{ #category : 'accessing - structure variables' }
+DSInspectMethodSourceRecord >> glyph [
+	^'InMS'
+]
+
 { #category : 'actions api' }
 DSInspectMethodSourceRecord >> record: inspectedObjectWithSelectedClassWithSelectedMethodWithWindow [
 

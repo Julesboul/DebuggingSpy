@@ -17,6 +17,11 @@ DSInspectMethodsRecord >> eventName [
 	^'Inspect methods'
 ]
 
+{ #category : 'accessing - structure variables' }
+DSInspectMethodsRecord >> glyph [
+	^'InM'
+]
+
 { #category : 'actions api' }
 DSInspectMethodsRecord >> record: inspectedObjectWithSelectedClassWithWindow [
 

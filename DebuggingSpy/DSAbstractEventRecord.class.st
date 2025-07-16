@@ -85,6 +85,12 @@ DSAbstractEventRecord >> initialize [
 ]
 
 { #category : 'printing' }
+DSAbstractEventRecord >> printContext [
+
+	^ self context
+]
+
+{ #category : 'printing' }
 DSAbstractEventRecord >> printOn: aStream [
 	aStream << self eventName
 ]

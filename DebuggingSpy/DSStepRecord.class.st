@@ -79,9 +79,25 @@ DSStepRecord >> eventSymbol [
 	^'V'
 ]
 
+{ #category : 'accessing - structure variables' }
+DSStepRecord >> glyph [
+
+	^ sourceRecord glyph
+]
+
+{ #category : 'accessing - structure variables' }
+DSStepRecord >> glyphColor [
+	^sourceRecord glyphColor
+]
+
 { #category : 'accessing' }
 DSStepRecord >> node [
 	^sourceRecord node
+]
+
+{ #category : 'accessing' }
+DSStepRecord >> printContext [
+	^sourceRecord printContext
 ]
 
 { #category : 'printing' }

@@ -19,3 +19,8 @@ DSPlaygroundReadRecord >> eventName [
 
 	^ 'Playground read'
 ]
+
+{ #category : 'accessing - structure variables' }
+DSPlaygroundReadRecord >> glyph [
+	^'PR'
+]

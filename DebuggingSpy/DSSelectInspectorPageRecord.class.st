@@ -22,6 +22,11 @@ DSSelectInspectorPageRecord >> eventName [
 	^'Selecting inspector tab'
 ]
 
+{ #category : 'accessing - structure variables' }
+DSSelectInspectorPageRecord >> glyph [
+	^'In'
+]
+
 { #category : 'accessing' }
 DSSelectInspectorPageRecord >> pageTitle [
 

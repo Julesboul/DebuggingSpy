@@ -49,6 +49,18 @@ DSWindowActivityRecord >> annotation: anObject [
 ]
 
 { #category : 'accessing' }
+DSWindowActivityRecord >> debuggingActionsClasses [
+
+	| classes |
+	classes := OrderedCollection withAll: DSInspectorRecord allSubclasses.
+	classes addAll: DSPlaygroundRecord allSubclasses.
+	classes addAll: DSStepActionRecord allSubclasses.
+	classes addAll: DSStepRecord allSubclasses.
+	classes add: DSBrowseContextRecord.
+	^ classes
+]
+
+{ #category : 'accessing' }
 DSWindowActivityRecord >> duration [
 	^ events last dateTime - events first dateTime
 ]

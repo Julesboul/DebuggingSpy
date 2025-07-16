@@ -9,6 +9,11 @@ Class {
 	#tag : 'Records'
 }
 
+{ #category : 'accessing - structure variables' }
+DSNavigateAttributeRecord >> glyph [
+	^'NA'
+]
+
 { #category : 'actions api' }
 DSNavigateAttributeRecord >> record: attributeWithModelAndWindow [
 
