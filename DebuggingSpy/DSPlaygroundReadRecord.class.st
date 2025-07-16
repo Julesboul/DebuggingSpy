@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : 'accessing' }
+DSPlaygroundReadRecord >> context [
+	^'Reading code'
+]
+
+{ #category : 'accessing' }
 DSPlaygroundReadRecord >> eventName [
 
 	^ 'Playground read'

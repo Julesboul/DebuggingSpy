@@ -13,6 +13,11 @@ Class {
 }
 
 { #category : 'accessing' }
+DSSelectInspectorPageRecord >> context [
+	^'Inspecting (tab change)'
+]
+
+{ #category : 'accessing' }
 DSSelectInspectorPageRecord >> eventName [
 	^'Selecting inspector tab'
 ]

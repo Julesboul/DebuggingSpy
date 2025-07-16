@@ -16,6 +16,11 @@ Class {
 }
 
 { #category : 'accessing' }
+DSBrowseContextRecord >> context [
+	^'Browsing'
+]
+
+{ #category : 'accessing' }
 DSBrowseContextRecord >> eventName [
 	^'Browse context'
 ]
