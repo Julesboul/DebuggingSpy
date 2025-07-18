@@ -54,6 +54,14 @@ DSRecordHistory class >> windowLeaveEventTypes [
 ]
 
 { #category : 'API-history' }
+DSRecordHistory >> absoluteTimeTaken [
+	"The absoulte time taken to perform the recording of user events, including unmonitoring activities (interruptions or activities outside the IDE)."
+
+	^ ((records last dateTime asSeconds - records first dateTime asSeconds)
+	   / 60) asFloat
+]
+
+{ #category : 'API-history' }
 DSRecordHistory >> addWindowRecord: aDSRecord [
 
 	(self windowsHistory
@@ -204,6 +212,11 @@ DSRecordHistory >> countDebugActions [
 	^ self breakpointAdds + self breakpointRemove + self executedCode
 	  + self methodsAdded + self methodsModified + self methodsRemoved
 	  + self numberOfSteps + self callStackBrowing
+]
+
+{ #category : 'accessing' }
+DSRecordHistory >> dateTime [
+	^records first dateTime
 ]
 
 { #category : 'private - history' }
