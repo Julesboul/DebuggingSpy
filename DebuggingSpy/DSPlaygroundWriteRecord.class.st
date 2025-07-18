@@ -10,6 +10,11 @@ Class {
 }
 
 { #category : 'accessing' }
+DSPlaygroundWriteRecord >> context [
+	^'Writing code'
+]
+
+{ #category : 'accessing' }
 DSPlaygroundWriteRecord >> eventName [
 	^'Playground write' 
 ]

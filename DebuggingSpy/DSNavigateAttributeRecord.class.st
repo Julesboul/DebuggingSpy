@@ -9,6 +9,11 @@ Class {
 	#tag : 'Records'
 }
 
+{ #category : 'accessing' }
+DSNavigateAttributeRecord >> context [
+	^'Inspecting attributes'
+]
+
 { #category : 'accessing - structure variables' }
 DSNavigateAttributeRecord >> glyph [
 	^'NA'
