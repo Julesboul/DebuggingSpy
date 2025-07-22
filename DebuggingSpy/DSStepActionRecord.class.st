@@ -71,7 +71,7 @@ DSStepActionRecord >> node [
 { #category : 'accessing' }
 DSStepActionRecord >> printContext [
 
-	^ self context asString , self node
+	^ (self context printStringLimitedTo: 30 ), self node
 ]
 
 { #category : 'printing' }

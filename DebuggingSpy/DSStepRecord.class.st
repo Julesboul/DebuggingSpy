@@ -97,7 +97,7 @@ DSStepRecord >> node [
 
 { #category : 'accessing' }
 DSStepRecord >> printContext [
-	^sourceRecord printContext
+	^sourceRecord printStringLimitedTo: 30
 ]
 
 { #category : 'printing' }
