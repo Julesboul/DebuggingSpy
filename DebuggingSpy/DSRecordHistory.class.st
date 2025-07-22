@@ -197,7 +197,7 @@ DSRecordHistory >> collectTimeDiscrepancies [
 		delta := r dateTime asSeconds - currentRecord dateTime asSeconds.
 		time := time
 		        + (r dateTime asSeconds - currentRecord dateTime asSeconds).
-		delta > 30 ifTrue: [
+		delta > 5 ifTrue: [
 			deltas add: {
 					r.
 					currentRecord.
