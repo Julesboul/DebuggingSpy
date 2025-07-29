@@ -632,6 +632,36 @@ DSRecordHistory >> toolInfosFor: anInteger [
 ]
 
 { #category : 'accessing' }
+DSRecordHistory >> usedTools [
+
+	| allTools filteredTools |
+	allTools := ((windows reject: [ :w |
+		              w toolInfos isNil or: [ w toolInfos isEmpty ] ])
+		             collect: [ :w | w toolInfos first toolClassName ])
+		            asSet.
+	filteredTools := OrderedCollection new.
+	allTools do: [ :tName |
+		(#( 'ClyFullBrowserMorph' 'ClyQueryBrowserMorph' ) includes: tName)
+			ifTrue: [
+				tName = 'ClyFullBrowserMorph'
+					ifTrue: [ filteredTools add: 'Browser' ]
+					ifFalse: [ filteredTools addAll: #( 'Senders' 'Implementors' ) ] ]
+			ifFalse: [
+				| substrings |
+				substrings := tName normalizeCamelCase substrings
+					              asOrderedCollection.
+				substrings first = 'St' ifTrue: [ substrings removeFirst ].
+				substrings last = 'Presenter' ifTrue: [ substrings removeLast ].
+				filteredTools add:
+					(String streamContents: [ :str |
+						 substrings do: [ :s | str << s ] ]) ] ].
+	filteredTools add: 'Github (read)'.
+	filteredTools add: 'Github (diff)'.
+	filteredTools add: 'Task description'.
+	^ filteredTools
+]
+
+{ #category : 'accessing' }
 DSRecordHistory >> user [
 
 	^ user
