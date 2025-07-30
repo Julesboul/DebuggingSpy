@@ -590,6 +590,17 @@ DSRecordHistory >> reprocessRecords [
 ]
 
 { #category : 'accessing' }
+DSRecordHistory >> startTime [
+
+	^ records first dateTime asTime
+]
+
+{ #category : 'as yet unclassified' }
+DSRecordHistory >> stopTime [
+	^records last dateTime asTime
+]
+
+{ #category : 'accessing' }
 DSRecordHistory >> tag [
 
 	^ tag
