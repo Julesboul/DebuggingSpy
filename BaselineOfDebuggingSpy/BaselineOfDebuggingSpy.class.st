@@ -1,20 +1,26 @@
 Class {
-	#name : #BaselineOfDebuggingSpy,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfDebuggingSpy
+	#name : 'BaselineOfDebuggingSpy',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfDebuggingSpy',
+	#package : 'BaselineOfDebuggingSpy'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfDebuggingSpy >> baseline: spec [
 
 	<baseline>
+	
+	spec baseline: 'ExperimentModel' with: [ 
+		spec repository:
+			'github://Pharo-XP-Tools/ExperimentModel:main' ].
+	
 	spec for: #common do: [ 
 		spec postLoadDoIt: #postloadAction.
 		spec package: 'DebuggingSpy'.
 		spec package: 'DebuggingSpy-Tests' ]
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfDebuggingSpy >> postloadAction [
 	DSSpy handlingError: false
 ]
