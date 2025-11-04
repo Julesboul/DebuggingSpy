@@ -950,7 +950,7 @@ DSSpyInstrumenterTest >> testInstrumentRubEditorCopySelection [
 
 	| rubEditor registerClipboardText |
 	modifiedClass := RubSmalltalkEditor.
-	modifiedMethodSource := (RubSmalltalkEditor >> #doIt) sourceCode.
+	modifiedMethodSource := (RubSmalltalkEditor >> #copySelection) sourceCode.
 	instrumenter instrumentRubSmalltalkEditorCopySelection.
 
 	registerClipboardText := DSSpy recordClipboardContent.
@@ -1017,7 +1017,7 @@ DSSpyInstrumenterTest >> testInstrumentRubEditorPaste [
 
 	| rubEditor registerClipboardText |
 	modifiedClass := RubSmalltalkEditor.
-	modifiedMethodSource := (RubSmalltalkEditor >> #doIt) sourceCode.
+	modifiedMethodSource := (RubSmalltalkEditor >> #paste) sourceCode.
 	instrumenter instrumentRubSmalltalkEditorPaste.
 	registerClipboardText := DSSpy recordClipboardContent.
 	DSSpy recordClipboardContent: true.
