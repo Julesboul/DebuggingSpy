@@ -87,6 +87,7 @@ DSSpyInstrumenter >> instrumentCodePresenter [
 	self withSyntaxHighlight.
 	self withSmartCharacters.
 	self withLineNumbers.
+	self subscribeToSettingsChangesAnnouncements.
 	
 	self registerEventsForStyling.
 	self clearInteractionModel.
@@ -119,10 +120,10 @@ DSSpyInstrumenter >> instrumentDebuggerOpening [
 	
 	super initializeWindow: aWindowPresenter.
 	aWindowPresenter
-		title: self debuggerActionModel statusStringForContext;
-		initialExtent: self initialExtent;
+		initialPosition: self settings lastKnownPosition;
 		whenClosedDo: [ self clear ].
 
+	self settings initializeWindow: aWindowPresenter.
 	self initializeShortcuts: aWindowPresenter.
 	
 	[DSDebuggerOpeningRecord for: self ] on: Error do:[:err| DSSpy log: err key: #DEBUGGER_STACK ]	'
@@ -143,7 +144,7 @@ stackTable := self newList.
 		stackTable selection isEmpty ifFalse: [
 			self updateInspectorFromContext: context.
 			self updateCodeFromContext: context.
-			self updateExtensionsFrom: self session.
+			self updateExtensionsFromSession: self session.
 			self expandStackIfLastItemIsSelected.
 			self updateWindowTitle.
 			[DSBrowseContextRecord for: { context . [self window window] on: Error do:[0] } ] on: Error do:[:err| DSSpy log: #ERROR key: #DEBUGGER_STACK ] ] ].
@@ -153,12 +154,14 @@ stackTable := self newList.
 
 { #category : 'breakpoints' }
 DSSpyInstrumenter >> instrumentExceptionSignalling [
+
 	Exception compile: 'raiseUnhandledError
+	"No one has handled this error, but now give them a chance to decide how to debug it.  If none handle this either then open debugger (see UnhandedError>>#defaultAction)"
 
 	self class = Halt ifFalse:[[	DSUnhandledExceptionRecord for:  self] 
 		on: Error 
 		do:[:err| DSSpy log: #ERROR key: self class name asSymbol ]].
-	^ UnhandledError signalForException: self'.
+	^ UnhandledError signalForException: self'
 ]
 
 { #category : 'inspector' }
@@ -304,9 +307,7 @@ DSSpyInstrumenter >> instrumentNavigateAttribute [
 
 	StRawInspectionPresenter compile: 'setAttributeTable
 
-	attributeTable
-		roots: self inspectorNodes;
-		children: [ :node | node children ].
+	attributeTable children: [ :node | node children ].
 
 	self outputSelectionPort transmitDo: [ :val | 
 		val ifNotNil: [ 
@@ -321,7 +322,7 @@ DSSpyInstrumenter >> instrumentPlaygroundCode [
 	StPlaygroundPresenter class compile: 'open 
 	<script>
 	|pg|
-	pg := self new open.
+	pg := (self newApplication: StPharoApplication current) open.
 	[DSPlaygroundOpenedRecord for: pg] on: Error do:[:err| DSSpy log: err key: #PLAYGROUND_OPEN ].
 	^pg'
 ]
@@ -384,6 +385,10 @@ DSSpyInstrumenter >> instrumentRubEditorPaste [
 DSSpyInstrumenter >> instrumentRubEditorPrintIt [
 
 	RubSmalltalkEditor compile: 'printIt
+	"Treat the current text selection as an expression; evaluate it. Insert the
+	description of the result of evaluation after the selection and then make
+	this description the new text selection."
+	
 	| printString |
 
 	self
@@ -533,22 +538,21 @@ DSSpyInstrumenter >> instrumentSindarinDebuggerCommands [
 		            DSSindarinStepToNextCallInClassCommand.
 		            DSSindarinStepToNextCallInObjectCommand.
 		            DSSindarinStepToNextInstanceCreation.
-		            DSSindarinStepToReturnCommand } collect: [ :class | 		         
+		            DSSindarinStepToReturnCommand
+					} collect: [ 
+		            :class |
 		            class forSpecContext: stDebuggerInstance ].
 
-	codeGroup := rootCommandGroup
-	             / StDebuggerCodeCommandTreeBuilder groupName
-	             / StDebuggerCodeCommandTreeBuilder new codeDebugCommandsGroupName.
+	codeGroup := self debuggerCodeCommandGroupFor: rootCommandGroup.
 	commands do: [ :c | codeGroup register: c ].
-	
-	toolbarGroup := rootCommandGroup / StDebuggerToolbarCommandTreeBuilder groupName.
+
 	toolbarSindarinGroup := CmCommandGroup forSpec
 			beToolbarPopoverButton;
-			name: ''Advanced Step'';
-			icon: (stDebuggerInstance application iconNamed: #glamorousDropDown);
+			name: ''Advanced'';
+			icon: (stDebuggerInstance application iconNamed: #smallDebugIt);
 			yourself.
-	toolbarGroup register: toolbarSindarinGroup.
-	commands do: [ :c | toolbarSindarinGroup register: c ]'
+	(self debuggerToolbarCommandGroupFor: rootCommandGroup) register: toolbarSindarinGroup.
+	commands do: [ :c | toolbarSindarinGroup register: c ].	'
 	
 ]
 
