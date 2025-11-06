@@ -535,12 +535,10 @@ DSSpyInstrumenter >> instrumentSindarinDebuggerCommands [
 	| commands codeGroup toolbarGroup toolbarSindarinGroup |
 	commands := { 
 		            DSSindarinStepToMethodEntryCommand.
-		            DSSindarinStepToNextCallInClassCommand.
-		            DSSindarinStepToNextCallInObjectCommand.
+		            DSSindarinStepToNextExecutionInClassCommand.
+		            DSSindarinStepToNextExecutionInObjectCommand.
 		            DSSindarinStepToNextInstanceCreation.
-		            DSSindarinStepToReturnCommand
-					} collect: [ 
-		            :class |
+		            DSSindarinStepToReturnCommand } collect: [ :class | 		         
 		            class forSpecContext: stDebuggerInstance ].
 
 	codeGroup := self debuggerCodeCommandGroupFor: rootCommandGroup.
@@ -552,7 +550,7 @@ DSSpyInstrumenter >> instrumentSindarinDebuggerCommands [
 			icon: (stDebuggerInstance application iconNamed: #smallDebugIt);
 			yourself.
 	(self debuggerToolbarCommandGroupFor: rootCommandGroup) register: toolbarSindarinGroup.
-	commands do: [ :c | toolbarSindarinGroup register: c ].	'
+	commands do: [ :c | toolbarSindarinGroup register: c ].'
 	
 ]
 
