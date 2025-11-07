@@ -11,3 +11,11 @@ Class {
 	#package : 'DebuggingSpy',
 	#tag : 'Commands'
 }
+
+{ #category : 'hooks' }
+DSSindarinStepToNextExecutionInObjectCommand >> execute [
+
+	[DSStepActionRecord for: self] on: Error do:[:e| DSSpy log: #ERROR key: #TO_NEXT_EXECUTION_IN_OBJECT].
+	self forTests ifTrue: [ ^ self ].
+	^ super execute
+]

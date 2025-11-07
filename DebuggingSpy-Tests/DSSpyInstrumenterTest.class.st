@@ -79,7 +79,7 @@ DSSpyInstrumenterTest >> assertInstrumentSindarinDebuggerCommandNamed: debuggerC
 	"Commands from toolbar"
 	cmds := debugger rootCommandsGroup
 	 / StDebuggerToolbarCommandTreeBuilder groupName
-	/ 'Advanced Step'.
+	/ 'Advanced'.
 	cmd := StDebugger
 		       specCommandNamed: debuggerCommandName
 		       inGroup: cmds entries.
@@ -383,7 +383,7 @@ DSSpyInstrumenterTest >> stObjectContextModelMock [
 	| model context |
 	model := StInspectorModel on: StInspectorMockObject new.
 	context := StInspectionContext fromPragma:
-		           (StInspectorMockObject >> #inspectionMock1) pragmas first.
+		           (StInspectorMockObject >> #inspectionMock1:) pragmas first.
 	context inspectedObject: model inspectedObject.
 	^ StObjectContextModel new
 		  inspection: model;
@@ -1327,13 +1327,13 @@ DSSpyInstrumenterTest >> testInstrumentStepToMethodEntry [
 { #category : 'tests - debugger' }
 DSSpyInstrumenterTest >> testInstrumentStepToNextCallInClass [
 
-	self assertInstrumentSindarinDebuggerCommandNamed: 'Next call in class'
+	self assertInstrumentSindarinDebuggerCommandNamed: 'To next execution in class'
 ]
 
 { #category : 'tests - debugger' }
 DSSpyInstrumenterTest >> testInstrumentStepToNextCallInObject [
 
-	self assertInstrumentSindarinDebuggerCommandNamed: 'Next call in receiver'
+	self assertInstrumentSindarinDebuggerCommandNamed: 'To next execution in receiver'
 ]
 
 { #category : 'tests - debugger' }
