@@ -635,7 +635,7 @@ DSSpyInstrumenterTest >> testInstrumentExpandAttribute [
 DSSpyInstrumenterTest >> testInstrumentHaltHits [
 
 	instrumenter instrumentHaltHits.
-	methodsToRemove := { 
+	methodsToRemove := {
 		                   (Halt class >> #signal:).
 		                   (Halt class >> #signalIn:).
 		                   (Halt class >> #signal) }.
@@ -645,40 +645,55 @@ DSSpyInstrumenterTest >> testInstrumentHaltHits [
 	self assert: self registry size equals: 1.
 	record := self registry first.
 	self assert: record selector equals: #halt.
-	self assertHaltHitRecordingMethod:  (self class >> #executeHalt) conditional: false once: false.
-	
+	self
+		assertHaltHitRecordingMethod: self class >> #executeHalt
+		conditional: false
+		once: false.
+
 	[ self executeHaltIf ]
 		on: Halt
 		do: [ ].
 	self assert: self registry size equals: 2.
 	record := self registry second.
 	self assert: record selector equals: #haltIf:.
-	self assertHaltHitRecordingMethod:  (self class >> #executeHaltIf) conditional: true once: false.
-	
+	self
+		assertHaltHitRecordingMethod: self class >> #executeHaltIf
+		conditional: true
+		once: false.
+
 	self recompileExecuteHaltOnce.
 	[ self executeHaltOnce ]
 		on: Halt
-		do: [  ].
+		do: [ ].
 	self assert: self registry size equals: 3.
 	record := self registry third.
-	self assert: record selector equals: #once.
-	self assertHaltHitRecordingMethod:  (self class >> #executeHaltOnce) conditional: false once: true.	
-	
-	[ self executeHaltWithMessage  ]
+	self assert: record selector equals: #once:.
+	self
+		assertHaltHitRecordingMethod: self class >> #executeHaltOnce
+		conditional: false
+		once: true.
+
+	[ self executeHaltWithMessage ]
 		on: Halt
-		do: [  ].
+		do: [ ].
 	self assert: self registry size equals: 4.
 	record := self registry fourth.
 	self assert: record selector equals: #now:.
-	self assertHaltHitRecordingMethod:  (self class >> #executeHaltWithMessage) conditional: false once: false.
-	
-	[ self execute1Halt  ]
+	self
+		assertHaltHitRecordingMethod: self class >> #executeHaltWithMessage
+		conditional: false
+		once: false.
+
+	[ self execute1Halt ]
 		on: Halt
-		do: [  ].
+		do: [ ].
 	self assert: self registry size equals: 5.
 	record := self registry fifth.
 	self assert: record selector equals: #halt.
-	self assertHaltHitRecordingMethod:  (self class >> #execute1Halt) conditional: false once: false.
+	self
+		assertHaltHitRecordingMethod: self class >> #execute1Halt
+		conditional: false
+		once: false
 ]
 
 { #category : 'tests - halts' }

@@ -181,7 +181,7 @@ DSSpyInstrumenter >> instrumentHaltHits [
 	self = Halt ifTrue:[
 	[|sender|				
 		sender := thisContext sender sender sender sender sender sender sender sender sender.
-		ctx selector = #once ifFalse:[sender := sender sender].
+		ctx selector = #once: ifFalse:[sender := sender sender].
 		DSHaltHitRecord for: {sender sourceNodeExecuted. ctx selector}] 
 		on: Error 
 		do:[ DSSpy log: #ERROR key: #HALT_HIT ]].

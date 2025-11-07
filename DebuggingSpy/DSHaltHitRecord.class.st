@@ -37,7 +37,7 @@ DSHaltHitRecord >> record: anRBProgramNodeAndASelector [
 	conditional := false.
 	super record: anRBProgramNodeAndASelector first.
 	selector := anRBProgramNodeAndASelector second.
-	selector = #once ifTrue:[once := true].
+	selector = #once: ifTrue:[once := true].
 	selector = #haltIf: ifTrue:[conditional := true]
 	
 ]
