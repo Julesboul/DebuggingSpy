@@ -86,7 +86,7 @@ DSSpyInstrumenter >> instrumentCodePresenter [
 	
 	self withSyntaxHighlight.
 	self withSmartCharacters.
-	self withLineNumbers.
+	self showLineNumbers.
 	self subscribeToSettingsChangesAnnouncements.
 	
 	self registerEventsForStyling.
