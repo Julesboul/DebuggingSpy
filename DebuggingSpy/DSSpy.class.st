@@ -226,8 +226,9 @@ DSSpy class >> packagesMonitoredForSourceCodeChanges: anObject [
 ]
 
 { #category : 'events - breakpoints' }
-DSSpy class >> recordBreakpointEvent: aBreakpointEvent [
-	^aBreakpointEvent recordBreakpoint 
+DSSpy class >> recordBreakpointEvent: aDebugPointEvent [
+
+	^ aDebugPointEvent recordDebugpoint
 ]
 
 { #category : 'accessing' }

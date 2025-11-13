@@ -660,9 +660,10 @@ DSSpyInstrumenter >> instrumentSystem [
 
 { #category : 'breakpoints' }
 DSSpyInstrumenter >> listenToBreakpointChanges [
-	Breakpoint codeSupportAnnouncer weak when: BreakpointAdded  send: #recordBreakpointEvent: to: DSSpy.
-	Breakpoint codeSupportAnnouncer weak when: BreakpointHit  send: #recordBreakpointEvent: to: DSSpy.
-	Breakpoint codeSupportAnnouncer weak when: BreakpointRemoved  send: #recordBreakpointEvent: to: DSSpy
+
+	DebugPoint codeSupportAnnouncer weak when: DebugPointAdded send: #recordBreakpointEvent: to: DSSpy.
+	DebugPoint codeSupportAnnouncer weak when: DebugPointHit send: #recordBreakpointEvent: to: DSSpy.
+	DebugPoint codeSupportAnnouncer weak when: DebugPointRemoved send: #recordBreakpointEvent: to: DSSpy
 ]
 
 { #category : 'methods' }

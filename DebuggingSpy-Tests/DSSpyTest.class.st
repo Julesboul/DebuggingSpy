@@ -539,21 +539,23 @@ DSSpyTest >> testMonitorPackageForSourceCodeChanges [
 { #category : 'tests - breakpoints events' }
 DSSpyTest >> testObjectCentricBreakpointRecord [
 
-	|target|
+	| target |
 	target := self class basicNew.
 	instrumenter listenToBreakpointChanges.
-	
-	breakpoint := target haltOnCallTo: #breakpointMethod.
+
+	breakpoint := target breakOnCallTo: #breakpointMethod.
 	breakpointHash := breakpoint hash.
-	self assert: self registry size equals: 1.	
+	self assert: self registry size equals: 1.
 	record := self registry first.
 	self
 		assertBreakpointRecordedAs: DSBreakpointEventRecord
 		forBreakpointEvent: BreakpointAdded
-		target: (DSAbstractBreakpointEventRecord basicNew printTargetInstance: target).	
-	
-	[target breakpointMethod] on: Break do:[].
-	self assert: self registry size equals: 2.	
+		target: (DSAbstractBreakpointEventRecord basicNew printTargetInstance: target).
+
+	[ target breakpointMethod ]
+		on: Break
+		do: [ ].
+	self assert: self registry size equals: 2.
 	record := self registry second.
 	self
 		assertBreakpointRecordedAs: DSBreakpointEventRecord
@@ -562,12 +564,12 @@ DSSpyTest >> testObjectCentricBreakpointRecord [
 
 
 	self removeBreakpoint.
-	self assert: self registry size equals: 3.	
+	self assert: self registry size equals: 3.
 	record := self registry third.
-		self
+	self
 		assertBreakpointRecordedAs: DSBreakpointEventRecord
 		forBreakpointEvent: BreakpointRemoved
-		target: (DSAbstractBreakpointEventRecord basicNew printTargetInstance: target).
+		target: (DSAbstractBreakpointEventRecord basicNew printTargetInstance: target)
 ]
 
 { #category : 'tests - breakpoints events' }
