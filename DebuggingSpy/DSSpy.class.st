@@ -225,12 +225,6 @@ DSSpy class >> packagesMonitoredForSourceCodeChanges: anObject [
 	packagesMonitoredForSourceCodeChanges := anObject
 ]
 
-{ #category : 'events - breakpoints' }
-DSSpy class >> recordBreakpointEvent: aDebugPointEvent [
-
-	^ aDebugPointEvent recordDebugpoint
-]
-
 { #category : 'accessing' }
 DSSpy class >> recordClipboardContent [
 
@@ -241,6 +235,12 @@ DSSpy class >> recordClipboardContent [
 DSSpy class >> recordClipboardContent: anObject [
 
 	recordClipboardContent := anObject
+]
+
+{ #category : 'events - breakpoints' }
+DSSpy class >> recordDebugPointEvent: aDebugPointEvent [
+
+	^ aDebugPointEvent recordDebugpoint
 ]
 
 { #category : 'events - breakpoints' }

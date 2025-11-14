@@ -3,7 +3,7 @@ I record variable breakpoint events information.
 "
 Class {
 	#name : 'DSVariableBreakpointEventRecord',
-	#superclass : 'DSAbstractBreakpointEventRecord',
+	#superclass : 'DSAbstractDebugPointEventRecord',
 	#instVars : [
 		'targetClassOrMethod',
 		'targetVariables',

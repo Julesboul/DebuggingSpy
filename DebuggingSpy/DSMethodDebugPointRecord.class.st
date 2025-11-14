@@ -1,34 +1,34 @@
 Class {
-	#name : 'DSMethodBreakpointRecord',
-	#superclass : 'DSBreakpointRecord',
+	#name : 'DSMethodDebugPointRecord',
+	#superclass : 'DSDebugPointRecord',
 	#category : 'DebuggingSpy-Records-Extensions',
 	#package : 'DebuggingSpy',
 	#tag : 'Records-Extensions'
 }
 
 { #category : 'instance creation' }
-DSMethodBreakpointRecord class >> breakpointadded: event [
+DSMethodDebugPointRecord class >> breakpointadded: event [
 
-	^DSBreakpointAdd for: event
+	^DSDebugPointAdd for: event
 	
 ]
 
 { #category : 'instance creation' }
-DSMethodBreakpointRecord class >> breakpointhit: event [
+DSMethodDebugPointRecord class >> breakpointhit: event [
 
-	^DSBreakpointHit for: event
+	^DSDebugPointHit for: event
 	
 ]
 
 { #category : 'instance creation' }
-DSMethodBreakpointRecord class >> breakpointremoved: event [
+DSMethodDebugPointRecord class >> breakpointremoved: event [
 
-	^DSBreakpointRemoved for: event
+	^DSDebugPointRemoved for: event
 	
 ]
 
 { #category : 'instance creation' }
-DSMethodBreakpointRecord class >> for: anEvent [
+DSMethodDebugPointRecord class >> for: anEvent [
 
 	| breakpoint |
 	breakpoint := self new.
@@ -38,7 +38,7 @@ DSMethodBreakpointRecord class >> for: anEvent [
 ]
 
 { #category : 'accessing' }
-DSMethodBreakpointRecord >> eventName [
+DSMethodDebugPointRecord >> eventName [
 
 	^ String streamContents: [ :s |
 		  s << 'Method'.
@@ -46,23 +46,23 @@ DSMethodBreakpointRecord >> eventName [
 ]
 
 { #category : 'accessing' }
-DSMethodBreakpointRecord >> method [
+DSMethodDebugPointRecord >> method [
 	^sourceRecord method
 ]
 
 { #category : 'accessing' }
-DSMethodBreakpointRecord >> node [
+DSMethodDebugPointRecord >> node [
 	^sourceRecord node
 ]
 
 { #category : 'accessing' }
-DSMethodBreakpointRecord >> submethodTargets [
+DSMethodDebugPointRecord >> submethodTargets [
 
 	^ {self node}
 ]
 
 { #category : 'accessing' }
-DSMethodBreakpointRecord >> targetClassOrMethod [
+DSMethodDebugPointRecord >> targetClassOrMethod [
 
 	^ self method
 ]

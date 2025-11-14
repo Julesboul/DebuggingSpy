@@ -659,11 +659,11 @@ DSSpyInstrumenter >> instrumentSystem [
 ]
 
 { #category : 'breakpoints' }
-DSSpyInstrumenter >> listenToBreakpointChanges [
+DSSpyInstrumenter >> listenToDebugPointChanges [
 
-	DebugPoint codeSupportAnnouncer weak when: DebugPointAdded send: #recordBreakpointEvent: to: DSSpy.
-	DebugPoint codeSupportAnnouncer weak when: DebugPointHit send: #recordBreakpointEvent: to: DSSpy.
-	DebugPoint codeSupportAnnouncer weak when: DebugPointRemoved send: #recordBreakpointEvent: to: DSSpy
+	DebugPoint codeSupportAnnouncer weak when: DebugPointAdded send: #recordDebugPointEvent: to: DSSpy.
+	DebugPoint codeSupportAnnouncer weak when: DebugPointHit send: #recordDebugPointEvent: to: DSSpy.
+	DebugPoint codeSupportAnnouncer weak when: DebugPointRemoved send: #recordDebugPointEvent: to: DSSpy
 ]
 
 { #category : 'methods' }
@@ -711,7 +711,7 @@ DSSpyInstrumenter >> logDebuggerInteractions [
 { #category : 'system-instrumentation' }
 DSSpyInstrumenter >> logHaltAndBreakpointEvents [
 	self instrumentHaltHits.
-	self listenToBreakpointChanges 
+	self listenToDebugPointChanges 
 ]
 
 { #category : 'system-instrumentation' }

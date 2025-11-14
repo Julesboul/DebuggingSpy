@@ -1,6 +1,6 @@
 Class {
 	#name : 'DSVariableBreakpointRecord',
-	#superclass : 'DSBreakpointRecord',
+	#superclass : 'DSDebugPointRecord',
 	#category : 'DebuggingSpy-Records-Extensions',
 	#package : 'DebuggingSpy',
 	#tag : 'Records-Extensions'

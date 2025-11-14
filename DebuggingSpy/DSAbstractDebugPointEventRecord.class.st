@@ -3,14 +3,14 @@ I record breakpoint events information, whatever the type of breakpoint.
 My subclasses have to handle the real recording, depending on the breakpoint.
 "
 Class {
-	#name : 'DSAbstractBreakpointEventRecord',
+	#name : 'DSAbstractDebugPointEventRecord',
 	#superclass : 'DSAbstractEventRecord',
 	#instVars : [
 		'target',
 		'objectCentric',
 		'eventName',
 		'once',
-		'breakpointHash'
+		'debugPointHash'
 	],
 	#category : 'DebuggingSpy-Records',
 	#package : 'DebuggingSpy',
@@ -18,47 +18,47 @@ Class {
 }
 
 { #category : 'converting' }
-DSAbstractBreakpointEventRecord >> asBreakpointRecord [
+DSAbstractDebugPointEventRecord >> asBreakpointRecord [
 
 	^ self modelClass
 		  perform: eventName asLowercase asSymbol asMutator
 		  with: self
 ]
 
-{ #category : 'accessing' }
-DSAbstractBreakpointEventRecord >> breakpointHash [
-	^breakpointHash
-]
-
 { #category : 'testing' }
-DSAbstractBreakpointEventRecord >> canOpenDebuggers [
+DSAbstractDebugPointEventRecord >> canOpenDebuggers [
 	^eventName = 'BreakpointHit'
 ]
 
 { #category : 'accessing' }
-DSAbstractBreakpointEventRecord >> eventName [
+DSAbstractDebugPointEventRecord >> debugPointHash [
+	^debugPointHash 
+]
+
+{ #category : 'accessing' }
+DSAbstractDebugPointEventRecord >> eventName [
 	^eventName
 ]
 
 { #category : 'converting' }
-DSAbstractBreakpointEventRecord >> modelClass [
+DSAbstractDebugPointEventRecord >> modelClass [
 
 	^ self subclassResponsibility
 ]
 
 { #category : 'accessing' }
-DSAbstractBreakpointEventRecord >> objectCentric [
+DSAbstractDebugPointEventRecord >> objectCentric [
 
 	^ objectCentric
 ]
 
 { #category : 'accessing' }
-DSAbstractBreakpointEventRecord >> once [
+DSAbstractDebugPointEventRecord >> once [
 	^ once
 ]
 
 { #category : 'printing' }
-DSAbstractBreakpointEventRecord >> printTargetInstance: anObject [
+DSAbstractDebugPointEventRecord >> printTargetInstance: anObject [
 
 	| str |
 	str := WriteStream on: String new.
@@ -71,21 +71,21 @@ DSAbstractBreakpointEventRecord >> printTargetInstance: anObject [
 ]
 
 { #category : 'actions api' }
-DSAbstractBreakpointEventRecord >> record: aBreakpointEvent [
+DSAbstractDebugPointEventRecord >> record: aDebugPointEvent [
 
-	eventName := aBreakpointEvent class name.
-	objectCentric := aBreakpointEvent breakpoint isObjectCentric.
+	eventName := aDebugPointEvent class name.
+	objectCentric := aDebugPointEvent debugPoint isObjectCentric.
 	target := objectCentric
 		          ifTrue: [
 			          self printTargetInstance:
-				          aBreakpointEvent breakpoint targetInstance ]
+				          aDebugPointEvent debugPoint targetInstance ]
 		          ifFalse: [ nil ].
-	once := aBreakpointEvent breakpoint once.
-	breakpointHash := aBreakpointEvent breakpoint hash
+	once := aDebugPointEvent debugPoint once.
+	debugPointHash := aDebugPointEvent debugPoint hash
 ]
 
 { #category : 'accessing' }
-DSAbstractBreakpointEventRecord >> target [
+DSAbstractDebugPointEventRecord >> target [
 
 	^ target
 ]
