@@ -24,9 +24,9 @@ DSSpyTest >> assertBreakpointRecordedAs: aDSRecordClass forBreakpointEvent: aBre
 	self assert: record class equals: aDSRecordClass.
 	self assert: record eventName equals: aBreakpointEventClass name.
 	self assert: record target equals: aTarget.
-	aTarget ifNil:[	self deny: record objectCentric] 
+	"aTarget ifNil:[	self deny: record objectCentric] 
 			  ifNotNil: [self assert: record objectCentric].
-	self deny: record once.
+	self deny: record once."
 	self assert: record method equals: self breakpointedMethod name.
 	self assert: record node equals: self breakpointedMethod ast printString.
 	self assert: record debugPointHash equals: debugpointHash

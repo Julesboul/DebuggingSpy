@@ -35,7 +35,7 @@ DSDebugPointEventRecord >> node [
 DSDebugPointEventRecord >> record: aDebugPointEvent [
 
 	super record: aDebugPointEvent.
-	method := aDebugPointEvent debugPoint node methodNode compiledMethod
+	method := aDebugPointEvent debugPoint target methodNode compiledMethod
 		          name.
-	node := aDebugPointEvent debugPoint node printString
+	node := aDebugPointEvent debugPoint target node printString
 ]
