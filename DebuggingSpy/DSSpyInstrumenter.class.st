@@ -152,7 +152,7 @@ stackTable := self newList.
 	stackHeader label: ''Stack'''
 ]
 
-{ #category : 'breakpoints' }
+{ #category : 'debugpoints  ' }
 DSSpyInstrumenter >> instrumentExceptionSignalling [
 
 	Exception compile: 'raiseUnhandledError
@@ -174,7 +174,7 @@ DSSpyInstrumenter >> instrumentExpandAttribute [
 		self refreshTable ]'
 ]
 
-{ #category : 'breakpoints' }
+{ #category : 'debugpoints  ' }
 DSSpyInstrumenter >> instrumentHaltHits [
 	Halt class compile: 'signalIn: ctx	
 		
@@ -658,7 +658,7 @@ DSSpyInstrumenter >> instrumentSystem [
 	self listenToMethodChanges
 ]
 
-{ #category : 'breakpoints' }
+{ #category : 'debugpoints  ' }
 DSSpyInstrumenter >> listenToDebugPointChanges [
 
 	DebugPoint codeSupportAnnouncer weak when: DebugPointAdded send: #recordDebugPointEvent: to: DSSpy.

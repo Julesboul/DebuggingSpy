@@ -74,13 +74,13 @@ DSAbstractDebugPointEventRecord >> printTargetInstance: anObject [
 DSAbstractDebugPointEventRecord >> record: aDebugPointEvent [
 
 	eventName := aDebugPointEvent class name.
-	objectCentric := aDebugPointEvent debugPoint isObjectCentric.
+	"objectCentric := aDebugPointEvent debugPoint isObjectCentric.
 	target := objectCentric
 		          ifTrue: [
 			          self printTargetInstance:
 				          aDebugPointEvent debugPoint targetInstance ]
-		          ifFalse: [ nil ].
-	once := aDebugPointEvent debugPoint once.
+		          ifFalse: [ nil ]."
+	"once := aDebugPointEvent debugPoint once."
 	debugPointHash := aDebugPointEvent debugPoint hash
 ]
 
