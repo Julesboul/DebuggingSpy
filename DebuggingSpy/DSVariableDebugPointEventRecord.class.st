@@ -2,7 +2,7 @@
 I record variable breakpoint events information.
 "
 Class {
-	#name : 'DSVariableBreakpointEventRecord',
+	#name : 'DSVariableDebugPointEventRecord',
 	#superclass : 'DSAbstractDebugPointEventRecord',
 	#instVars : [
 		'targetClassOrMethod',
@@ -15,19 +15,19 @@ Class {
 }
 
 { #category : 'accessing' }
-DSVariableBreakpointEventRecord >> accessStrategy [
+DSVariableDebugPointEventRecord >> accessStrategy [
 
 	^ accessStrategy
 ]
 
 { #category : 'converting' }
-DSVariableBreakpointEventRecord >> modelClass [
+DSVariableDebugPointEventRecord >> modelClass [
 
 	^ DSVariableBreakpointRecord
 ]
 
 { #category : 'actions api' }
-DSVariableBreakpointEventRecord >> record: aBreakpointEvent [
+DSVariableDebugPointEventRecord >> record: aBreakpointEvent [
 	super record: aBreakpointEvent.
 	targetClassOrMethod := aBreakpointEvent breakpoint targetClassOrMethod name.
 	targetVariables := aBreakpointEvent breakpoint targetVariableNames .
@@ -35,13 +35,13 @@ DSVariableBreakpointEventRecord >> record: aBreakpointEvent [
 ]
 
 { #category : 'accessing' }
-DSVariableBreakpointEventRecord >> targetClassOrMethod [
+DSVariableDebugPointEventRecord >> targetClassOrMethod [
 
 	^ targetClassOrMethod
 ]
 
 { #category : 'accessing' }
-DSVariableBreakpointEventRecord >> targetVariables [
+DSVariableDebugPointEventRecord >> targetVariables [
 
 	^ targetVariables
 ]

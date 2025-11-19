@@ -586,7 +586,7 @@ DSSpyTest >> testObjectCentricVariableBreakpointRecord [
 	self assert: self registry size equals: 1.
 	record := self registry first.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableBreakpointEventRecord
+		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
 		forBreakpointEvent: DebugPointAdded 
 		target:
 		(DSAbstractDebugPointEventRecord basicNew printTargetInstance:
@@ -598,7 +598,7 @@ DSSpyTest >> testObjectCentricVariableBreakpointRecord [
 	self assert: self registry size equals: 2.
 	record := self registry second.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableBreakpointEventRecord
+		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
 		forBreakpointEvent: DebugPointHit 
 		target:
 		(DSAbstractDebugPointEventRecord basicNew printTargetInstance:
@@ -609,7 +609,7 @@ DSSpyTest >> testObjectCentricVariableBreakpointRecord [
 	self assert: self registry size equals: 3.
 	record := self registry third.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableBreakpointEventRecord
+		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
 		forBreakpointEvent: DebugPointRemoved 
 		target:
 		(DSAbstractDebugPointEventRecord basicNew printTargetInstance:
@@ -872,7 +872,7 @@ DSSpyTest >> testVariableBreakpointAdded [
 
 	record := self registry first.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableBreakpointEventRecord
+		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
 		forBreakpointEvent: DebugPointAdded 
 		target: nil
 
@@ -905,7 +905,7 @@ DSSpyTest >> testVariableBreakpointHit [
 
 	record := self registry first.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableBreakpointEventRecord
+		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
 		forBreakpointEvent: DebugPointHit 
 		target: nil
 ]
@@ -921,7 +921,7 @@ DSSpyTest >> testVariableBreakpointRemoved [
 
 	record := self registry first.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableBreakpointEventRecord
+		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
 		forBreakpointEvent: DebugPointRemoved 
 		target: nil
 ]
