@@ -6,7 +6,7 @@ SmalltalkCISpec {
   ],
   #testing : {
     #coverage : {
-      #package : [ 'DebuggingSpy' ]
+      #package : 'DebuggingSpy'
     }
   }
 }
