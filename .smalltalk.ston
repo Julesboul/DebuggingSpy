@@ -3,5 +3,10 @@ SmalltalkCISpec {
     SCIMetacelloLoadSpec {
       #baseline : 'DebuggingSpy'
     }
-  ]
+  ],
+  #testing : {
+    #coverage : {
+      #package : [ 'DebuggingSpy' ]
+    }
+  }
 }
