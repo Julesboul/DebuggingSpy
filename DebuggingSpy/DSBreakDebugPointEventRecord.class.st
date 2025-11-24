@@ -2,7 +2,7 @@
 I record breakpoint events information.
 "
 Class {
-	#name : 'DSDebugPointEventRecord',
+	#name : 'DSBreakDebugPointEventRecord',
 	#superclass : 'DSAbstractDebugPointEventRecord',
 	#instVars : [
 		'method',
@@ -14,25 +14,25 @@ Class {
 }
 
 { #category : 'accessing' }
-DSDebugPointEventRecord >> method [
+DSBreakDebugPointEventRecord >> method [
 
 	^ method
 ]
 
 { #category : 'converting' }
-DSDebugPointEventRecord >> modelClass [
+DSBreakDebugPointEventRecord >> modelClass [
 
 	^ DSMethodDebugPointRecord
 ]
 
 { #category : 'accessing' }
-DSDebugPointEventRecord >> node [
+DSBreakDebugPointEventRecord >> node [
 
 	^ node
 ]
 
 { #category : 'actions api' }
-DSDebugPointEventRecord >> record: aDebugPointEvent [
+DSBreakDebugPointEventRecord >> record: aDebugPointEvent [
 
 	super record: aDebugPointEvent.
 	method := aDebugPointEvent debugPoint target methodNode compiledMethod

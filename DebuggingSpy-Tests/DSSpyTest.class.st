@@ -124,9 +124,7 @@ DSSpyTest >> installDebugPoint [
 { #category : 'helpers' }
 DSSpyTest >> installVariableBreakpoint [
 
-	debugpoint := VariableBreakpoint
-		              watchVariable: #value
-		              inClass: self breakpointedMethod.
+	debugpoint := DebugPointManager installNew: BreakDebugPoint forObject: self breakpointMethod onVariableAccessNamed: #value.
 	debugpointHash := debugpoint hash
 ]
 
@@ -262,7 +260,7 @@ DSSpyTest >> testDebugPointAdded [
 
 	record := self registry first.
 	self
-		assertBreakpointRecordedAs: DSDebugPointEventRecord
+		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointAdded 
 		target: nil
 ]
@@ -278,7 +276,7 @@ DSSpyTest >> testDebugPointHit [
 	
 	record := self registry first.
 	self
-		assertBreakpointRecordedAs: DSDebugPointEventRecord
+		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointHit 
 		target: nil
 	
@@ -295,7 +293,7 @@ DSSpyTest >> testDebugPointRemoved [
 
 	record := self registry first.
 	self
-		assertBreakpointRecordedAs: DSDebugPointEventRecord
+		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointRemoved 
 		target: nil
 ]
@@ -547,7 +545,7 @@ DSSpyTest >> testObjectCentricDebugPointRecord [
 	self assert: self registry size equals: 1.
 	record := self registry first.
 	self
-		assertBreakpointRecordedAs: DSDebugPointEventRecord
+		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointAdded 
 		target: (DSAbstractDebugPointEventRecord basicNew printTargetInstance: target).
 
@@ -557,7 +555,7 @@ DSSpyTest >> testObjectCentricDebugPointRecord [
 	self assert: self registry size equals: 2.
 	record := self registry second.
 	self
-		assertBreakpointRecordedAs: DSDebugPointEventRecord
+		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointHit 
 		target: (DSAbstractDebugPointEventRecord basicNew printTargetInstance: target).
 
@@ -566,7 +564,7 @@ DSSpyTest >> testObjectCentricDebugPointRecord [
 	self assert: self registry size equals: 3.
 	record := self registry third.
 	self
-		assertBreakpointRecordedAs: DSDebugPointEventRecord
+		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointRemoved 
 		target: (DSAbstractDebugPointEventRecord basicNew printTargetInstance: target)
 ]
@@ -586,7 +584,7 @@ DSSpyTest >> testObjectCentricVariableBreakpointRecord [
 	self assert: self registry size equals: 1.
 	record := self registry first.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
+		assertVariableBreakpointRecordedAs: DSWatchDebugPointEventRecord
 		forBreakpointEvent: DebugPointAdded 
 		target:
 		(DSAbstractDebugPointEventRecord basicNew printTargetInstance:
@@ -598,7 +596,7 @@ DSSpyTest >> testObjectCentricVariableBreakpointRecord [
 	self assert: self registry size equals: 2.
 	record := self registry second.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
+		assertVariableBreakpointRecordedAs: DSWatchDebugPointEventRecord
 		forBreakpointEvent: DebugPointHit 
 		target:
 		(DSAbstractDebugPointEventRecord basicNew printTargetInstance:
@@ -609,7 +607,7 @@ DSSpyTest >> testObjectCentricVariableBreakpointRecord [
 	self assert: self registry size equals: 3.
 	record := self registry third.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
+		assertVariableBreakpointRecordedAs: DSWatchDebugPointEventRecord
 		forBreakpointEvent: DebugPointRemoved 
 		target:
 		(DSAbstractDebugPointEventRecord basicNew printTargetInstance:
@@ -864,7 +862,7 @@ DSSpyTest >> testTaskStarted [
 ]
 
 { #category : 'tests - debugpoints events' }
-DSSpyTest >> testVariableBreakpointAdded [
+DSSpyTest >> testVariableDebugPointAdded [
 	instrumenter listenToDebugPointChanges.
 
 	self installVariableBreakpoint.
@@ -872,14 +870,14 @@ DSSpyTest >> testVariableBreakpointAdded [
 
 	record := self registry first.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
+		assertVariableBreakpointRecordedAs: DSWatchDebugPointEventRecord
 		forBreakpointEvent: DebugPointAdded 
 		target: nil
 
 ]
 
 { #category : 'tests - debugpoints events' }
-DSSpyTest >> testVariableBreakpointAddedToMultipleVariables [
+DSSpyTest >> testVariableDebugPointAddedToMultipleVariables [
 
 	instrumenter listenToDebugPointChanges.
 
@@ -895,7 +893,7 @@ DSSpyTest >> testVariableBreakpointAddedToMultipleVariables [
 ]
 
 { #category : 'tests - debugpoints events' }
-DSSpyTest >> testVariableBreakpointHit [
+DSSpyTest >> testVariableDebugPointHit [
 		
 	self installVariableBreakpoint.
 	instrumenter listenToDebugPointChanges.
@@ -905,13 +903,13 @@ DSSpyTest >> testVariableBreakpointHit [
 
 	record := self registry first.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
+		assertVariableBreakpointRecordedAs: DSWatchDebugPointEventRecord
 		forBreakpointEvent: DebugPointHit 
 		target: nil
 ]
 
 { #category : 'tests - debugpoints events' }
-DSSpyTest >> testVariableBreakpointRemoved [
+DSSpyTest >> testVariableDebugPointRemoved [
 	
 	self installVariableBreakpoint.
 	instrumenter listenToDebugPointChanges.
@@ -921,7 +919,7 @@ DSSpyTest >> testVariableBreakpointRemoved [
 
 	record := self registry first.
 	self
-		assertVariableBreakpointRecordedAs: DSVariableDebugPointEventRecord
+		assertVariableBreakpointRecordedAs: DSWatchDebugPointEventRecord
 		forBreakpointEvent: DebugPointRemoved 
 		target: nil
 ]
