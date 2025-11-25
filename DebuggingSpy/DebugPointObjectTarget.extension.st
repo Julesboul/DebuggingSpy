@@ -3,5 +3,5 @@ Extension { #name : 'DebugPointObjectTarget' }
 { #category : '*DebuggingSpy' }
 DebugPointObjectTarget >> debugPointTargetRecordFor: aDebugPointTarget [
 
-	^ DSDebugPointObjectTargetEventRecord for: aDebugPointTarget 
+	^ DSDebugPointObjectTargetRecord for: aDebugPointTarget 
 ]

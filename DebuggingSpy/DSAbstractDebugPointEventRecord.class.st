@@ -6,7 +6,6 @@ Class {
 	#name : 'DSAbstractDebugPointEventRecord',
 	#superclass : 'DSAbstractEventRecord',
 	#instVars : [
-		'name',
 		'target',
 		'properties',
 		'behaviors',
@@ -67,6 +66,7 @@ DSAbstractDebugPointEventRecord >> printTargetInstance: anObject [
 DSAbstractDebugPointEventRecord >> record: aDebugPointEvent [
 
 	eventName := aDebugPointEvent class name.
+	behaviors := aDebugPointEvent behaviors collect: [ :behavior | behavior asString ].
 	debugPointHash := aDebugPointEvent debugPoint hash
 ]
 
