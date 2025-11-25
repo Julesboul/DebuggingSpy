@@ -6,10 +6,14 @@ Class {
 	#name : 'DSAbstractDebugPointEventRecord',
 	#superclass : 'DSAbstractEventRecord',
 	#instVars : [
+		'name',
 		'target',
-		'objectCentric',
+		'properties',
+		'behaviors',
+		'arguments',
+		'link',
+		'enabled',
 		'eventName',
-		'once',
 		'debugPointHash'
 	],
 	#category : 'DebuggingSpy-Records',
@@ -46,17 +50,6 @@ DSAbstractDebugPointEventRecord >> modelClass [
 	^ self subclassResponsibility
 ]
 
-{ #category : 'accessing' }
-DSAbstractDebugPointEventRecord >> objectCentric [
-
-	^ objectCentric
-]
-
-{ #category : 'accessing' }
-DSAbstractDebugPointEventRecord >> once [
-	^ once
-]
-
 { #category : 'printing' }
 DSAbstractDebugPointEventRecord >> printTargetInstance: anObject [
 
@@ -74,13 +67,6 @@ DSAbstractDebugPointEventRecord >> printTargetInstance: anObject [
 DSAbstractDebugPointEventRecord >> record: aDebugPointEvent [
 
 	eventName := aDebugPointEvent class name.
-	"objectCentric := aDebugPointEvent debugPoint isObjectCentric.
-	target := objectCentric
-		          ifTrue: [
-			          self printTargetInstance:
-				          aDebugPointEvent debugPoint targetInstance ]
-		          ifFalse: [ nil ]."
-	"once := aDebugPointEvent debugPoint once."
 	debugPointHash := aDebugPointEvent debugPoint hash
 ]
 

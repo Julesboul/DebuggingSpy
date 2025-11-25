@@ -5,9 +5,8 @@ Class {
 	#name : 'DSWatchDebugPointEventRecord',
 	#superclass : 'DSAbstractDebugPointEventRecord',
 	#instVars : [
-		'targetClassOrMethod',
-		'targetVariables',
-		'accessStrategy'
+		'history',
+		'limit'
 	],
 	#category : 'DebuggingSpy-Records',
 	#package : 'DebuggingSpy',
@@ -15,33 +14,26 @@ Class {
 }
 
 { #category : 'accessing' }
-DSWatchDebugPointEventRecord >> accessStrategy [
+DSWatchDebugPointEventRecord >> history [
 
-	^ accessStrategy
+	^ history
+]
+
+{ #category : 'accessing' }
+DSWatchDebugPointEventRecord >> limit [
+
+	^ limit
 ]
 
 { #category : 'converting' }
 DSWatchDebugPointEventRecord >> modelClass [
 
-	^ DSVariableBreakpointRecord
+	^ DSMethodDebugPointRecord 
 ]
 
 { #category : 'actions api' }
 DSWatchDebugPointEventRecord >> record: aDebugPointEvent [
 	super record: aDebugPointEvent.
-	targetClassOrMethod := aDebugPointEvent debugPoint targetClass.
-	targetVariables := aDebugPointEvent debugPoint target instanceVariable.
-	accessStrategy := aDebugPointEvent debugPoint target accessStrategy
-]
-
-{ #category : 'accessing' }
-DSWatchDebugPointEventRecord >> targetClassOrMethod [
-
-	^ targetClassOrMethod
-]
-
-{ #category : 'accessing' }
-DSWatchDebugPointEventRecord >> targetVariables [
-
-	^ targetVariables
+	limit := aDebugPointEvent debugPoint limit.
+	history := aDebugPointEvent debugPoint target history.
 ]
