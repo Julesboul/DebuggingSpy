@@ -1,7 +1,7 @@
 Extension { #name : 'DebugPointInstanceVariableTarget' }
 
 { #category : '*DebuggingSpy' }
-DebugPointInstanceVariableTarget >> debugPointTargetRecordFor: aDebugPointTarget [
+DebugPointInstanceVariableTarget >> debugPointTargetRecord [
 
-	^ DSDebugPointInstanceVariableTargetRecord for: aDebugPointTarget 
+	^ DSDebugPointInstanceVariableTargetRecord for: self
 ]

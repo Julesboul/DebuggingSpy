@@ -1,7 +1,7 @@
 Extension { #name : 'DebugPointTarget' }
 
 { #category : '*DebuggingSpy' }
-DebugPointTarget >> debugPointTargetRecordFor: aDebugPointTarget [
+DebugPointTarget >> debugPointTargetRecord [
 
 	^ self subclassResponsibility 
 ]
