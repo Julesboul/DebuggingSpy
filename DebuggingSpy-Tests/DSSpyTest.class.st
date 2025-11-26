@@ -551,7 +551,7 @@ DSSpyTest >> testMonitorPackageForSourceCodeChanges [
 ]
 
 { #category : 'tests - debugpoints events' }
-DSSpyTest >> testObjectCentricDebugPointRecord [
+DSSpyTest >> testObjectCentricBreakDebugPointRecord [
 
 	| target |
 	target := self class basicNew.
@@ -564,7 +564,7 @@ DSSpyTest >> testObjectCentricDebugPointRecord [
 	self
 		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointAdded 
-		target: (DSAbstractDebugPointEventRecord basicNew printTargetInstance: target).
+		target: DSDebugPointObjectTargetRecord.
 
 	[ target breakpointMethod ]
 		on: Break
@@ -574,7 +574,7 @@ DSSpyTest >> testObjectCentricDebugPointRecord [
 	self
 		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointHit 
-		target: (DSAbstractDebugPointEventRecord basicNew printTargetInstance: target).
+		target: DSDebugPointObjectTargetRecord.
 
 
 	self removeDebugPoint.
@@ -583,7 +583,7 @@ DSSpyTest >> testObjectCentricDebugPointRecord [
 	self
 		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointRemoved 
-		target: (DSAbstractDebugPointEventRecord basicNew printTargetInstance: target)
+		target: DSDebugPointObjectTargetRecord.
 ]
 
 { #category : 'tests - debugpoints events' }
