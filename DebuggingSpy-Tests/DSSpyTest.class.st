@@ -18,6 +18,12 @@ Class {
 	#tag : 'Tests - model'
 }
 
+{ #category : 'helpers' }
+DSSpyTest >> addOnceBehaviorToDebugPoint [
+
+	debugpoint addBehavior: (OnceBehavior new priority: 1)
+]
+
 { #category : 'assertions' }
 DSSpyTest >> assertBreakpointRecordedAs: aDSRecordClass forBreakpointEvent: aBreakpointEventClass target: aTarget [
 	
@@ -158,7 +164,7 @@ DSSpyTest >> registry [
 ]
 
 { #category : 'helpers' }
-DSSpyTest >> removeBreakpoint [
+DSSpyTest >> removeDebugPoint [
 
 	debugpoint remove.
 	debugpoint := nil
@@ -261,6 +267,22 @@ DSSpyTest >> testDebugPointAdded [
 ]
 
 { #category : 'tests - debugpoints events' }
+DSSpyTest >> testDebugPointChanged [
+
+	self installDebugPoint.
+	instrumenter listenToDebugPointChanges.
+
+	self addOnceBehaviorToDebugPoint.
+	self assert: self registry size equals: 1.
+
+	record := self registry first.
+	self
+		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
+		forBreakpointEvent: DebugPointChanged 
+		target: DSDebugPointNodeTargetRecord 
+]
+
+{ #category : 'tests - debugpoints events' }
 DSSpyTest >> testDebugPointHit [
 
 	self installDebugPoint.	
@@ -283,14 +305,14 @@ DSSpyTest >> testDebugPointRemoved [
 	self installDebugPoint.
 	instrumenter listenToDebugPointChanges.
 
-	self removeBreakpoint.
+	self removeDebugPoint.
 	self assert: self registry size equals: 1.
 
 	record := self registry first.
 	self
 		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointRemoved 
-		target: nil
+		target: DSDebugPointNodeTargetRecord 
 ]
 
 { #category : 'tests - logging' }
@@ -555,7 +577,7 @@ DSSpyTest >> testObjectCentricDebugPointRecord [
 		target: (DSAbstractDebugPointEventRecord basicNew printTargetInstance: target).
 
 
-	self removeBreakpoint.
+	self removeDebugPoint.
 	self assert: self registry size equals: 3.
 	record := self registry third.
 	self
@@ -598,7 +620,7 @@ DSSpyTest >> testObjectCentricVariableBreakpointRecord [
 			 target).
 
 
-	self removeBreakpoint.
+	self removeDebugPoint.
 	self assert: self registry size equals: 3.
 	record := self registry third.
 	self
@@ -908,7 +930,7 @@ DSSpyTest >> testVariableDebugPointRemoved [
 	
 	self installVariableBreakpoint.
 	instrumenter listenToDebugPointChanges.
-	self removeBreakpoint.
+	self removeDebugPoint.
 
 	self assert: self registry size equals: 1.
 
