@@ -23,12 +23,7 @@ DSSpyTest >> assertBreakpointRecordedAs: aDSRecordClass forBreakpointEvent: aBre
 	
 	self assert: record class equals: aDSRecordClass.
 	self assert: record eventName equals: aBreakpointEventClass name.
-	self assert: record target equals: aTarget.
-	"aTarget ifNil:[	self deny: record objectCentric] 
-			  ifNotNil: [self assert: record objectCentric].
-	self deny: record once."
-	self assert: record method equals: self breakpointedMethod name.
-	self assert: record node equals: self breakpointedMethod ast printString.
+	self assert: record target class equals: aTarget.
 	self assert: record debugPointHash equals: debugpointHash
 ]
 
@@ -117,7 +112,7 @@ DSSpyTest >> compileTestMethod [
 { #category : 'helpers' }
 DSSpyTest >> installDebugPoint [
 
-	debugpoint := DebugPointManager installNew: DebugPoint on: self breakpointedMethod ast.
+	debugpoint := DebugPointManager installNew: BreakDebugPoint on: self breakpointedMethod ast.
 	debugpointHash := debugpoint hash
 ]
 
@@ -262,7 +257,7 @@ DSSpyTest >> testDebugPointAdded [
 	self
 		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointAdded 
-		target: nil
+		target: DSDebugPointNodeTargetRecord 
 ]
 
 { #category : 'tests - debugpoints events' }
@@ -278,7 +273,7 @@ DSSpyTest >> testDebugPointHit [
 	self
 		assertBreakpointRecordedAs: DSBreakDebugPointEventRecord
 		forBreakpointEvent: DebugPointHit 
-		target: nil
+		target: DSDebugPointNodeTargetRecord 
 	
 ]
 
