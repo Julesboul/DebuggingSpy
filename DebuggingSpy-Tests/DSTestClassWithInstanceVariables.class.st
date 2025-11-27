@@ -6,8 +6,7 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'number',
-		'text',
-		'bool'
+		'text'
 	],
 	#category : 'DebuggingSpy-Tests-Utils',
 	#package : 'DebuggingSpy-Tests',
@@ -15,24 +14,11 @@ Class {
 }
 
 { #category : 'initialization' }
-DSTestClassWithInstanceVariables >> bool [
-
-	^ bool
-]
-
-{ #category : 'initialization' }
-DSTestClassWithInstanceVariables >> bool: aBoolean [
-
-	bool := aBoolean 
-]
-
-{ #category : 'initialization' }
 DSTestClassWithInstanceVariables >> initialize [ 
 
 	super initialize.
 	number := '0'.
-	text := 'hell0'.
-	bool := true
+	text := 'hell0'
 	
 ]
 

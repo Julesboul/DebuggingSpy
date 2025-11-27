@@ -35,5 +35,5 @@ DSWatchDebugPointEventRecord >> modelClass [
 DSWatchDebugPointEventRecord >> record: aDebugPointEvent [
 	super record: aDebugPointEvent.
 	limit := aDebugPointEvent debugPoint limit.
-	history := aDebugPointEvent debugPoint target history.
+	history := aDebugPointEvent debugPoint history.
 ]
