@@ -20,3 +20,9 @@ DSAbstractDebugPointTargetRecord >> record: aDebugPointTarget [
 
 	target := aDebugPointTarget target asString
 ]
+
+{ #category : 'accessing' }
+DSAbstractDebugPointTargetRecord >> target [
+
+	^ target
+]

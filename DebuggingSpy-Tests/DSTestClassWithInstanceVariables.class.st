@@ -5,60 +5,57 @@ Class {
 	#name : 'DSTestClassWithInstanceVariables',
 	#superclass : 'Object',
 	#instVars : [
-		'a',
-		'b',
-		'c',
-		'd'
+		'number',
+		'text',
+		'bool'
 	],
 	#category : 'DebuggingSpy-Tests-Utils',
 	#package : 'DebuggingSpy-Tests',
 	#tag : 'Utils'
 }
 
-{ #category : 'accessing' }
-DSTestClassWithInstanceVariables >> a [
+{ #category : 'initialization' }
+DSTestClassWithInstanceVariables >> bool [
 
-	^ a
+	^ bool
 ]
 
-{ #category : 'accessing' }
-DSTestClassWithInstanceVariables >> a: anObject [
+{ #category : 'initialization' }
+DSTestClassWithInstanceVariables >> bool: aBoolean [
 
-	a := anObject
+	bool := aBoolean 
 ]
 
-{ #category : 'accessing' }
-DSTestClassWithInstanceVariables >> b [
+{ #category : 'initialization' }
+DSTestClassWithInstanceVariables >> initialize [ 
 
-	^ b
+	super initialize.
+	number := '0'.
+	text := 'hell0'.
+	bool := true
+	
 ]
 
-{ #category : 'accessing' }
-DSTestClassWithInstanceVariables >> b: anObject [
+{ #category : 'initialization' }
+DSTestClassWithInstanceVariables >> number [
 
-	b := anObject
+	^ number
 ]
 
-{ #category : 'accessing' }
-DSTestClassWithInstanceVariables >> c [
+{ #category : 'initialization' }
+DSTestClassWithInstanceVariables >> number: aNumber [
 
-	^ c
+	number := aNumber 
 ]
 
-{ #category : 'accessing' }
-DSTestClassWithInstanceVariables >> c: anObject [
+{ #category : 'initialization' }
+DSTestClassWithInstanceVariables >> text [
 
-	c := anObject
+	^ text
 ]
 
-{ #category : 'accessing' }
-DSTestClassWithInstanceVariables >> d [
+{ #category : 'initialization' }
+DSTestClassWithInstanceVariables >> text: aString [
 
-	^ d
-]
-
-{ #category : 'accessing' }
-DSTestClassWithInstanceVariables >> d: anObject [
-
-	d := anObject
+	text := aString 
 ]

@@ -15,3 +15,9 @@ DSDebugPointObjectTargetRecord >> record: aDebugPointTarget [
 	super record: aDebugPointTarget.
 	subTarget := aDebugPointTarget subTarget 
 ]
+
+{ #category : 'accessing' }
+DSDebugPointObjectTargetRecord >> subTarget [ 
+
+	^ subTarget 
+]

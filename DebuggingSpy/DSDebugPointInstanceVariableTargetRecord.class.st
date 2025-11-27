@@ -9,6 +9,12 @@ Class {
 	#tag : 'Records'
 }
 
+{ #category : 'accessing' }
+DSDebugPointInstanceVariableTargetRecord >> accessStrategy [ 
+
+	^ accessStrategy 
+]
+
 { #category : 'actions api' }
 DSDebugPointInstanceVariableTargetRecord >> record: aDebugPointTarget [
 
