@@ -4,4 +4,8 @@ SmalltalkCISpec {
       #baseline : 'DebuggingSpy'
     }
   ]
+  #coverage : {
+      #packages : 'Debugging-Spy',
+      #format : #coveralls
+    }
 }
