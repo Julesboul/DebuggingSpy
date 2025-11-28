@@ -3,7 +3,7 @@ SmalltalkCISpec {
     SCIMetacelloLoadSpec {
       #baseline : 'DebuggingSpy'
     }
-  ]
+  ],
   #coverage : {
       #packages : 'Debugging-Spy',
       #format : #coveralls
