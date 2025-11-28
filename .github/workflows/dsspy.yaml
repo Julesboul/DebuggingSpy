@@ -13,5 +13,7 @@ jobs:
       - run: smalltalkci -s Pharo64-12
         shell: bash
         timeout-minutes: 15
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2
