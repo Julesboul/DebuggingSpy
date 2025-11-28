@@ -5,7 +5,7 @@ SmalltalkCISpec {
     }
   ],
   #coverage : {
-      #packages : 'Debugging-Spy',
+      #packages : 'DebuggingSpy',
       #format : #coveralls
     }
 }
