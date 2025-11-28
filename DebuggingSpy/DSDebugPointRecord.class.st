@@ -7,17 +7,17 @@ Class {
 }
 
 { #category : 'instance creation' }
-DSDebugPointRecord class >> breakpointadded: event [ 
+DSDebugPointRecord class >> debugpointadded: event [ 
 	^ self subclassResponsibility
 ]
 
 { #category : 'instance creation' }
-DSDebugPointRecord class >> breakpointhit: event [ 
+DSDebugPointRecord class >> debugpointhit: event [ 
 	^ self subclassResponsibility
 ]
 
 { #category : 'instance creation' }
-DSDebugPointRecord class >> breakpointremoved: event [ 
+DSDebugPointRecord class >> debugpointremoved: event [ 
 	^ self subclassResponsibility
 ]
 

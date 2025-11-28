@@ -518,7 +518,7 @@ DSRecordHistory >> processRecords: array [
 		
 	"Transform raw events to model events"
 	(self allRecordsOfKind: DSStepActionRecord) do: #asStepRecord.
-	(self allRecordsOfKind: DSAbstractDebugPointEventRecord) do: #asBreakpointRecord.
+	(self allRecordsOfKind: DSAbstractDebugPointEventRecord) do: #asDebugPointRecord.
 	
 	"Detect if we're in a specific task"	
 	(self records first isKindOf: DSStartTaskRecord) ifTrue: [

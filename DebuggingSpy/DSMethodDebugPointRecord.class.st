@@ -7,21 +7,28 @@ Class {
 }
 
 { #category : 'instance creation' }
-DSMethodDebugPointRecord class >> breakpointadded: event [
+DSMethodDebugPointRecord class >> debugpointadded: event [
 
 	^DSDebugPointAdd for: event
 	
 ]
 
 { #category : 'instance creation' }
-DSMethodDebugPointRecord class >> breakpointhit: event [
+DSMethodDebugPointRecord class >> debugpointchanged: event [
+
+	^DSDebugPointChanged for: event
+	
+]
+
+{ #category : 'instance creation' }
+DSMethodDebugPointRecord class >> debugpointhit: event [
 
 	^DSDebugPointHit for: event
 	
 ]
 
 { #category : 'instance creation' }
-DSMethodDebugPointRecord class >> breakpointremoved: event [
+DSMethodDebugPointRecord class >> debugpointremoved: event [
 
 	^DSDebugPointRemoved for: event
 	
@@ -30,10 +37,10 @@ DSMethodDebugPointRecord class >> breakpointremoved: event [
 { #category : 'instance creation' }
 DSMethodDebugPointRecord class >> for: anEvent [
 
-	| breakpoint |
-	breakpoint := self new.
-	breakpoint become: anEvent.
-	anEvent record: breakpoint.
+	| debugPoint |
+	debugPoint := self new.
+	debugPoint become: anEvent.
+	anEvent record: debugPoint.
 	^ anEvent
 ]
 

@@ -20,7 +20,7 @@ Class {
 }
 
 { #category : 'converting' }
-DSAbstractDebugPointEventRecord >> asBreakpointRecord [
+DSAbstractDebugPointEventRecord >> asDebugPointRecord [
 
 	^ self modelClass
 		  perform: eventName asLowercase asSymbol asMutator
