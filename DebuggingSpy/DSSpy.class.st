@@ -63,7 +63,7 @@ DSSpy class >> handlingError: anObject [
 	^ HandlingError := anObject
 ]
 
-{ #category : 'events - breakpoints' }
+{ #category : 'events - debugpoints' }
 DSSpy class >> indexesOfHaltNodesIn: aMethod [
 
 	| haltNodes |
@@ -225,11 +225,6 @@ DSSpy class >> packagesMonitoredForSourceCodeChanges: anObject [
 	packagesMonitoredForSourceCodeChanges := anObject
 ]
 
-{ #category : 'events - breakpoints' }
-DSSpy class >> recordBreakpointEvent: aBreakpointEvent [
-	^aBreakpointEvent recordBreakpoint 
-]
-
 { #category : 'accessing' }
 DSSpy class >> recordClipboardContent [
 
@@ -242,7 +237,13 @@ DSSpy class >> recordClipboardContent: anObject [
 	recordClipboardContent := anObject
 ]
 
-{ #category : 'events - breakpoints' }
+{ #category : 'events - debugpoints' }
+DSSpy class >> recordDebugPointEvent: aDebugPointEvent [
+
+	^ aDebugPointEvent recordDebugpoint
+]
+
+{ #category : 'events - debugpoints' }
 DSSpy class >> recordHaltInAddedMethod: method [
 	|nodesSelectorsWithIndexes record|
 	nodesSelectorsWithIndexes := self indexesOfHaltNodesIn: method.
@@ -251,7 +252,7 @@ DSSpy class >> recordHaltInAddedMethod: method [
 	record method: method name
 ]
 
-{ #category : 'events - breakpoints' }
+{ #category : 'events - debugpoints' }
 DSSpy class >> recordHaltInMethod: oldMethod modifiedBy: newMethod [
 
 	| oldHalts newHalts record |
@@ -267,7 +268,7 @@ DSSpy class >> recordHaltInMethod: oldMethod modifiedBy: newMethod [
 	record method: newMethod name
 ]
 
-{ #category : 'events - breakpoints' }
+{ #category : 'events - debugpoints' }
 DSSpy class >> recordHaltInRemovedMethod: oldMethod [
 	|nodesSelectorsWithIndexes record|
 	nodesSelectorsWithIndexes := self indexesOfHaltNodesIn: oldMethod.

@@ -86,7 +86,7 @@ DSRecordHistory >> breakpointAnalysisMap [
 
 	| report |
 	report := Dictionary new.
-	(self allRecordsOfKind: DSBreakpointRecord) do: [ :bp |
+	(self allRecordsOfKind: DSDebugPointRecord) do: [ :bp |
 		(report at: bp targetClassOrMethod ifAbsentPut: [
 			 DSBreakpointReport new
 				 method: bp targetClassOrMethod;
@@ -98,8 +98,8 @@ DSRecordHistory >> breakpointAnalysisMap [
 DSRecordHistory >> breakpointEvents [
 
 	^ self records select: [ :r |
-		  (r isKindOf: DSAbstractBreakpointEventRecord) or: [
-			  r isKindOf: DSBreakpointRecord ] ]
+		  (r isKindOf: DSAbstractDebugPointEventRecord) or: [
+			  r isKindOf: DSDebugPointRecord ] ]
 ]
 
 { #category : 'private - history' }
@@ -518,7 +518,7 @@ DSRecordHistory >> processRecords: array [
 		
 	"Transform raw events to model events"
 	(self allRecordsOfKind: DSStepActionRecord) do: #asStepRecord.
-	(self allRecordsOfKind: DSAbstractBreakpointEventRecord) do: #asBreakpointRecord.
+	(self allRecordsOfKind: DSAbstractDebugPointEventRecord) do: #asDebugPointRecord.
 	
 	"Detect if we're in a specific task"	
 	(self records first isKindOf: DSStartTaskRecord) ifTrue: [

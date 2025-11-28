@@ -152,7 +152,7 @@ stackTable := self newList.
 	stackHeader label: ''Stack'''
 ]
 
-{ #category : 'breakpoints' }
+{ #category : 'debugpoints  ' }
 DSSpyInstrumenter >> instrumentExceptionSignalling [
 
 	Exception compile: 'raiseUnhandledError
@@ -174,7 +174,7 @@ DSSpyInstrumenter >> instrumentExpandAttribute [
 		self refreshTable ]'
 ]
 
-{ #category : 'breakpoints' }
+{ #category : 'debugpoints  ' }
 DSSpyInstrumenter >> instrumentHaltHits [
 	Halt class compile: 'signalIn: ctx	
 		
@@ -658,11 +658,13 @@ DSSpyInstrumenter >> instrumentSystem [
 	self listenToMethodChanges
 ]
 
-{ #category : 'breakpoints' }
-DSSpyInstrumenter >> listenToBreakpointChanges [
-	Breakpoint codeSupportAnnouncer weak when: BreakpointAdded  send: #recordBreakpointEvent: to: DSSpy.
-	Breakpoint codeSupportAnnouncer weak when: BreakpointHit  send: #recordBreakpointEvent: to: DSSpy.
-	Breakpoint codeSupportAnnouncer weak when: BreakpointRemoved  send: #recordBreakpointEvent: to: DSSpy
+{ #category : 'debugpoints  ' }
+DSSpyInstrumenter >> listenToDebugPointChanges [
+
+	DebugPoint codeSupportAnnouncer weak when: DebugPointAdded send: #recordDebugPointEvent: to: DSSpy.
+	DebugPoint codeSupportAnnouncer weak when: DebugPointHit send: #recordDebugPointEvent: to: DSSpy.
+	DebugPoint codeSupportAnnouncer weak when: DebugPointRemoved send: #recordDebugPointEvent: to: DSSpy.
+	DebugPoint codeSupportAnnouncer weak when: DebugPointChanged send: #recordDebugPointEvent: to: DSSpy
 ]
 
 { #category : 'methods' }
@@ -710,7 +712,7 @@ DSSpyInstrumenter >> logDebuggerInteractions [
 { #category : 'system-instrumentation' }
 DSSpyInstrumenter >> logHaltAndBreakpointEvents [
 	self instrumentHaltHits.
-	self listenToBreakpointChanges 
+	self listenToDebugPointChanges 
 ]
 
 { #category : 'system-instrumentation' }

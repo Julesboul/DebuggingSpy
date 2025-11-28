@@ -1,12 +1,12 @@
 Class {
-	#name : 'DSVariableBreakpointRemoved',
-	#superclass : 'DSVariableBreakpointRecord',
+	#name : 'DSDebugPointChanged',
+	#superclass : 'DSMethodDebugPointRecord',
 	#category : 'DebuggingSpy-Records-Extensions',
 	#package : 'DebuggingSpy',
 	#tag : 'Records-Extensions'
 }
 
 { #category : 'accessing' }
-DSVariableBreakpointRemoved >> eventSymbol [
-	^'-vb'
+DSDebugPointChanged >> eventSymbol [
+	^'~b'
 ]
