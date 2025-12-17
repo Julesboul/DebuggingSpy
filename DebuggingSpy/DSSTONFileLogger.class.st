@@ -4,8 +4,8 @@ I log DSRecords as STON into files.
 Class {
 	#name : 'DSSTONFileLogger',
 	#superclass : 'Object',
-	#traits : 'TLogger',
-	#classTraits : 'TLogger classTrait',
+	#traits : 'TExperimentLogger',
+	#classTraits : 'TExperimentLogger classTrait',
 	#instVars : [
 		'loggingDirectory',
 		'loggingFilename',
