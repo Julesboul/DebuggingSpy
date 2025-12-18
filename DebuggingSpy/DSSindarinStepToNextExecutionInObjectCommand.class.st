@@ -3,8 +3,8 @@ I specialize SindarinStepToNextCallInObjectCommand with debugging spy record cre
 	I am meant to replace SindarinStepToNextCallInObjectCommand commands in the debugger in order to provide such instrumentation.
 "
 Class {
-	#name : 'DSSindarinStepToNextCallInObjectCommand',
-	#superclass : 'SindarinStepToNextCallInObjectCommand',
+	#name : 'DSSindarinStepToNextExecutionInObjectCommand',
+	#superclass : 'SindarinStepToNextExecutionInObjectCommand',
 	#traits : 'DSTCommandForTests',
 	#classTraits : 'DSTCommandForTests classTrait',
 	#category : 'DebuggingSpy-Commands',
@@ -13,9 +13,9 @@ Class {
 }
 
 { #category : 'hooks' }
-DSSindarinStepToNextCallInObjectCommand >> execute [
+DSSindarinStepToNextExecutionInObjectCommand >> execute [
 
-	[DSStepActionRecord for: self] on: Error do:[:e| DSSpy log: #ERROR key: #TO_NEXT_CALL_IN_OBJECT].
+	[DSStepActionRecord for: self] on: Error do:[:e| DSSpy log: #ERROR key: #TO_NEXT_EXECUTION_IN_OBJECT].
 	self forTests ifTrue: [ ^ self ].
 	^ super execute
 ]

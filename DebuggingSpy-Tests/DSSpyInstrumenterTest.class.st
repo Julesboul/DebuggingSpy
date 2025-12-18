@@ -79,7 +79,7 @@ DSSpyInstrumenterTest >> assertInstrumentSindarinDebuggerCommandNamed: debuggerC
 	"Commands from toolbar"
 	cmds := debugger rootCommandsGroup
 	 / StDebuggerToolbarCommandTreeBuilder groupName
-	/ 'Advanced Step'.
+	/ 'Advanced'.
 	cmd := StDebugger
 		       specCommandNamed: debuggerCommandName
 		       inGroup: cmds entries.
@@ -383,7 +383,7 @@ DSSpyInstrumenterTest >> stObjectContextModelMock [
 	| model context |
 	model := StInspectorModel on: StInspectorMockObject new.
 	context := StInspectionContext fromPragma:
-		           (StInspectorMockObject >> #inspectionMock1) pragmas first.
+		           (StInspectorMockObject >> #inspectionMock1:) pragmas first.
 	context inspectedObject: model inspectedObject.
 	^ StObjectContextModel new
 		  inspection: model;
@@ -635,7 +635,7 @@ DSSpyInstrumenterTest >> testInstrumentExpandAttribute [
 DSSpyInstrumenterTest >> testInstrumentHaltHits [
 
 	instrumenter instrumentHaltHits.
-	methodsToRemove := { 
+	methodsToRemove := {
 		                   (Halt class >> #signal:).
 		                   (Halt class >> #signalIn:).
 		                   (Halt class >> #signal) }.
@@ -645,40 +645,55 @@ DSSpyInstrumenterTest >> testInstrumentHaltHits [
 	self assert: self registry size equals: 1.
 	record := self registry first.
 	self assert: record selector equals: #halt.
-	self assertHaltHitRecordingMethod:  (self class >> #executeHalt) conditional: false once: false.
-	
+	self
+		assertHaltHitRecordingMethod: self class >> #executeHalt
+		conditional: false
+		once: false.
+
 	[ self executeHaltIf ]
 		on: Halt
 		do: [ ].
 	self assert: self registry size equals: 2.
 	record := self registry second.
 	self assert: record selector equals: #haltIf:.
-	self assertHaltHitRecordingMethod:  (self class >> #executeHaltIf) conditional: true once: false.
-	
+	self
+		assertHaltHitRecordingMethod: self class >> #executeHaltIf
+		conditional: true
+		once: false.
+
 	self recompileExecuteHaltOnce.
 	[ self executeHaltOnce ]
 		on: Halt
-		do: [  ].
+		do: [ ].
 	self assert: self registry size equals: 3.
 	record := self registry third.
-	self assert: record selector equals: #once.
-	self assertHaltHitRecordingMethod:  (self class >> #executeHaltOnce) conditional: false once: true.	
-	
-	[ self executeHaltWithMessage  ]
+	self assert: record selector equals: #once:.
+	self
+		assertHaltHitRecordingMethod: self class >> #executeHaltOnce
+		conditional: false
+		once: true.
+
+	[ self executeHaltWithMessage ]
 		on: Halt
-		do: [  ].
+		do: [ ].
 	self assert: self registry size equals: 4.
 	record := self registry fourth.
 	self assert: record selector equals: #now:.
-	self assertHaltHitRecordingMethod:  (self class >> #executeHaltWithMessage) conditional: false once: false.
-	
-	[ self execute1Halt  ]
+	self
+		assertHaltHitRecordingMethod: self class >> #executeHaltWithMessage
+		conditional: false
+		once: false.
+
+	[ self execute1Halt ]
 		on: Halt
-		do: [  ].
+		do: [ ].
 	self assert: self registry size equals: 5.
 	record := self registry fifth.
 	self assert: record selector equals: #halt.
-	self assertHaltHitRecordingMethod:  (self class >> #execute1Halt) conditional: false once: false.
+	self
+		assertHaltHitRecordingMethod: self class >> #execute1Halt
+		conditional: false
+		once: false
 ]
 
 { #category : 'tests - halts' }
@@ -950,7 +965,7 @@ DSSpyInstrumenterTest >> testInstrumentRubEditorCopySelection [
 
 	| rubEditor registerClipboardText |
 	modifiedClass := RubSmalltalkEditor.
-	modifiedMethodSource := (RubSmalltalkEditor >> #doIt) sourceCode.
+	modifiedMethodSource := (RubSmalltalkEditor >> #copySelection) sourceCode.
 	instrumenter instrumentRubSmalltalkEditorCopySelection.
 
 	registerClipboardText := DSSpy recordClipboardContent.
@@ -1017,7 +1032,7 @@ DSSpyInstrumenterTest >> testInstrumentRubEditorPaste [
 
 	| rubEditor registerClipboardText |
 	modifiedClass := RubSmalltalkEditor.
-	modifiedMethodSource := (RubSmalltalkEditor >> #doIt) sourceCode.
+	modifiedMethodSource := (RubSmalltalkEditor >> #paste) sourceCode.
 	instrumenter instrumentRubSmalltalkEditorPaste.
 	registerClipboardText := DSSpy recordClipboardContent.
 	DSSpy recordClipboardContent: true.
@@ -1269,17 +1284,20 @@ DSSpyInstrumenterTest >> testInstrumentSpCodePrintIt [
 
 { #category : 'tests - playground' }
 DSSpyInstrumenterTest >> testInstrumentStPlayground [
-	|playground|
+
+	| playground |
 	modifiedClass := StPlaygroundPresenter class.
-	modifiedMethodSource :=  (StPlaygroundPresenter class >> #open) sourceCode.
+	modifiedMethodSource := (StPlaygroundPresenter class >> #open)
+		                        sourceCode.
 	instrumenter instrumentPlaygroundCode.
 	playground := StPlaygroundPresenter open.
-	
+
 	"On opening, the playground generates an opening record"
 	self assert: self registry size equals: 1.
-	record := self registry first.	
+	record := self registry first.
 	self assert: record class identicalTo: DSPlaygroundOpenedRecord.
-	self assert: record windowId equals: playground window window hash
+	self assert: record windowId equals: playground window window hash.
+	playground close.
 ]
 
 { #category : 'tests - debugger' }
@@ -1309,13 +1327,13 @@ DSSpyInstrumenterTest >> testInstrumentStepToMethodEntry [
 { #category : 'tests - debugger' }
 DSSpyInstrumenterTest >> testInstrumentStepToNextCallInClass [
 
-	self assertInstrumentSindarinDebuggerCommandNamed: 'Next call in class'
+	self assertInstrumentSindarinDebuggerCommandNamed: 'To next execution in class'
 ]
 
 { #category : 'tests - debugger' }
 DSSpyInstrumenterTest >> testInstrumentStepToNextCallInObject [
 
-	self assertInstrumentSindarinDebuggerCommandNamed: 'Next call in receiver'
+	self assertInstrumentSindarinDebuggerCommandNamed: 'To next execution in receiver'
 ]
 
 { #category : 'tests - debugger' }

@@ -1,12 +1,12 @@
 Class {
-	#name : 'DSBreakpointRemoved',
-	#superclass : 'DSMethodBreakpointRecord',
+	#name : 'DSDebugPointHit',
+	#superclass : 'DSMethodDebugPointRecord',
 	#category : 'DebuggingSpy-Records-Extensions',
 	#package : 'DebuggingSpy',
 	#tag : 'Records-Extensions'
 }
 
 { #category : 'accessing' }
-DSBreakpointRemoved >> eventSymbol [
-	^'-b'
+DSDebugPointHit >> eventSymbol [
+	^'*b'
 ]
