@@ -950,7 +950,7 @@ DSSpyInstrumenterTest >> testInstrumentRubEditorCopySelection [
 
 	| rubEditor registerClipboardText |
 	modifiedClass := RubSmalltalkEditor.
-	modifiedMethodSource := (RubSmalltalkEditor >> #doIt) sourceCode.
+	modifiedMethodSource := (RubSmalltalkEditor >> #copySelection) sourceCode.
 	instrumenter instrumentRubSmalltalkEditorCopySelection.
 
 	registerClipboardText := DSSpy recordClipboardContent.
@@ -1017,7 +1017,7 @@ DSSpyInstrumenterTest >> testInstrumentRubEditorPaste [
 
 	| rubEditor registerClipboardText |
 	modifiedClass := RubSmalltalkEditor.
-	modifiedMethodSource := (RubSmalltalkEditor >> #doIt) sourceCode.
+	modifiedMethodSource := (RubSmalltalkEditor >> #paste) sourceCode.
 	instrumenter instrumentRubSmalltalkEditorPaste.
 	registerClipboardText := DSSpy recordClipboardContent.
 	DSSpy recordClipboardContent: true.
@@ -1269,17 +1269,20 @@ DSSpyInstrumenterTest >> testInstrumentSpCodePrintIt [
 
 { #category : 'tests - playground' }
 DSSpyInstrumenterTest >> testInstrumentStPlayground [
-	|playground|
+
+	| playground |
 	modifiedClass := StPlaygroundPresenter class.
-	modifiedMethodSource :=  (StPlaygroundPresenter class >> #open) sourceCode.
+	modifiedMethodSource := (StPlaygroundPresenter class >> #open)
+		                        sourceCode.
 	instrumenter instrumentPlaygroundCode.
 	playground := StPlaygroundPresenter open.
-	
+
 	"On opening, the playground generates an opening record"
 	self assert: self registry size equals: 1.
-	record := self registry first.	
+	record := self registry first.
 	self assert: record class identicalTo: DSPlaygroundOpenedRecord.
-	self assert: record windowId equals: playground window window hash
+	self assert: record windowId equals: playground window window hash.
+	playground close.
 ]
 
 { #category : 'tests - debugger' }

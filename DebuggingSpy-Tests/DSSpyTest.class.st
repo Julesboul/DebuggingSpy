@@ -374,11 +374,15 @@ DSSpyTest >> testLogOnlyWhenTaskStarted [
 
 { #category : 'tests - window events' }
 DSSpyTest >> testLogWindowActivated [
+
 	DSSpy logWindowActivated: self windowEvent.
-	
-	self assert: self registry size equals: 1.	
-		
-	record := self registry first.	
+
+	self assert: self registry size equals: 2.
+
+	record := self registry first.
+	self assert: record class identicalTo: DSToolWindowActivatedEventRecord.
+
+	record := self registry second.
 	self assertWindowEventRecordedAs: DSWindowActivatedRecord
 ]
 
@@ -397,10 +401,13 @@ DSSpyTest >> testLogWindowClosed [
 DSSpyTest >> testLogWindowOpened [
 
 	DSSpy logWindowOpened: self windowEvent.
-	
-	self assert: self registry size equals: 1.	
-		
-	record := self registry first.	
+
+	self assert: self registry size equals: 2.
+
+	record := self registry first.
+	self assert: record class identicalTo: DSToolWindowOpenedEventRecord.
+
+	record := self registry second.
 	self assertWindowEventRecordedAs: DSWindowOpenedRecord
 ]
 
@@ -926,15 +933,23 @@ DSSpyTest >> testWindowOpenedListensToWindowActivatedAndClosedEvents [
 	self windowEvent window announce: (WindowClosed new
 			 window: self windowEvent window;
 			 yourself).
-	self assert: self registry size equals: 3.
+	self assert: self registry size equals: 5.
 
 	record := self registry first.
-	self assert: record class identicalTo: DSWindowOpenedRecord.
+	self assert: record class identicalTo: DSToolWindowOpenedEventRecord.
 
 	record := self registry second.
+	self assert: record class identicalTo: DSWindowOpenedRecord.
+	
+	record := self registry third.
+	self
+		assert: record class
+		identicalTo: DSToolWindowActivatedEventRecord.
+
+	record := self registry at: 4.
 	self assert: record class identicalTo: DSWindowActivatedRecord.
 
-	record := self registry third.
+	record := self registry at: 5.
 	self assert: record class identicalTo: DSWindowClosedRecord
 ]
 
