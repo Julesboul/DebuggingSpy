@@ -12,7 +12,8 @@ Class {
 		'packagesMonitoredForSourceCodeChanges',
 		'recordSourceCode',
 		'recordClipboardContent',
-		'scopeSourceCodeChangesRecording'
+		'scopeSourceCodeChangesRecording',
+		'recordingSession'
 	],
 	#category : 'DebuggingSpy-Instrumentation',
 	#package : 'DebuggingSpy',
@@ -41,14 +42,6 @@ DSSpy class >> critical: aBlock [
 { #category : 'logging' }
 DSSpy class >> defaultLoggerClass [
 	^DSSTONFileLogger
-]
-
-{ #category : 'task management' }
-DSSpy class >> endTask: aTask [
-
-	DSEndingTaskRecord for: aTask.
-	logger reset.
-	taskStarted := false
 ]
 
 { #category : 'task management' }
@@ -105,9 +98,6 @@ DSSpy class >> logOnlyWhenTaskStarted: anObject [
 { #category : 'events - windows' }
 DSSpy class >> logWindowActivated: anEvent [
 
-	[ DSToolWindowActivatedEventRecord for: anEvent window ]
-		on: Error
-		do: [ self log: #ERROR key: #WINDOW_TOOL_OPENED ].
 	[ DSWindowActivatedRecord for: anEvent ]
 		on: Error
 		do: [ self log: #ERROR key: #WINDOW_ACTIVATED ]
@@ -301,6 +291,19 @@ DSSpy class >> recordSourceCodeDisabledErrorMessage [
 	^ 'Source code recording disabled'
 ]
 
+{ #category : 'accessing' }
+DSSpy class >> recordingSession [
+	"Indicates if there is currently a recording session or not"
+
+	^ recordingSession ifNil: [ recordingSession := false ]
+]
+
+{ #category : 'accessing' }
+DSSpy class >> recordingSession: aBoolean [
+
+	recordingSession := aBoolean
+]
+
 { #category : 'initialization' }
 DSSpy class >> resetSpy [
 
@@ -326,14 +329,6 @@ DSSpy class >> scopeSourceCodeChangesRecording: anObject [
 DSSpy class >> serialize: aDSEventRecord [
 
 	self log: aDSEventRecord
-]
-
-{ #category : 'task management' }
-DSSpy class >> startTask: aTask [
-
-	logger setupLoggerForTask: aTask.
-	taskStarted := true.
-	DSStartTaskRecord for: aTask
 ]
 
 { #category : 'accessing' }
