@@ -26,6 +26,7 @@ DSAbstractEventRecord class >> for: anObject [
 { #category : 'printing' }
 DSAbstractEventRecord class >> printStringMorphs: anArrayOfMorphs [
 
+<<<<<<< HEAD
 	| str |
 	str := WriteStream on: String new.
 	anArrayOfMorphs do: [ :m | 
@@ -33,6 +34,14 @@ DSAbstractEventRecord class >> printStringMorphs: anArrayOfMorphs [
 			str << m contents asString.
 			m == anArrayOfMorphs last ifFalse: [ str << ' ' ] ] ].
 	^ str contents
+=======
+	^ DSMetaLink new
+		  metaObject: self;
+		  selector: #for:;
+		  arguments: #( receiver );
+		  control: #before;
+		  optionCompileOnLinkInstallation: true
+>>>>>>> 8b5f9e6 (feat(DSMetaLink): add specific metalinks for DebuggingSpy)
 ]
 
 { #category : 'comparing' }

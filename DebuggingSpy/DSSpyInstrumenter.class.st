@@ -16,12 +16,20 @@ DSSpyInstrumenter class >> instrumentSystem [
 	DSRecordRegistry autoSerialize: true
 ]
 
+<<<<<<< HEAD
 { #category : 'browsers' }
 DSSpyInstrumenter >> instrumentClyFullBrowser [
+=======
+{ #category : 'system instrumentation' }
+DSSpyInstrumenter class >> stopInstrumentation [
+	<example>
+	"Stop the instrumentation of the system"
+>>>>>>> 8b5f9e6 (feat(DSMetaLink): add specific metalinks for DebuggingSpy)
 
 	ClyFullBrowserMorph compile: 'newWindowTitle
 	| newTitle |
 	
+<<<<<<< HEAD
 	packageView selection isEmpty ifTrue: [ ^self systemScope description].	
 	
 	newTitle := self buildTitleFromSelections.
@@ -30,6 +38,10 @@ DSSpyInstrumenter >> instrumentClyFullBrowser [
 
 	[DSFullBrowseRecord for: self] on: Error do: [DSSpy log: #ERROR key: #BROWSE].
 	^newTitle'
+=======
+	"Uninstall MetaLinks used by the instrumenter"
+	DSMetaLink uninstallAll "TO CHANGE : just uninstall targeted MetaLinks"
+>>>>>>> 8b5f9e6 (feat(DSMetaLink): add specific metalinks for DebuggingSpy)
 ]
 
 { #category : 'browsers' }
