@@ -25,7 +25,7 @@ DSAbstractEventRecord class >> for: anObject [
 
 { #category : 'printing' }
 DSAbstractEventRecord class >> printStringMorphs: anArrayOfMorphs [
-
+	
 	| str |
 	str := WriteStream on: String new.
 	anArrayOfMorphs do: [ :m | 
@@ -33,6 +33,16 @@ DSAbstractEventRecord class >> printStringMorphs: anArrayOfMorphs [
 			str << m contents asString.
 			m == anArrayOfMorphs last ifFalse: [ str << ' ' ] ] ].
 	^ str contents
+]
+
+{ #category : 'accessing' }
+DSAbstractEventRecord class >> link [
+		
+	^ DSMetaLink new
+		  metaObject: self;
+		  selector: #for:;
+		  arguments: #( receiver );
+		  control: #before
 ]
 
 { #category : 'comparing' }

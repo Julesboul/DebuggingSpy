@@ -1,5 +1,5 @@
 Class {
-	#name : 'DSBreakpointRecord',
+	#name : 'DSDebugPointRecord',
 	#superclass : 'DSAbstractExtendedRecord',
 	#category : 'DebuggingSpy-Records-Extensions',
 	#package : 'DebuggingSpy',
@@ -7,57 +7,57 @@ Class {
 }
 
 { #category : 'instance creation' }
-DSBreakpointRecord class >> breakpointadded: event [ 
+DSDebugPointRecord class >> debugpointadded: event [ 
 	^ self subclassResponsibility
 ]
 
 { #category : 'instance creation' }
-DSBreakpointRecord class >> breakpointhit: event [ 
+DSDebugPointRecord class >> debugpointhit: event [ 
 	^ self subclassResponsibility
 ]
 
 { #category : 'instance creation' }
-DSBreakpointRecord class >> breakpointremoved: event [ 
+DSDebugPointRecord class >> debugpointremoved: event [ 
 	^ self subclassResponsibility
-]
-
-{ #category : 'accessing' }
-DSBreakpointRecord >> breakpointHash [
-
-	^ sourceRecord breakpointHash
 ]
 
 { #category : 'testing' }
-DSBreakpointRecord >> canOpenDebuggers [
+DSDebugPointRecord >> canOpenDebuggers [
 
 	^ sourceRecord canOpenDebuggers
 ]
 
 { #category : 'accessing' }
-DSBreakpointRecord >> eventName [
+DSDebugPointRecord >> debugPointHash [
+
+	^ sourceRecord debugPointHash
+]
+
+{ #category : 'accessing' }
+DSDebugPointRecord >> eventName [
 
 	^ sourceRecord eventName
 ]
 
 { #category : 'accessing' }
-DSBreakpointRecord >> eventSymbol [
+DSDebugPointRecord >> eventSymbol [
 	^self subclassResponsibility
 ]
 
 { #category : 'accessing' }
-DSBreakpointRecord >> objectCentric [
+DSDebugPointRecord >> objectCentric [
 
 	^ sourceRecord objectCentric
 ]
 
 { #category : 'accessing' }
-DSBreakpointRecord >> once [
+DSDebugPointRecord >> once [
 
 	^ sourceRecord once
 ]
 
 { #category : 'printing' }
-DSBreakpointRecord >> printContextAndNode [
+DSDebugPointRecord >> printContextAndNode [
 	self flag: 'This cannot work with the DSVariableBreakpointRecord subclass: is this even called?'.
 	^ String streamContents: [ :s |
 		  | nodeStream peek |
@@ -69,24 +69,24 @@ DSBreakpointRecord >> printContextAndNode [
 ]
 
 { #category : 'printing' }
-DSBreakpointRecord >> printTargetInstance: anObject [
+DSDebugPointRecord >> printTargetInstance: anObject [
 	^sourceRecord printTargetInstance: anObject
 ]
 
 { #category : 'accessing' }
-DSBreakpointRecord >> submethodTargets [
+DSDebugPointRecord >> submethodTargets [
 
 	^ self subclassResponsibility
 ]
 
 { #category : 'accessing' }
-DSBreakpointRecord >> target [
+DSDebugPointRecord >> target [
 
 	^ sourceRecord target
 ]
 
 { #category : 'accessing' }
-DSBreakpointRecord >> targetClassOrMethod [
+DSDebugPointRecord >> targetClassOrMethod [
 
 	^ self subclassResponsibility
 ]

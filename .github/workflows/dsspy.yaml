@@ -5,17 +5,11 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      PROJECT_NAME: ${{ matrix.smalltalk }}-DebuggingSpy
-    strategy:
-      matrix:
-        smalltalk: [ Pharo64-12 ]
-    name: ${{ matrix.smalltalk }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - uses: hpi-swa/setup-smalltalkCI@v1
         with:
-          smalltalk-version: ${{ matrix.smalltalk }}
-      - run: smalltalkci -s ${{ matrix.smalltalk }}
+          smalltalk-version: Pharo64-14
+      - run: smalltalkci -s Pharo64-14
         shell: bash
         timeout-minutes: 15

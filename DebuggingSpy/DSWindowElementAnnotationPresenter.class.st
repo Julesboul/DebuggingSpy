@@ -1,6 +1,6 @@
 Class {
 	#name : 'DSWindowElementAnnotationPresenter',
-	#superclass : 'StInspection',
+	#superclass : 'StInspectionPresenter',
 	#instVars : [
 		'windowElement',
 		'indexField',
