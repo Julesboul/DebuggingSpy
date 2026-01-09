@@ -33,6 +33,7 @@ DSAbstractEventRecord class >> printStringMorphs: anArrayOfMorphs [
 			str << m contents asString.
 			m == anArrayOfMorphs last ifFalse: [ str << ' ' ] ] ].
 	^ str contents
+]
 
 { #category : 'accessing' }
 DSAbstractEventRecord class >> link [
