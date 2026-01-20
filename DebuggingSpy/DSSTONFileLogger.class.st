@@ -25,7 +25,7 @@ DSSTONFileLogger >> defaultLoggingDirectoryName [
 { #category : 'accessing' }
 DSSTONFileLogger >> defaultLoggingFileName [
 
-	^ SessionManager default currentSession id asString
+	^ DSSpy id asString
 ]
 
 { #category : 'logging' }

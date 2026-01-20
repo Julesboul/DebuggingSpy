@@ -12,7 +12,8 @@ Class {
 		'packagesMonitoredForSourceCodeChanges',
 		'recordSourceCode',
 		'recordClipboardContent',
-		'scopeSourceCodeChangesRecording'
+		'scopeSourceCodeChangesRecording',
+		'id'
 	],
 	#category : 'DebuggingSpy-Instrumentation',
 	#package : 'DebuggingSpy',
@@ -61,6 +62,12 @@ DSSpy class >> forceRunningTask: aTask [
 DSSpy class >> handlingError: anObject [
 
 	^ HandlingError := anObject
+]
+
+{ #category : 'logging' }
+DSSpy class >> id [
+
+	^ id ifNil: [ id := UUID new ]
 ]
 
 { #category : 'events - debugpoints' }
