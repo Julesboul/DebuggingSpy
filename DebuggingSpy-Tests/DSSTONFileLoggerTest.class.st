@@ -39,7 +39,7 @@ DSSTONFileLoggerTest >> testDefaultLoggingDirectoryName [
 
 { #category : 'tests - file handling' }
 DSSTONFileLoggerTest >> testDefaultLoggingFileName [
- 	self assert: logger defaultLoggingFileName equals: SessionManager default currentSession id asString
+ 	self assert: logger defaultLoggingFileName equals: DSSpy id asString
 ]
 
 { #category : 'tests - file handling' }
