@@ -300,13 +300,16 @@ DSSpyInstrumenterTest >> setDummyWindowPresenter: windowPresenter forPresenter: 
 
 { #category : 'running' }
 DSSpyInstrumenterTest >> setUp [
+
 	super setUp.
-	
-	DSSpyInstrumenter instrumentSystem.
-	recordSourceCode := DSSpy recordSourceCode.
+
+	DSSpy testingSession: true.
 	DSSpy recordSourceCode: true.
-	DSRecordRegistry current reset.
-	intialWindows := self currentWorld windowsSatisfying: [ :window | window isInWorld ]
+	recordSourceCode := DSSpy recordSourceCode.
+
+	intialWindows := self currentWorld windowsSatisfying: [ :window | window isInWorld ].
+
+	DSSpyInstrumenter instrumentSystem
 ]
 
 { #category : 'helpers' }
@@ -358,13 +361,13 @@ DSSpyInstrumenterTest >> tableItemsListFromInspector: anInspector [
 { #category : 'running' }
 DSSpyInstrumenterTest >> tearDown [
 
-	self closeOpenedWindows.
-
 	DSSpy recordSourceCode: recordSourceCode.
 	DSRecordRegistry current reset.
-
 	DSSpyInstrumenter stopInstrumentation.
+	DSSpy resetSpy.
+	self closeOpenedWindows.
 
+	'tests' asFileReference ensureDeleteAll.
 	super tearDown
 ]
 

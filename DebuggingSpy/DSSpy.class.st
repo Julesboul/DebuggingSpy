@@ -1,5 +1,5 @@
 "
-I am defining rules for recording and I am used by most of the DebuggingSpy's classes.
+I am defining rules for recording and I am used by most of the DebuggingSpy's classes as an helper.
 "
 Class {
 	#name : 'DSSpy',
@@ -17,7 +17,8 @@ Class {
 		'recordClipboardContent',
 		'scopeSourceCodeChangesRecording',
 		'recordingSession',
-		'id'
+		'recordFileName',
+		'testingSession'
 	],
 	#category : 'DebuggingSpy-Instrumentation',
 	#package : 'DebuggingSpy',
@@ -62,16 +63,16 @@ DSSpy class >> forceRunningTask: aTask [
 	taskStarted := true
 ]
 
+{ #category : 'logging' }
+DSSpy class >> getRecordFileName [
+
+	^ recordFileName ifNil: [ recordFileName := DateAndTime now asFileNameCompatibleString copyReplaceAll: '.' with: '_']
+]
+
 { #category : 'accessing' }
 DSSpy class >> handlingError: anObject [
 
 	^ HandlingError := anObject
-]
-
-{ #category : 'logging' }
-DSSpy class >> id [
-
-	^ id ifNil: [ id := UUID new ]
 ]
 
 { #category : 'events - debugpoints' }
@@ -327,9 +328,11 @@ DSSpy class >> recordingSession: aBoolean [
 { #category : 'initialization' }
 DSSpy class >> resetSpy [
 
-	logger ifNotNil:[:l| l reset].
+	logger ifNotNil: [ :l | l reset ].
 	taskStarted := false.
-	logOnlyWhenTaskStarted := false
+	logOnlyWhenTaskStarted := false.
+	testingSession := false.
+	recordFileName := nil
 ]
 
 { #category : 'accessing' }
@@ -363,6 +366,19 @@ DSSpy class >> startTask: aTask [
 DSSpy class >> taskStarted [
 
 	^ taskStarted ifNil: [ taskStarted := false ]
+]
+
+{ #category : 'accessing' }
+DSSpy class >> testingSession [
+	"Indicates if we are in a testing session"
+
+	^ testingSession ifNil: [ recordingSession := false ]
+]
+
+{ #category : 'accessing' }
+DSSpy class >> testingSession: aBoolean [
+
+	testingSession := aBoolean
 ]
 
 { #category : 'utils' }

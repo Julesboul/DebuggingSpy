@@ -184,11 +184,13 @@ DSSpyTest >> setUp [
 	DSSpy packagesMonitoredForSourceCodeChanges: nil.
 	recordSourceCode := DSSpy recordSourceCode.
 	DSSpy recordSourceCode: false.
-	DSSpy scopeSourceCodeChangesRecording: true
+	DSSpy scopeSourceCodeChangesRecording: true.
+	DSSpy testingSession: true
 ]
 
 { #category : 'running' }
 DSSpyTest >> tearDown [
+
 	DSRecordRegistry autoSerialize: false.
 	instrumenter unsubscribeFromSystemAnnouncer.
 	debugpoint ifNotNil: [ debugpoint remove ].
@@ -197,6 +199,9 @@ DSSpyTest >> tearDown [
 	DSRecordRegistry current reset.
 	DSSpy recordSourceCode: recordSourceCode.
 	DSSpy scopeSourceCodeChangesRecording: nil.
+	DSSpy resetSpy.
+	
+	'tests' asFileReference ensureDeleteAll.
 	super tearDown
 ]
 
@@ -397,19 +402,18 @@ DSSpyTest >> testLogWindowOpened [
 
 { #category : 'tests - serialize/materialize' }
 DSSpyTest >> testMaterialize [
-	|records materializedRecords|
-	DSSpy logger loggingFileReference ensureDelete.
-	DSSpy resetSpy.
-	records := OrderedCollection with:  (DSLoggingErrorRecord for: #TEST) with:  (DSLoggingErrorRecord for: #TEST).
-	records do:[:r| DSSpy serialize: r].
+
+	| records materializedRecords |
+	records := OrderedCollection with: (DSLoggingErrorRecord for: #TEST) with: (DSLoggingErrorRecord for: #TEST).
+	records do: [ :r | DSSpy serialize: r ].
 	materializedRecords := DSSpy materialize: DSSpy logger loggingFileReference.
 	self assert: materializedRecords size equals: 2.
-	
+
 	self assert: materializedRecords first class equals: DSLoggingErrorRecord.
 	self assert: materializedRecords first dateTime equals: records first dateTime.
 	self assert: materializedRecords first eventName equals: records first eventName.
 	self assert: materializedRecords first event equals: records first event.
-	
+
 	self assert: materializedRecords second class equals: DSLoggingErrorRecord.
 	self assert: materializedRecords second dateTime equals: records second dateTime.
 	self assert: materializedRecords second eventName equals: records second eventName.
@@ -795,8 +799,6 @@ DSSpyTest >> testScopeSourceCodeChangesRecording [
 { #category : 'tests - serialize/materialize' }
 DSSpyTest >> testSerialize [
 
-	DSSpy logger loggingFileReference ensureDelete.
-	DSSpy resetSpy.
 	record := DSLoggingErrorRecord for: #TEST.
 	DSSpy serialize: record.
 	self
@@ -819,9 +821,7 @@ DSSpyTest >> testStartTask [
 DSSpyTest >> testStartTaskSerialization [
 
 	| recordedTask |
-	DSSpy logger loggingDirectory deleteAllChildren.
 	DSRecordRegistry autoSerialize: true.
-	DSSpy resetSpy.
 	DSSpy startTask: task.
 	recordedTask := (DSSpy materialize: DSSpy logger loggingFileReference) first.
 	self assert: recordedTask class equals: DSStartTaskRecord.
