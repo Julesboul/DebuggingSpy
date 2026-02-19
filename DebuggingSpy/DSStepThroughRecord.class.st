@@ -1,8 +1,8 @@
 "
-I am a record for the 'Proceed' command in the Debugger.
+I am a record for the 'Step through' command in the Debugger.
 "
 Class {
-	#name : 'DSProceedRecord',
+	#name : 'DSStepThroughRecord',
 	#superclass : 'DSAbstractDebuggerActionRecord',
 	#category : 'DebuggingSpy-Records',
 	#package : 'DebuggingSpy',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : 'accessing' }
-DSProceedRecord >> eventName [
+DSStepThroughRecord >> eventName [
 
-	^ 'Proceed'
+	^ 'Step through'
 ]

@@ -23,18 +23,6 @@ DSAbstractEventRecord class >> for: anObject [
 	^ rec
 ]
 
-{ #category : 'printing' }
-DSAbstractEventRecord class >> printStringMorphs: anArrayOfMorphs [
-	
-	| str |
-	str := WriteStream on: String new.
-	anArrayOfMorphs do: [ :m | 
-		((m isKindOf: StringMorph) and: [ m contents ~= '...' ]) ifTrue: [ 
-			str << m contents asString.
-			m == anArrayOfMorphs last ifFalse: [ str << ' ' ] ] ].
-	^ str contents
-]
-
 { #category : 'accessing' }
 DSAbstractEventRecord class >> link [
 		
@@ -113,10 +101,7 @@ DSAbstractEventRecord >> realRecord [
 { #category : 'actions api' }
 DSAbstractEventRecord >> record: aWindow [
 
-	windowId := aWindow identityHash.
-"	(aWindow isKindOf: ClyBrowserMorph) ifFalse: [ ^ self ].
-	aWindow activeWindow ifNil:[^self].
-	windowId := aWindow activeWindow identityHash"
+	self windowId: aWindow identityHash.
 ]
 
 { #category : 'API-history' }
@@ -137,9 +122,9 @@ DSAbstractEventRecord >> windowId [
 ]
 
 { #category : 'accessing' }
-DSAbstractEventRecord >> windowId: anObject [
+DSAbstractEventRecord >> windowId: aWindowId [
 
-	windowId := anObject
+	windowId := aWindowId = nil identityHash ifTrue: [ nil ] ifFalse: [ aWindowId ]
 ]
 
 { #category : 'accessing' }

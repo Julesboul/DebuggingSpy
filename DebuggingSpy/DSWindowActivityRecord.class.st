@@ -10,9 +10,9 @@ Class {
 		'next',
 		'annotation'
 	],
-	#category : 'DebuggingSpy-Records-Extensions',
+	#category : 'DebuggingSpy-Records',
 	#package : 'DebuggingSpy',
-	#tag : 'Records-Extensions'
+	#tag : 'Records'
 }
 
 { #category : 'instance creation' }
@@ -52,11 +52,8 @@ DSWindowActivityRecord >> annotation: anObject [
 DSWindowActivityRecord >> debuggingActionsClasses [
 
 	| classes |
-	classes := OrderedCollection withAll: DSInspectorRecord allSubclasses.
-	classes addAll: DSPlaygroundRecord allSubclasses.
-	classes addAll: DSStepActionRecord allSubclasses.
+	classes := OrderedCollection withAll: DSStepActionRecord allSubclasses.
 	classes addAll: DSStepRecord allSubclasses.
-	classes add: DSBrowseContextRecord.
 	^ classes
 ]
 
@@ -85,23 +82,6 @@ DSWindowActivityRecord >> events [
 DSWindowActivityRecord >> events: anObject [
 
 	events := anObject
-]
-
-{ #category : 'inspections' }
-DSWindowActivityRecord >> inspectionAnnotation [
-
-	<inspectorPresentationOrder: 50 title: 'Annotation'>
-	^ DSWindowElementAnnotationPresenter on: self
-]
-
-{ #category : 'merging' }
-DSWindowActivityRecord >> merge: aDSWindowActivityRecord [
-	|merge become|
-	merge := DSMergedWindowActivityRecord new.
-	become := self.
-	merge become: self.
-	become mergeWith: merge.
-	become mergeWith: aDSWindowActivityRecord
 ]
 
 { #category : 'accessing' }

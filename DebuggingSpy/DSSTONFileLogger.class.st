@@ -19,13 +19,16 @@ Class {
 
 { #category : 'accessing' }
 DSSTONFileLogger >> defaultLoggingDirectoryName [
-	^'ds-spy'
+
+	^ DSSpy testingSession
+		  ifTrue: [ 'tests' ]
+		  ifFalse: [ 'ds-spy' ]
 ]
 
 { #category : 'accessing' }
 DSSTONFileLogger >> defaultLoggingFileName [
 
-	^ SessionManager default currentSession id asString
+	^ DSSpy getRecordFileName 
 ]
 
 { #category : 'logging' }

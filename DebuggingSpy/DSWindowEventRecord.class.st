@@ -1,8 +1,14 @@
+"
+Class which represent a record of a window event : openned, closed or activated.
+
+This type of record is useful to know which are the tools used by a developper.
+"
 Class {
 	#name : 'DSWindowEventRecord',
 	#superclass : 'DSAbstractEventRecord',
 	#instVars : [
-		'windowName'
+		'windowName',
+		'toolInfo'
 	],
 	#category : 'DebuggingSpy-Records',
 	#package : 'DebuggingSpy',
@@ -11,8 +17,16 @@ Class {
 
 { #category : 'actions api' }
 DSWindowEventRecord >> record: aWindowEvent [
+
+	| tool |
 	self recordWindowIdFromEvent: aWindowEvent.
-	self recordWindowNameFromEvent: aWindowEvent
+	self recordWindowNameFromEvent: aWindowEvent.
+	tool := DSSpy toolInWindow: aWindowEvent window.
+	tool ifNil: [ ^ self ].
+	toolInfo := DSToolInfo
+		            toolNamed: tool class name
+		            id: tool identityHash
+		            windowId: windowId
 ]
 
 { #category : 'recording' }
@@ -33,6 +47,12 @@ DSWindowEventRecord >> recordWindowNameFromEvent: anEvent [
 { #category : 'comparing' }
 DSWindowEventRecord >> sameWindowAsIn: aDSWindowEventRecord [
 	^self windowId = aDSWindowEventRecord windowId
+]
+
+{ #category : 'accessing' }
+DSWindowEventRecord >> toolInfo [
+
+	^ toolInfo
 ]
 
 { #category : 'accessing' }

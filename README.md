@@ -36,8 +36,8 @@ To cite the use of this tool, please use: https://hal.science/hal-04858378v1
 
 | **Type of traces**         | **User activity/block event or action** | **Debugging action** | **Navigation/inspection action** | **Debugging event** | **Code edition action** |
 |-----------------------------|------------------------------------------|-----------------------|-----------------------------------|---------------------|--------------------------|
-| Breakpoint                 |                                          | x                     |                                   |                     |                          |
-| Variable breakpoint        |                                          | x                     |                                   |                     |                          |
+| DebugPoint                 |                                          | x                     |                                   |                     |                          |
+| Watch DebugPoint           |                                          | x                     |                                   |                     |                          |
 | Halt change                |                                          | x                     |                                   |                     |                          |
 | Halt hit                   |                                          |                       |                                   | x                   |                          |
 | Clipboard copy             |                                          |                       |                                   |                     | x                        |
@@ -46,33 +46,17 @@ To cite the use of this tool, please use: https://hal.science/hal-04858378v1
 | Do it                      | ?                                        |                       |                                   |                     |                          |
 | Do it and go               | ?                                        |                       |                                   |                     |                          |
 | Print it                   |                                          |                       | x                                 |                     |                          |
-| Browse context             |                                          |                       | x                                 |                     |                          |
-| Debugger action            |                                          | x                     |                                   |                     |                          |
-| Debugger opening           | x                                        |                       |                                   |                     |                          |
-| Full browse                |                                          |                       | x                                 |                     |                          |
-| Inspect attribute          | x                                        |                       |                                   |                     |                          |
-| Expand attribute           |                                          |                       | x                                 |                     |                          |
-| Navigate attribute         |                                          |                       | x                                 |                     |                          |
-| Inspect method             | x                                        |                       |                                   |                     |                          |
-| Inspect method source      | x                                        |                       |                                   |                     |                          |
-| Inspect object             | x                                        |                       |                                   |                     |                          |
-| Select inspector page      |                                          |                       | x                                 |                     |                          |
+| Browse                     |                                          |                       | x                                 |                     |                          |
+| Implementors               | x                                        |                       |                                   |                     |                          |
+| Senders                    | x                                        |                       |                                   |                     |                          |
+| Inspect                    | x                                        |                       |                                   |                     |                          |
 | Logging error              |                                          |                       |                                   | x                   |                          |
 | Method added               |                                          |                       |                                   |                     | x                        |
 | Method modified            |                                          |                       |                                   |                     | x                        |
 | Method removed             |                                          |                       |                                   |                     | x                        |
 | Source code change         |                                          |                       |                                   |                     | x                        |
-| Mouse down table           |                                          |                       | x                                 |                     |                          |
-| Mouse enter table          |                                          |                       | x                                 |                     |                          |
-| Mouse enter text editor    |                                          |                       | x                                 |                     |                          |
 | Mouse enter window         | x                                        |                       |                                   |                     |                          |
 | Mouse leave window         | x                                        |                       |                                   |                     |                          |
-| Playground opened          | x                                        |                       |                                   |                     |                          |
-| Playground read            |                                          |                       | x                                 |                     |                          |
-| Playground write           |                                          |                       |                                   |                     | x                        |
-| Query browse               |                                          |                       | x                                 |                     |                          |
-| Start scrolling            |                                          |                       | x                                 |                     |                          |
-| Stop scrolling             |                                          |                       | x                                 |                     |                          |
 | Step                       |                                          | x                     |                                   |                     |                          |
 | Window activated           | x                                        |                       |                                   |                     |                          |
 | Window opened              | x                                        |                       |                                   |                     |                          |
@@ -89,7 +73,7 @@ To cite the use of this tool, please use: https://hal.science/hal-04858378v1
 # User documentation
 ## Log data to local file
 
-Load the P12 baseline into a Pharo 12 image, then execute the following line:
+Load the baseline into a Pharo image, then execute the following line:
 ```Smalltalk
 DSSpyInstrumenter instrumentSystem
 ```
@@ -98,6 +82,10 @@ Logs are serialized in the image working directory, in the *ds-spy* folder:
 
 <img width="445" alt="Capture d’écran 2025-03-09 à 22 45 10" src="https://github.com/user-attachments/assets/c0f7595b-6d32-4101-b6c2-45f54c5fddd0" />
 
+To stop the instrumentation, execute the following line:
+```Smalltalk
+DSSpyInstrumenter stopInstrumentation
+```
 
 ## Log data to a remote server
 TODO
