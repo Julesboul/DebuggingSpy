@@ -1,8 +1,8 @@
 "
-I am a record for the 'Proceed' command in the Debugger.
+I am a record for the 'Return value' command in the Debugger.
 "
 Class {
-	#name : 'DSProceedRecord',
+	#name : 'DSReturnValue',
 	#superclass : 'DSAbstractDebuggerActionRecord',
 	#category : 'DebuggingSpy-Records',
 	#package : 'DebuggingSpy',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : 'accessing' }
-DSProceedRecord >> eventName [
+DSReturnValue >> eventName [
 
-	^ 'Proceed'
+	^ 'Return value'
 ]

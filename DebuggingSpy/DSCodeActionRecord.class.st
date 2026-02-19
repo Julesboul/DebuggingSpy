@@ -14,10 +14,10 @@ Class {
 }
 
 { #category : 'actions api' }
-DSCodeActionRecord >> record: aCodeString [
+DSCodeActionRecord >> record: anEditor [
 
 	selectedString := DSSpy recordSourceCode
-		                  ifTrue: [ aCodeString ]
+		                  ifTrue: [ anEditor recordSelectedString ]
 		                  ifFalse: [ 
 		                  DSSpy recordSourceCodeDisabledErrorMessage ]
 ]

@@ -1,3 +1,6 @@
+"
+I am defining rules for recording and I am used by most of the DebuggingSpy's classes as an helper.
+"
 Class {
 	#name : 'DSSpy',
 	#superclass : 'Object',
@@ -12,8 +15,10 @@ Class {
 		'packagesMonitoredForSourceCodeChanges',
 		'recordSourceCode',
 		'recordClipboardContent',
+		'recordingSession',
 		'scopeSourceCodeChangesRecording',
-		'id'
+		'recordFileName',
+		'testingSession'
 	],
 	#category : 'DebuggingSpy-Instrumentation',
 	#package : 'DebuggingSpy',
@@ -56,6 +61,12 @@ DSSpy class >> endTask: aTask [
 DSSpy class >> forceRunningTask: aTask [
 	logger setupLoggerForTask: aTask.
 	taskStarted := true
+]
+
+{ #category : 'logging' }
+DSSpy class >> getRecordFileName [
+
+	^ recordFileName ifNil: [ recordFileName := DateAndTime now asFileNameCompatibleString copyReplaceAll: '.' with: '_']
 ]
 
 { #category : 'accessing' }
@@ -112,9 +123,6 @@ DSSpy class >> logOnlyWhenTaskStarted: anObject [
 { #category : 'events - windows' }
 DSSpy class >> logWindowActivated: anEvent [
 
-	[ DSToolWindowActivatedEventRecord for: anEvent window ]
-		on: Error
-		do: [ self log: #ERROR key: #WINDOW_TOOL_OPENED ].
 	[ DSWindowActivatedRecord for: anEvent ]
 		on: Error
 		do: [ self log: #ERROR key: #WINDOW_ACTIVATED ]
@@ -132,17 +140,9 @@ DSSpy class >> logWindowOpened: anEvent [
 
 	| window |
 	window := anEvent window.
-	[ DSToolWindowOpenedEventRecord for: window ]
-		on: Error
-		do: [ self log: #ERROR key: #WINDOW_TOOL_OPENED ].
 	[ DSWindowOpenedRecord for: anEvent ]
 		on: Error
-		do: [ self log: #ERROR key: #WINDOW_OPENED ].
-	window announcer
-		when: WindowActivated
-		send: #logWindowActivated:
-		to: self.
-	window announcer when: WindowClosed send: #logWindowClosed: to: self
+		do: [ self log: #ERROR key: #WINDOW_OPENED ]
 ]
 
 { #category : 'accessing' }
@@ -234,6 +234,7 @@ DSSpy class >> packagesMonitoredForSourceCodeChanges: anObject [
 
 { #category : 'accessing' }
 DSSpy class >> recordClipboardContent [
+	"Indicates if the clipboard content should be recorded or not"
 
 	^ recordClipboardContent ifNil: [ recordClipboardContent := false ]
 ]
@@ -286,6 +287,7 @@ DSSpy class >> recordHaltInRemovedMethod: oldMethod [
 
 { #category : 'accessing' }
 DSSpy class >> recordSourceCode [
+	"Indicates if source code should be recorded or not (when doing actions like Print It, Do It, ...)"
 
 	^ recordSourceCode ifNil: [ recordSourceCode := false ]
 ]
@@ -316,12 +318,27 @@ DSSpy class >> recordSourceCodeDisabledErrorMessage [
 	^ 'Source code recording disabled'
 ]
 
+{ #category : 'accessing' }
+DSSpy class >> recordingSession [
+	"Indicates if there is currently a recording session or not"
+
+	^ recordingSession ifNil: [ recordingSession := false ]
+]
+
+{ #category : 'accessing' }
+DSSpy class >> recordingSession: aBoolean [
+
+	recordingSession := aBoolean
+]
+
 { #category : 'initialization' }
 DSSpy class >> resetSpy [
 
-	logger ifNotNil:[:l| l reset].
+	logger ifNotNil: [ :l | l reset ].
 	taskStarted := false.
-	logOnlyWhenTaskStarted := false
+	logOnlyWhenTaskStarted := false.
+	testingSession := false.
+	recordFileName := nil
 ]
 
 { #category : 'accessing' }
@@ -355,6 +372,19 @@ DSSpy class >> startTask: aTask [
 DSSpy class >> taskStarted [
 
 	^ taskStarted ifNil: [ taskStarted := false ]
+]
+
+{ #category : 'accessing' }
+DSSpy class >> testingSession [
+	"Indicates if we are in a testing session"
+
+	^ testingSession ifNil: [ recordingSession := false ]
+]
+
+{ #category : 'accessing' }
+DSSpy class >> testingSession: aBoolean [
+
+	testingSession := aBoolean
 ]
 
 { #category : 'utils' }

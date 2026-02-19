@@ -55,7 +55,7 @@ DSRecordHistory class >> windowLeaveEventTypes [
 
 { #category : 'API-history' }
 DSRecordHistory >> absoluteTimeTaken [
-	"The absoulte time taken to perform the recording of user events, including unmonitoring activities (interruptions or activities outside the IDE)."
+	"The absolute time taken to perform the recording of user events, including unmonitoring activities (interruptions or activities outside the IDE)."
 
 	^ ((records last dateTime asSeconds - records first dateTime asSeconds)
 	   / 60) asFloat
@@ -73,52 +73,6 @@ DSRecordHistory >> addWindowRecord: aDSRecord [
 DSRecordHistory >> allRecordsOfKind: aClass [
 
 	^ records select: [ :record | record isKindOf: aClass ]
-]
-
-{ #category : 'API-history' }
-DSRecordHistory >> breakpointAdds [
-
-	^ (self breakpointEvents: BreakpointAdded name) size
-]
-
-{ #category : 'API-history' }
-DSRecordHistory >> breakpointAnalysisMap [
-
-	| report |
-	report := Dictionary new.
-	(self allRecordsOfKind: DSDebugPointRecord) do: [ :bp |
-		(report at: bp targetClassOrMethod ifAbsentPut: [
-			 DSBreakpointReport new
-				 method: bp targetClassOrMethod;
-				 yourself ]) add: bp ].
-	^ report
-]
-
-{ #category : 'private - history' }
-DSRecordHistory >> breakpointEvents [
-
-	^ self records select: [ :r |
-		  (r isKindOf: DSAbstractDebugPointEventRecord) or: [
-			  r isKindOf: DSDebugPointRecord ] ]
-]
-
-{ #category : 'private - history' }
-DSRecordHistory >> breakpointEvents: aBreakpointEventName [
-
-	^ self breakpointEvents select: [ :bpEvent | 
-		  bpEvent eventName = aBreakpointEventName ]
-]
-
-{ #category : 'API-history' }
-DSRecordHistory >> breakpointHit [
-
-	^ (self breakpointEvents: BreakpointHit name) size
-]
-
-{ #category : 'API-history' }
-DSRecordHistory >> breakpointRemove [
-
-	^ (self breakpointEvents: BreakpointRemoved name) size
 ]
 
 { #category : 'API-history' }
@@ -179,12 +133,6 @@ DSRecordHistory >> buildWindows [
 					                    w type ] ]) or: [ w windowId = -1 ] ]
 ]
 
-{ #category : 'API-history' }
-DSRecordHistory >> callStackBrowing [
-
-	^ (self allRecordsOfKind: DSBrowseContextRecord) size
-]
-
 { #category : 'private - history' }
 DSRecordHistory >> collectTimeDiscrepancies [
 
@@ -209,14 +157,60 @@ DSRecordHistory >> collectTimeDiscrepancies [
 { #category : 'API-history' }
 DSRecordHistory >> countDebugActions [
 
-	^ self breakpointAdds + self breakpointRemove + self executedCode
+	^ self debugPointAdds + self debugPointRemove + self executedCode
 	  + self methodsAdded + self methodsModified + self methodsRemoved
-	  + self numberOfSteps + self callStackBrowing
+	  + self numberOfSteps
 ]
 
 { #category : 'accessing' }
 DSRecordHistory >> dateTime [
 	^records first dateTime
+]
+
+{ #category : 'API-history' }
+DSRecordHistory >> debugPointAdds [
+
+	^ (self debugPointEvents: DebugPointAdded name) size
+]
+
+{ #category : 'API-history' }
+DSRecordHistory >> debugPointAnalysisMap [
+
+	| report |
+	report := Dictionary new.
+	(self allRecordsOfKind: DSDebugPointRecord) do: [ :bp |
+		(report at: bp targetClassOrMethod ifAbsentPut: [
+			 DSBreakpointReport new
+				 method: bp targetClassOrMethod;
+				 yourself ]) add: bp ].
+	^ report
+]
+
+{ #category : 'private - history' }
+DSRecordHistory >> debugPointEvents [
+
+	^ self records select: [ :r |
+		  (r isKindOf: DSAbstractDebugPointEventRecord) or: [
+			  r isKindOf: DSDebugPointRecord ] ]
+]
+
+{ #category : 'private - history' }
+DSRecordHistory >> debugPointEvents: aDebugPointEventName [
+
+	^ self debugPointEvents select: [ :bpEvent | 
+		  bpEvent eventName = aDebugPointEventName ]
+]
+
+{ #category : 'API-history' }
+DSRecordHistory >> debugPointHit [
+
+	^ (self debugPointEvents: DebugPointHit name) size
+]
+
+{ #category : 'API-history' }
+DSRecordHistory >> debugPointRemove [
+
+	^ (self debugPointEvents: DebugPointRemoved name) size
 ]
 
 { #category : 'private - history' }
@@ -248,33 +242,25 @@ DSRecordHistory >> estimateSourceEventOf: aDSDebuggerOpeningRecord from: aRecord
 
 
 	(self
-		 findSourceEventLike:
-		 aDSDebuggerOpeningRecord primarySourcesOfWindowOpenings
+		 findSourceEventLike: aDSDebuggerOpeningRecord primarySourcesOfWindowOpenings
 		 forRecord: aDSDebuggerOpeningRecord
 		 in: aRecordList) ifNotNil: [ :sourceEvent | ^ sourceEvent ].
 
 
 	previousRecord := aRecordList at: eventIndex - 1.
-	(previousRecord class == DSMouseEnterTableItemRecord and: [
-		 previousRecord isOverTestCase ]) ifTrue: [
-		^ DSRunTestRecord for: previousRecord ].
 
 
 	(self
-		 findSourceEventLike:
-		 aDSDebuggerOpeningRecord secondarySourcesOfWindowOpenings
+		 findSourceEventLike: aDSDebuggerOpeningRecord secondarySourcesOfWindowOpenings
 		 forRecord: aDSDebuggerOpeningRecord
 		 in: aRecordList) ifNotNil: [ :sourceEvent | ^ sourceEvent ].
 
 
-	aDSDebuggerOpeningRecord contextName = 'CompiledMethod>>#DoIt'
-		ifTrue: [
-			^DSDebugItRecord new
-				selectedString: aDSDebuggerOpeningRecord sourceNodeCode;
-				windowId: (aRecordList at: eventIndex - 1) windowId;
-				yourself ].
-
-	"self halt: 'If we get there we forgot a case...'."
+	aDSDebuggerOpeningRecord contextName = 'CompiledMethod>>#DoIt' ifTrue: [
+			^ DSDebugItRecord new
+				  selectedString: aDSDebuggerOpeningRecord sourceNodeCode;
+				  windowId: (aRecordList at: eventIndex - 1) windowId;
+				  yourself ]. "self halt: 'If we get there we forgot a case...'."
 	^ aRecordList at: eventIndex - 1
 ]
 
@@ -499,36 +485,27 @@ DSRecordHistory >> name [
 { #category : 'API-history' }
 DSRecordHistory >> numberOfSteps [
 
-	^ (self allRecordsOfKind: DSStepActionRecord) size
-]
-
-{ #category : 'API-history' }
-DSRecordHistory >> openedDebuggers [
-
-	^ (self allRecordsOfKind: DSDebuggerOpeningRecord) size
+	^ (self allRecordsOfKind: DSAbstractDebuggerActionRecord) size
 ]
 
 { #category : 'initialization' }
 DSRecordHistory >> processRecords: array [
 
-	self fixWindowIdsOf: array.
+	self fixWindowIdsOf: array. 
 	"events with window id equals to 0 are automatic events triggered while opening a spec presenter while the window is not already open -> noise "
-	self records:
-		(array reject: [ :e | #( 0 ) includes: e windowId ]).
-		
-	"Transform raw events to model events"
-	(self allRecordsOfKind: DSStepActionRecord) do: #asStepRecord.
-	(self allRecordsOfKind: DSAbstractDebugPointEventRecord) do: #asDebugPointRecord.
+	self records: (array reject: [ :e | #( 0 ) includes: e windowId ]). 
 	
-	"Detect if we're in a specific task"	
-	(self records first isKindOf: DSStartTaskRecord) ifTrue: [
-		self taskName: self records first taskName ].
+	"Transform raw events to model events"
+	(self allRecordsOfKind: DSAbstractDebugPointEventRecord) do: #asDebugPointRecord. 
+	
+	"Detect if we're in a specific task"
+	(self records first isKindOf: DSStartTaskRecord) ifTrue: [ self taskName: self records first taskName ]. 
 	
 	"Windows"
 	self buildWindowHistory.
-	self buildWindows.
-	self buildWindowJumps.
-	self reconstructWindowsToolInfo.
+	self buildWindows. 
+	"self buildWindowJumps."
+	self reconstructWindowsToolInfo. 
 	
 	"Check data consistency (raises a warning that can be proceeded)"
 	self validateWindows
@@ -556,8 +533,7 @@ DSRecordHistory >> reconstructWindowsToolInfo [
 
 	| toolInfos validWindows |
 	toolInfos := (((records select: [ :r |
-		                (r isKindOf: DSToolWindowEvent) or: [
-			                r class = DSMouseEnterWindowRecord ] ]) collect:
+			                (r class = DSMouseEnterWindowRecord) ]) collect:
 		               #toolInfo) reject: #isNil) asOrderedCollection
 		             groupedBy: #windowIdentityHash.
 
@@ -595,7 +571,7 @@ DSRecordHistory >> startTime [
 	^ records first dateTime asTime
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'accessing' }
 DSRecordHistory >> stopTime [
 	^records last dateTime asTime
 ]
@@ -711,40 +687,31 @@ DSRecordHistory >> validateWindows [
 	| erroneousWindows |
 	erroneousWindows := Dictionary new.
 
-	windows do: [ :w |
-		| firstEvent lastEvent |
-		firstEvent := w events first.
-		lastEvent := w events last.
-
-		({
-			 DSWindowOpenedRecord.
-			 DSWindowActivatedRecord.
-			 DSMouseEnterWindowRecord.
-			 DSDebuggerOpeningRecord.
-			 DSBrowseContextRecord.
-			 DSQueryBrowseRecord } includes: firstEvent class) ifFalse: [
-			(erroneousWindows at: w ifAbsentPut: [ OrderedCollection new ])
-				add: #opening -> firstEvent ].
-
-		({
-			 DSWindowClosedRecord.
-			 DSMouseLeaveWindowRecord } includes: lastEvent class) ifFalse: [
-			(erroneousWindows at: w ifAbsentPut: [ OrderedCollection new ])
-				add: #closing -> lastEvent ].
-
-		w events do: [ :e |
-			(e dateTime between: firstEvent dateTime and: lastEvent dateTime)
-				ifFalse: [
-					(erroneousWindows at: w ifAbsentPut: [ OrderedCollection new ])
-						add: #timestamp -> e ] ] ]
-
-	"erroneousWindows ifNotEmpty: [
+	windows do: [ :w | "erroneousWindows ifNotEmpty: [
 		Warning signal: (String streamContents: [ :str |
 				 str << erroneousWindows size printString.
 				 str space.
 				 str
 				 <<
 				 'potential sequence problem found in windows. This is just an information, you can proceed.' ]) ]"
+			| firstEvent lastEvent |
+			firstEvent := w events first.
+			lastEvent := w events last.
+
+			({
+				 DSWindowOpenedRecord.
+				 DSWindowActivatedRecord.
+				 DSMouseEnterWindowRecord } includes: firstEvent class) ifFalse: [
+				(erroneousWindows at: w ifAbsentPut: [ OrderedCollection new ]) add: #opening -> firstEvent ].
+
+			({
+				 DSWindowClosedRecord.
+				 DSMouseLeaveWindowRecord } includes: lastEvent class) ifFalse: [
+				(erroneousWindows at: w ifAbsentPut: [ OrderedCollection new ]) add: #closing -> lastEvent ].
+
+			w events do: [ :e |
+					(e dateTime between: firstEvent dateTime and: lastEvent dateTime) ifFalse: [
+						(erroneousWindows at: w ifAbsentPut: [ OrderedCollection new ]) add: #timestamp -> e ] ] ]
 ]
 
 { #category : 'accessing' }

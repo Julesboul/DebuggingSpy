@@ -1,8 +1,8 @@
 "
-I am a record for the 'Proceed' command in the Debugger.
+I am a record for the 'Run to selection' command in the Debugger.
 "
 Class {
-	#name : 'DSProceedRecord',
+	#name : 'DSRunToSelectionRecord',
 	#superclass : 'DSAbstractDebuggerActionRecord',
 	#category : 'DebuggingSpy-Records',
 	#package : 'DebuggingSpy',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : 'accessing' }
-DSProceedRecord >> eventName [
+DSRunToSelectionRecord >> eventName [
 
-	^ 'Proceed'
+	^ 'Run to selection'
 ]

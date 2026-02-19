@@ -1,8 +1,8 @@
 "
-I record when the user selects code and executes it by a ""Do it"".
+I record when the user selects code and inspects it.
 "
 Class {
-	#name : 'DSDoItRecord',
+	#name : 'DSInspectItRecord',
 	#superclass : 'DSCodeActionRecord',
 	#category : 'DebuggingSpy-Records',
 	#package : 'DebuggingSpy',
@@ -10,6 +10,7 @@ Class {
 }
 
 { #category : 'accessing' }
-DSDoItRecord >> eventName [ 
-	^'Do it'
+DSInspectItRecord >> eventName [
+
+	^ 'Inspect it'
 ]
