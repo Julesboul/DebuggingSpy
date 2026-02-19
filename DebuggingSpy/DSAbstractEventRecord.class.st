@@ -25,7 +25,7 @@ DSAbstractEventRecord class >> for: anObject [
 
 { #category : 'accessing' }
 DSAbstractEventRecord class >> link [
-
+		
 	^ DSMetaLink new
 		  metaObject: self;
 		  selector: #for:;
