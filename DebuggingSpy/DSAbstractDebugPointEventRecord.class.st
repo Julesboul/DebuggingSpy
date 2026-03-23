@@ -21,14 +21,14 @@ Class {
 { #category : 'converting' }
 DSAbstractDebugPointEventRecord >> asDebugPointRecord [
 
-	^ self modelClass
+	^ DSMethodDebugPointRecord
 		  perform: eventName asLowercase asSymbol asMutator
 		  with: self
 ]
 
 { #category : 'testing' }
 DSAbstractDebugPointEventRecord >> canOpenDebuggers [
-	^eventName = 'BreakpointHit'
+	^eventName = 'DebugPointHit'
 ]
 
 { #category : 'accessing' }
@@ -39,6 +39,12 @@ DSAbstractDebugPointEventRecord >> debugPointHash [
 { #category : 'accessing' }
 DSAbstractDebugPointEventRecord >> eventName [
 	^eventName
+]
+
+{ #category : 'accessing' }
+DSAbstractDebugPointEventRecord >> eventName: anEventName [
+
+	eventName := anEventName
 ]
 
 { #category : 'converting' }

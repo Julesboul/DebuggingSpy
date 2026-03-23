@@ -1,3 +1,6 @@
+"
+I am representing a period of activity in a window.
+"
 Class {
 	#name : 'DSWindowActivityRecord',
 	#superclass : 'DSAbstractEventRecord',
@@ -10,9 +13,9 @@ Class {
 		'next',
 		'annotation'
 	],
-	#category : 'DebuggingSpy-Records',
+	#category : 'DebuggingSpy-Records-Extensions',
 	#package : 'DebuggingSpy',
-	#tag : 'Records'
+	#tag : 'Records-Extensions'
 }
 
 { #category : 'instance creation' }
@@ -52,14 +55,14 @@ DSWindowActivityRecord >> annotation: anObject [
 DSWindowActivityRecord >> debuggingActionsClasses [
 
 	| classes |
-	classes := OrderedCollection withAll: DSStepActionRecord allSubclasses.
-	classes addAll: DSStepRecord allSubclasses.
+	classes := OrderedCollection withAll: DSAbstractDebuggerActionRecord allSubclasses.
 	^ classes
 ]
 
 { #category : 'accessing' }
 DSWindowActivityRecord >> duration [
-	^ events last dateTime - events first dateTime
+
+	^ stop dateTime - start dateTime
 ]
 
 { #category : 'accessing' }
@@ -82,6 +85,26 @@ DSWindowActivityRecord >> events [
 DSWindowActivityRecord >> events: anObject [
 
 	events := anObject
+]
+
+{ #category : 'inspecting' }
+DSWindowActivityRecord >> inspectionAnnotation [
+
+	<inspectorPresentationOrder: 50 title: 'Annotation'>
+	^ DSWindowElementAnnotationPresenter on: self
+]
+
+{ #category : 'merging' }
+DSWindowActivityRecord >> mergeWith: aDSWindowActivityRecord [
+	"Merge the windowActivity with another one. Be careful, aDSWindowActivityRecord must happen after self otherwise the result will be false"
+
+	^ self class new
+		  start: start;
+		  stop: aDSWindowActivityRecord stop;
+		  events: events , aDSWindowActivityRecord events;
+		  window: window;
+		  next: aDSWindowActivityRecord next;
+		  yourself
 ]
 
 { #category : 'accessing' }
@@ -142,12 +165,4 @@ DSWindowActivityRecord >> window [
 DSWindowActivityRecord >> window: anObject [
 
 	window := anObject
-]
-
-{ #category : 'accessing' }
-DSWindowActivityRecord >> windowId [
-
-	^ windowId
-		  ifNil: [ windowId := window windowId ]
-		  ifNotNil: [ windowId ]
 ]

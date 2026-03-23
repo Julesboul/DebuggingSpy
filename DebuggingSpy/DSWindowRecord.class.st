@@ -1,3 +1,6 @@
+"
+I am representing windows on which a user did actions. I am built from a list of records. 
+"
 Class {
 	#name : 'DSWindowRecord',
 	#superclass : 'Object',
@@ -33,18 +36,6 @@ DSWindowRecord >> activePeriods: anObject [
 	activePeriods := anObject
 ]
 
-{ #category : 'adding' }
-DSWindowRecord >> addIdleTime: aDuration [
-	idleTime ifNil: [
-		idleTime := aDuration.
-		idleTime asSeconds = 40562 ifTrue: [ self halt ].	
-	idleTime asSeconds = 3800 ifTrue: [ self halt ].
-		^ self ].	
-	idleTime := idleTime + aDuration.
-	idleTime asSeconds = 40562 ifTrue: [ self halt ].	
-	idleTime asSeconds = 3800 ifTrue: [ self halt ].
-]
-
 { #category : 'building' }
 DSWindowRecord >> buildEvents: aCollectionOfEvents [
 
@@ -52,7 +43,7 @@ DSWindowRecord >> buildEvents: aCollectionOfEvents [
 	self computeActivePeriods.
 
 	type := self windowTypeFor: events first.
-	
+
 	name ifNotNil: [ ^ self ].
 	name := self windowNameFor: events first
 ]
@@ -63,32 +54,29 @@ DSWindowRecord >> computeActivePeriods [
 	| activityStartStopEvents start stop previous |
 	activePeriods := OrderedCollection new.
 	activityStartStopEvents := events select: [ :e |
-		                           {
-			                           DSMouseEnterWindowRecord.
-			                           DSMouseLeaveWindowRecord } includes:
-			                           e class ].
-	(activityStartStopEvents notEmpty and: [
-		 activityStartStopEvents first class == DSMouseLeaveWindowRecord ])
-		ifTrue: [ activityStartStopEvents removeFirst ].
+			                           {
+				                           DSMouseEnterWindowRecord.
+				                           DSMouseLeaveWindowRecord } includes: e class ].
+	(activityStartStopEvents notEmpty and: [ activityStartStopEvents first class == DSMouseLeaveWindowRecord ]) ifTrue: [
+		activityStartStopEvents removeFirst ].
 
 	[ activityStartStopEvents isEmpty ] whileFalse: [
-		| next |
-		next := activityStartStopEvents removeFirst.
-		next class = DSMouseEnterWindowRecord ifTrue: [
-			previous class = next class ifFalse: [ start := next ] ].
+			| next |
+			next := activityStartStopEvents removeFirst.
+			next class = DSMouseEnterWindowRecord ifTrue: [ previous class = next class ifFalse: [ start := next ] ].
 
-		next class = DSMouseLeaveWindowRecord ifTrue: [
-			| startIndex stopIndex |
-			stop := next.
-			startIndex := events indexOf: start.
-			stopIndex := events indexOf: stop.
-			startIndex > 0 ifTrue: [
-				activePeriods add: (DSWindowActivityRecord
-						 start: start
-						 stop: stop
-						 events: (events copyFrom: startIndex to: stopIndex)
-						 window: self) ] ].
-		previous := next ]
+			next class = DSMouseLeaveWindowRecord ifTrue: [
+					| startIndex stopIndex |
+					stop := next.
+					startIndex := events indexOf: start.
+					stopIndex := events indexOf: stop.
+					startIndex > 0 ifTrue: [
+							activePeriods add: (DSWindowActivityRecord
+									 start: start
+									 stop: stop
+									 events: (events copyFrom: startIndex to: stopIndex)
+									 window: self) ] ].
+			previous := next ]
 ]
 
 { #category : 'accessing' }
@@ -106,95 +94,79 @@ DSWindowRecord >> events: anObject [
 { #category : 'accessing' }
 DSWindowRecord >> getWindowType [
 
-	toolInfos ifNotNil: [ toolInfos ifNotEmpty: [ ^ toolInfos first toolClassName ] ].
+	toolInfos ifNotNil: [ ^ toolInfos toolClassName ].
 	type isString ifTrue: [ ^ type ].
 	^ 'External Window'
-]
-
-{ #category : 'accessing' }
-DSWindowRecord >> idleTime [
-
-	^ idleTime ifNil: [ idleTime := 0 seconds ] ifNotNil: [ idleTime ]
-]
-
-{ #category : 'testing' }
-DSWindowRecord >> isBreakpointBrowser [
-
-	toolInfos ifNil: [ ^ false ].
-	toolInfos ifEmpty: [ ^ false ].
-	^ toolInfos first toolClassName = 'DebugPointBrowserPresenter'
 ]
 
 { #category : 'testing' }
 DSWindowRecord >> isBrowser [
 
 	toolInfos ifNil: [ ^ false ].
-	toolInfos ifEmpty: [ ^ false ].
-	^ toolInfos first toolClassName = 'ClyFullBrowserMorph'
+	^ toolInfos toolClassName = 'ClyFullBrowserMorph'
 ]
 
 { #category : 'testing' }
 DSWindowRecord >> isCritiqueBrowser [
 
 	toolInfos ifNil: [ ^ false ].
-	toolInfos ifEmpty: [ ^ false ].
-	^ toolInfos first toolClassName = 'StCritiquePackageSelectorPresenter' 
+	^ toolInfos toolClassName = 'StCritiquePackageSelectorPresenter' 
+]
+
+{ #category : 'testing' }
+DSWindowRecord >> isDebugPointBrowser [
+
+	toolInfos ifNil: [ ^ false ].
+	^ toolInfos toolClassName = 'DebugPointBrowserPresenter'
 ]
 
 { #category : 'testing' }
 DSWindowRecord >> isDebugger [
 
 	toolInfos ifNil: [ ^ false ].
-	toolInfos ifEmpty: [ ^ false ].
-	^ toolInfos first toolClassName = 'StDebugger'
+	^ toolInfos toolClassName = 'StDebugger'
 ]
 
 { #category : 'testing' }
 DSWindowRecord >> isEpicea [
 
 	toolInfos ifNil: [ ^ false ].
-	toolInfos ifEmpty: [ ^ false ].
-	^ toolInfos first toolClassName = 'EpUnifiedBrowserPresenter'
+	^ toolInfos toolClassName = 'EpUnifiedBrowserPresenter'
 ]
 
 { #category : 'testing' }
 DSWindowRecord >> isIceberg [
 
 	toolInfos ifNil: [ ^ false ].
-	toolInfos ifEmpty: [ ^ false ].
-	^ toolInfos first toolClassName = 'IceTipRepositoryBrowser'
+	^ toolInfos toolClassName = 'IceTipRepositoryBrowser'
 ]
 
 { #category : 'testing' }
 DSWindowRecord >> isInspector [
 
 	toolInfos ifNil: [ ^ false ].
-	toolInfos ifEmpty: [ ^ false ].
-	^ toolInfos first toolClassName = 'StInspectorPresenter'
+	^ toolInfos toolClassName = 'StInspectorPresenter'
 ]
 
 { #category : 'testing' }
 DSWindowRecord >> isPlayground [
 
 	toolInfos ifNil: [ ^ false ].
-	toolInfos ifEmpty: [ ^ false ].
-	^ toolInfos first toolClassName = 'StPlaygroundPresenter'
+	^ toolInfos toolClassName = 'StPlaygroundPresenter'
 ]
 
 { #category : 'testing' }
 DSWindowRecord >> isQueryTool [
 
 	toolInfos ifNil: [ ^ false ].
-	toolInfos ifEmpty: [ ^ false ].
-	^ toolInfos first toolClassName = 'ClyQueryBrowserMorph'
+	^ toolInfos toolClassName = 'ClyQueryBrowserMorph'
 ]
 
 { #category : 'testing' }
 DSWindowRecord >> isRewriter [
 
 	toolInfos ifNil: [ ^ false ].
-	toolInfos ifEmpty: [ ^ false ].
-	^ toolInfos first toolClassName = 'StRewriterExpressionFinderPresenter' 
+	^ toolInfos toolClassName = 'StRewriterExpressionFinderPresenter' 
 ]
 
 { #category : 'accessing' }
@@ -211,11 +183,12 @@ DSWindowRecord >> name: anObject [
 
 { #category : 'printing' }
 DSWindowRecord >> printOn: ws [
+
 	ws << '['.
 	self printTypeOn: ws.
 	ws << ']'.
 	ws space.
-	ws << (name isString ifTrue:[name] ifFalse:[name printString]) 
+	ws << name asString
 ]
 
 { #category : 'printing' }
@@ -251,23 +224,7 @@ DSWindowRecord >> toolInfos: anObject [
 { #category : 'accessing' }
 DSWindowRecord >> totalTime [
 
-	^ (activePeriods
-		   inject: 0
-		   into: [ :sum :next | sum + next duration asSeconds ]) seconds
-]
-
-{ #category : 'accessing' }
-DSWindowRecord >> trueIdleTime [
-
-	^ trueIdleTime
-		  ifNil: [ trueIdleTime := 0 asSeconds ]
-		  ifNotNil: [ trueIdleTime ]
-]
-
-{ #category : 'accessing' }
-DSWindowRecord >> trueIdleTime: anObject [
-
-	trueIdleTime := anObject
+	^ (activePeriods sum: [ :period | period duration asSeconds ] ifEmpty: 0) seconds
 ]
 
 { #category : 'accessing' }
@@ -288,11 +245,11 @@ DSWindowRecord >> windowId [
 ]
 
 { #category : 'accessing' }
-DSWindowRecord >> windowNameFor: aDSDebuggerOpeningRecord [
+DSWindowRecord >> windowNameFor: aDSWindowOpeningRecord [
 
-	^ [ aDSDebuggerOpeningRecord windowName ]
+	^ [ aDSWindowOpeningRecord windowName ]
 		  on: Error
-		  do: [ aDSDebuggerOpeningRecord windowId ]
+		  do: [ aDSWindowOpeningRecord windowId ]
 ]
 
 { #category : 'accessing' }
