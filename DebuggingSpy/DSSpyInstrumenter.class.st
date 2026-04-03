@@ -164,7 +164,7 @@ DSSpyInstrumenter >> instrumentSendersActions [
 
 	ClyShowMessageSenderCommand link: DSSendersRecord link toAST: (ClyShowMessageSenderCommand >> #execute) ast.
 	ClyTextEditor link: DSSendersRecord link toAST: (ClyTextEditor>>#sendersOf:) ast.
-	RubSmalltalkEditor link: DSImplementorsRecord link toAST: (RubSmalltalkEditor >> #sendersOf:) ast.
+	RubSmalltalkEditor link: DSSendersRecord link toAST: (RubSmalltalkEditor >> #sendersOf:) ast.
 	SpBrowseSendersCommand link: DSSendersRecord link toAST: (SpBrowseSendersCommand >> #execute) ast
 ]
 
