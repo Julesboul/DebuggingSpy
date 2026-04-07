@@ -149,6 +149,15 @@ DSSpyInstrumenter >> instrumentPrintIt [
 	SpCodePrintItCommand link: DSPrintItRecord link toAST: (SpCodePrintItCommand >> #execute) ast
 ]
 
+{ #category : 'interactions' }
+DSSpyInstrumenter >> instrumentScrolling [
+	"Instruments the scrolling in different components"
+
+	Morph link: DSScrollingRecord link toAST: (Morph >> #mouseWheel:) ast.
+	SliderMorph link: DSScrollingRecord link toAST: (SliderMorph >> #dragging:) ast.
+	GeneralScrollPaneMorph link: DSScrollingRecord link toAST: (GeneralScrollPaneMorph >> #mouseWheel:) ast
+]
+
 { #category : 'system' }
 DSSpyInstrumenter >> instrumentSendersActions [
 	"Instruments actions to show senders of a method or class"
@@ -187,9 +196,17 @@ DSSpyInstrumenter >> instrumentSystem [
 	self logCodeInteractions.
 	self logBrowsingActions.
 	self logDebuggerActions.
+	self logClyBrowserActions.
 	
 	"Intruments exceptions"
 	self instrumentExceptionSignalling
+]
+
+{ #category : 'interactions' }
+DSSpyInstrumenter >> instrumentTabMorph [
+	"Instruments the active Tab Morph"
+
+	TabGroupMorph link: DSMorphTabRecord link toAST: (TabGroupMorph >> #update:with:) ast
 ]
 
 { #category : 'debugpoints' }
@@ -238,6 +255,13 @@ DSSpyInstrumenter >> logClipboardActions [
 ]
 
 { #category : 'system-instrumentation' }
+DSSpyInstrumenter >> logClyBrowserActions [
+	"Instrument actions link to the Browser UI : scrolling, change in tabs, ..."
+
+	self instrumentTabMorph 
+]
+
+{ #category : 'system-instrumentation' }
 DSSpyInstrumenter >> logCodeInteractions [
 	"Instruments actions linked to code execution : do it, print it, inspect it, ..."
 
@@ -261,7 +285,8 @@ DSSpyInstrumenter >> logMouseEvents [
 	"Instrument mouse events"
 
 	self instrumentMouseEnterWindow.
-	self instrumentMouseLeaveWindow
+	self instrumentMouseLeaveWindow.
+	self instrumentScrolling
 ]
 
 { #category : 'system-instrumentation' }
