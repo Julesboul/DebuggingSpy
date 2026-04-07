@@ -724,7 +724,7 @@ DSSpyInstrumenterTest >> testInstrumentSendersAction [
 	self assert: self registry size equals: 2.
 
 	record := self registry first.
-	self assert: record class identicalTo: DSImplementorsRecord.
+	self assert: record class identicalTo: DSSendersRecord.
 	self assert: record windowId equals: nil
 ]
 
@@ -743,7 +743,7 @@ DSSpyInstrumenterTest >> testInstrumentSpCodeBrowse [
 	record := self registry first.
 
 	self assert: record class identicalTo: DSBrowseRecord.
-	self assert: record windowId equals: codePresenter window identityHash
+	self assert: record windowId equals: codePresenter window window identityHash
 ]
 
 { #category : 'tests - interactions' }
@@ -839,7 +839,7 @@ DSSpyInstrumenterTest >> testInstrumentSpCodeImplementors [
 
 	record := self registry first.
 	self assert: record class identicalTo: DSImplementorsRecord.
-	self assert: record windowId equals: codePresenter window identityHash.
+	self assert: record windowId equals: codePresenter window window identityHash.
 	
 	record := self registry second.
 	self assert: record class identicalTo: DSWindowOpenedRecord
@@ -894,7 +894,7 @@ DSSpyInstrumenterTest >> testInstrumentSpCodeSenders [
 
 	record := self registry first.
 	self assert: record class identicalTo: DSSendersRecord.
-	self assert: record windowId equals: codePresenter window identityHash.
+	self assert: record windowId equals: codePresenter window window identityHash.
 	
 	record := self registry second.
 	self assert: record class identicalTo: DSWindowOpenedRecord
