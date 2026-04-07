@@ -241,11 +241,15 @@ DSRecordBrowserPresenter >> listAddedFilesActions [
 DSRecordBrowserPresenter >> openAddFileDialog [
 	"Opens a dialog where the user can select a file to add in the browser."
 
-	| newFiles |
+	| filesDirectory newFiles |
+	filesDirectory := DSSpy logger loggingDirectory.
+	filesDirectory ensureCreateDirectory.
+
 	newFiles := StOpenFilePresenter new
 		            beMultipleSelection;
-		            defaultFolder: DSSpy logger loggingDirectory;
+		            defaultFolder: filesDirectory;
 		            openModal.
+
 	newFiles ifNotNil: [ newFiles do: [ :file | self addFile: file asFileReference ] ]
 ]
 
@@ -325,11 +329,11 @@ DSRecordBrowserPresenter >> startRecordButton [
 DSRecordBrowserPresenter >> startRecording [
 	"Starts recording events and instianciates a timerWindow which displays a timer and shows that Debugging Spy is recordering."
 
-	timerWindow := DSTimerWindow new.
 	DSSpyInstrumenter instrumentSystem.
-	timerWindow
-		openInWorld;
-		startTimer.
+	timerWindow := DSTimerWindow new
+		               openInWorld;
+		               startTimer;
+		               yourself.
 	self updateToolbar
 ]
 
@@ -390,6 +394,12 @@ DSRecordBrowserPresenter >> timerWindow [
 	^ timerWindow
 ]
 
+{ #category : 'accessing' }
+DSRecordBrowserPresenter >> timerWindow: aTimerWindow [
+
+	timerWindow := aTimerWindow
+]
+
 { #category : 'layout' }
 DSRecordBrowserPresenter >> toolbar [
 	"Instanciates a new toolbar to be displayed on layout."
@@ -399,6 +409,14 @@ DSRecordBrowserPresenter >> toolbar [
 		  addItem: startRecordButtonPresenter;
 		  addItem: stopRecordButtonPresenter;
 		  addItem: self filterRecordsButton
+]
+
+{ #category : 'operations' }
+DSRecordBrowserPresenter >> updateLastRecord: aRecord [
+	"Updates the last record for the recording window."
+
+	timerWindow ifNil: [ ^ self ].
+	timerWindow lastRecord: aRecord
 ]
 
 { #category : 'operations' }

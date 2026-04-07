@@ -23,6 +23,12 @@ DSTimerWindowTest >> setUp [
 ]
 
 { #category : 'tests' }
+DSTimerWindowTest >> testCurrentTimeMorph [
+
+	self assert: (Time readFrom: self currentTimeMorph contents readStream) asSeconds equals: Time now asSeconds
+]
+
+{ #category : 'tests' }
 DSTimerWindowTest >> testElapsedTime [
 
 	DSSpy recordingSession: true.
@@ -41,9 +47,33 @@ DSTimerWindowTest >> testEmptyTimerMorph [
 ]
 
 { #category : 'tests' }
-DSTimerWindowTest >> testTimeNowMorph [
+DSTimerWindowTest >> testLastEventMorph [
 
-	self assert: (Time readFrom: self currentTimeMorph contents readStream) asSeconds equals: Time now asSeconds
+	| eventMorph |
+	eventMorph := timerWindow lastEventMorph.
+	self assert: eventMorph contents equals: 'No last record'
+]
+
+{ #category : 'tests' }
+DSTimerWindowTest >> testLastRecord [
+
+	| record |
+	record := DSBrowseRecord new.
+	timerWindow lastRecord: record.
+	self assert: timerWindow lastEventMorph contents equals: 'Browse'
+]
+
+{ #category : 'tests' }
+DSTimerWindowTest >> testStartTimer [
+
+	self assert: timerWindow startTimer equals: timerWindow.
+
+	DSSpy recordingSession: true.
+
+	timerWindow startTimer.
+	self deny: timerWindow startTime isNil.
+
+	DSSpy recordingSession: false
 ]
 
 { #category : 'layout' }
