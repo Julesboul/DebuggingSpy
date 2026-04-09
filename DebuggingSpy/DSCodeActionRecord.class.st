@@ -20,7 +20,7 @@ DSCodeActionRecord >> record: anEditor [
 		                  ifTrue: [ anEditor recordSelectedString ]
 		                  ifFalse: [ DSSpy recordSourceCodeDisabledErrorMessage ].
 
-	self windowId: anEditor identityHash
+	self windowId: anEditor recordWindow identityHash
 ]
 
 { #category : 'accessing' }
