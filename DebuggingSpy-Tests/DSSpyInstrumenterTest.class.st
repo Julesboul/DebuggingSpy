@@ -820,17 +820,21 @@ DSSpyInstrumenterTest >> testInstrumentSpCodeDoItAndGoForPlayground [
 
 	| presenter record |
 	presenter := StPlaygroundPagePresenter basicNew.
-	presenter forceDisableLoading.
+	presenter setModelBeforeInitialization: (StPlaygroundPage new
+			 timeToWait: 5 milliSeconds;
+			 baseDirectory: FileSystem memory;
+			 yourself).
 	presenter application: StPharoApplication new.
-	presenter initializePresenters.
-	presenter setModelBeforeInitialization: DSFakeTextEditor new.
+	presenter forceDisableLoading.
+	presenter initialize.
+	presenter open.
+
 	presenter text text: '4+2'.
 	presenter text selectionInterval: (1 to: 3).
-
 	presenter doEvaluateAndGo.
 
-	self assert: self registry size equals: 1.
-	record := self registry first.
+	self assert: self registry size equals: 2.
+	record := self registry second.
 
 	self assert: record class identicalTo: DSDoItAndGoRecord.
 	self assert: record selectedString equals: '4+2'
