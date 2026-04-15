@@ -188,6 +188,14 @@ DSRecordBrowserPresenter >> files [
 	^ files ifNil: [ files := OrderedCollection new ]
 ]
 
+{ #category : 'operations' }
+DSRecordBrowserPresenter >> filterRecordClass: aClass [
+	"Add the specified class to the records filter."
+
+	recordsFilter sourceList selectItems: { aClass }.
+	recordsFilter addSelected
+]
+
 { #category : 'layout' }
 DSRecordBrowserPresenter >> filterRecordsButton [
 	"Instanciates a new layout button which opens the records' filter window."
@@ -232,6 +240,15 @@ DSRecordBrowserPresenter >> getTimelinePointsFrom: aHistory [
 						  windowRecord events last dateTime asNanoSeconds }
 				  at: index;
 				  color: windowRecord windowColor ]
+]
+
+{ #category : 'helpers' }
+DSRecordBrowserPresenter >> getWindowFromRecord: aRecord [
+	"Returns the record's corresponding window record in the history."
+
+	| rawRecords |
+	rawRecords := DSSpy materialize: fileListPresenter selectedItem.
+	^ ((DSRecordHistory on: rawRecords) windows select: [ :window | window windowId = aRecord windowId ]) first
 ]
 
 { #category : 'initialization' }
@@ -338,6 +355,20 @@ DSRecordBrowserPresenter >> recordsTableActions [
 					  description: 'Inspect the raw records';
 					  shortcutKey: $i meta;
 					  action: [ recordsTablePresenter selectedItem key inspect ] ];
+		  addActionWith: [ :anItem |
+				  anItem
+					  name: 'Inspect the window';
+					  iconName: #window;
+					  description: 'Inspect the record window';
+					  shortcutKey: $w meta;
+					  action: [ (self getWindowFromRecord: recordsTablePresenter selectedItem key) inspect ] ];
+		  addActionWith: [ :anItem |
+				  anItem
+					  name: 'Filter this type of records';
+					  iconName: #packageAdd;
+					  description: 'Filter this type of records';
+					  shortcutKey: $f meta;
+					  action: [ self filterRecordClass: recordsTablePresenter selectedItem key class ] ];
 		  yourself
 ]
 

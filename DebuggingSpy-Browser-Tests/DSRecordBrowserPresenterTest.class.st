@@ -16,7 +16,7 @@ DSRecordBrowserPresenterTest >> filesPresenter [
 
 { #category : 'helpers' }
 DSRecordBrowserPresenterTest >> generateRecordsFile [
-	"Generates a file of random records and returns its file reference."
+	"Generates a file of records and returns its file reference."
 
 	| records recordFileRef writeStream |
 	records := self getRecordExamples.
@@ -174,6 +174,14 @@ DSRecordBrowserPresenterTest >> testCreatingAndOpeningBrowser [
 ]
 
 { #category : 'tests' }
+DSRecordBrowserPresenterTest >> testFilterRecordClass [
+
+	browser filterRecordClass: DSBrowseRecord.
+	self deny: ((browser presenterAt: #recordsFilter) sourceList items includes: DSBrowseRecord).
+	self assert: ((browser presenterAt: #recordsFilter) targetList items includes: DSBrowseRecord)
+]
+
+{ #category : 'tests' }
 DSRecordBrowserPresenterTest >> testFilteringAClassOfRecords [
 
 	| fileRef history |
@@ -230,6 +238,22 @@ DSRecordBrowserPresenterTest >> testGetRecordColorAssociationsFrom [
 	self assert: colorAssociations last key class equals: DSStepThroughRecord.
 
 	colorAssociations do: [ :association | self assert: association value equals: (Color fromHexString: '#70B77E') ]
+]
+
+{ #category : 'tests' }
+DSRecordBrowserPresenterTest >> testGetWindowFromRecord [
+
+	| record fileRef window |
+	fileRef := self generateRecordsFile.
+	record := (DSSpy materialize: fileRef) first.
+
+	self filesPresenter items: { fileRef }.
+	self filesPresenter selectItem: fileRef.
+
+	window := browser getWindowFromRecord: record.
+
+	self assert: window events first uuid equals: record uuid.
+	self assert: window name equals: record windowId
 ]
 
 { #category : 'tests' }
