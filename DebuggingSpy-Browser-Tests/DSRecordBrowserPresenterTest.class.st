@@ -8,6 +8,14 @@ Class {
 	#package : 'DebuggingSpy-Browser-Tests'
 }
 
+{ #category : 'asserting' }
+DSRecordBrowserPresenterTest >> assertThat: aRecord equals: anotherRecord [
+	"Verifies that all slots are equals between two records."
+
+	self assert: aRecord class equals: anotherRecord class.
+	aRecord class allSlots do: [ :slot | self assert: (aRecord readSlot: slot) equals: (anotherRecord readSlot: slot) ]
+]
+
 { #category : 'helpers' }
 DSRecordBrowserPresenterTest >> filesPresenter [
 
@@ -16,6 +24,7 @@ DSRecordBrowserPresenterTest >> filesPresenter [
 
 { #category : 'helpers' }
 DSRecordBrowserPresenterTest >> generateRecordsFile [
+	"Generates a file of records and returns its file reference."
 
 	^ self generateRecordsFileFor: self getRecordExamples
 ]
@@ -24,26 +33,7 @@ DSRecordBrowserPresenterTest >> generateRecordsFile [
 DSRecordBrowserPresenterTest >> generateRecordsFileFor: someRecords [
 	"Generates a file of records and returns its file reference."
 
-	| recordFileRef writeStream |
-
-	recordFileRef := self temporaryDirectory / ('ds-spy-test-' , UUID new asString).
-	recordFileRef ensureCreateFile.
-	writeStream := recordFileRef writeStream.
-
-	writeStream nextPut: $[.
-
-	someRecords doWithIndex: [ :record :index |
-			writeStream nextPutAll: (STON toString: record).
-
-			index = someRecords size ifFalse: [
-					writeStream nextPut: $,.
-					writeStream crlf ] ].
-
-	writeStream nextPut: $].
-
-	writeStream close.
-
-	^ recordFileRef
+	^ self writeRecords: someRecords inFile: self temporaryDirectory / ('ds-spy-test-' , UUID new asString)
 ]
 
 { #category : 'helpers' }
@@ -52,20 +42,16 @@ DSRecordBrowserPresenterTest >> getRecordExamples [
 	^ OrderedCollection new
 		  add: (DSBrowseRecord new
 				   windowId: 1;
-				   dateTime: (DateAndTime fromSeconds: 1);
-				   yourself);
+				   dateTime: (DateAndTime fromSeconds: 1));
 		  add: (DSMouseEnterWindowRecord new
 				   windowId: 2;
-				   dateTime: (DateAndTime fromSeconds: 2);
-				   yourself);
+				   dateTime: (DateAndTime fromSeconds: 2));
 		  add: (DSMouseLeaveWindowRecord new
 				   windowId: 3;
-				   dateTime: (DateAndTime fromSeconds: 3);
-				   yourself);
+				   dateTime: (DateAndTime fromSeconds: 3));
 		  add: (DSInspectItRecord new
 				   windowId: 4;
-				   dateTime: (DateAndTime fromSeconds: 4);
-				   yourself);
+				   dateTime: (DateAndTime fromSeconds: 4));
 		  yourself
 ]
 
@@ -107,24 +93,16 @@ DSRecordBrowserPresenterTest >> testAddFile [
 	| fileRef |
 	fileRef := self generateRecordsFile.
 
-	browser addFile: fileRef.
+	browser addFile: self temporaryDirectory.
+
 	self assert: browser files size equals: 1.
-	self assert: self filesPresenter items size equals: 1.
+	self assert: self filesPresenter roots size equals: 1.
+	self assert: self filesPresenter selectedItem equals: self temporaryDirectory.
 
-	self assert: self filesPresenter selectedItem equals: fileRef
-]
-
-{ #category : 'tests' }
-DSRecordBrowserPresenterTest >> testAddFileWhenAlreadyInList [
-
-	| fileRef |
-	fileRef := self generateRecordsFile.
-
-	browser addFile: fileRef.
-	browser addFile: fileRef.
+	browser addFile: fileRef. "fileRef is in temporary directory so it should not be added again"
 	self assert: browser files size equals: 1.
-	self assert: self filesPresenter items size equals: 1.
-	self assert: self filesPresenter selectedItem equals: fileRef
+	self assert: self filesPresenter roots size equals: 1.
+	self assert: self filesPresenter selectedItem equals: self temporaryDirectory
 ]
 
 { #category : 'tests' }
@@ -137,7 +115,7 @@ DSRecordBrowserPresenterTest >> testAddingMultipleFiles [
 	browser addFile: fileRef.
 
 	self assert: browser files size equals: 2.
-	self assert: self filesPresenter items size equals: 2.
+	self assert: self filesPresenter roots size equals: 2.
 	self assert: self filesPresenter selectedItem equals: fileRef
 ]
 
@@ -145,7 +123,7 @@ DSRecordBrowserPresenterTest >> testAddingMultipleFiles [
 DSRecordBrowserPresenterTest >> testBrowserEmpty [
 
 	self assertEmpty: browser files.
-	self assert: self filesPresenter items size equals: 0.
+	self assert: self filesPresenter roots size equals: 0.
 	self assert: self filesPresenter selectedItem equals: nil.
 	self assert: self recordsTablePresenter roots size equals: 0
 ]
@@ -185,6 +163,19 @@ DSRecordBrowserPresenterTest >> testCreatingAndOpeningBrowser [
 	DSRecordBrowserPresenter toggleBrowser.
 	self assert: DSRecordBrowserPresenter uniqueInstance window isOpen.
 	DSRecordBrowserPresenter toggleBrowser
+]
+
+{ #category : 'tests' }
+DSRecordBrowserPresenterTest >> testFileAdding [
+
+	| fileRef |
+	fileRef := self writeRecords: self getRecordExamples inFile: self temporaryDirectory / 'ds-spy/test'.
+	fileRef ensureCreateFile.
+	browser addFile: self temporaryDirectory.
+
+	self assert: (browser isFileAdded: self temporaryDirectory).
+	self assert: (browser isFileAdded: fileRef).
+	self deny: (browser isFileAdded: 'notAddedFile' asFileReference)
 ]
 
 { #category : 'tests' }
@@ -256,6 +247,63 @@ DSRecordBrowserPresenterTest >> testGetRecordColorAssociationsFrom [
 ]
 
 { #category : 'tests' }
+DSRecordBrowserPresenterTest >> testGetRecordsFromFileReference [
+
+	| records fileRef fileRecords |
+	records := self getRecordExamples.
+	fileRef := self generateRecordsFileFor: records.
+
+	fileRecords := browser getRecordsFromFileReference: fileRef.
+
+	self assertThat: records first equals: fileRecords first.
+	self assertThat: records second equals: fileRecords second.
+	self assertThat: records third equals: fileRecords third.
+	self assertThat: records fourth equals: fileRecords fourth.
+
+	fileRecords := browser getRecordsFromFileReference: self temporaryDirectory.
+
+	self assertThat: records first equals: fileRecords first.
+	self assertThat: records second equals: fileRecords second.
+	self assertThat: records third equals: fileRecords third.
+	self assertThat: records fourth equals: fileRecords fourth
+]
+
+{ #category : 'tests' }
+DSRecordBrowserPresenterTest >> testGetRecordsFromFolderReference [
+
+	| records otherRecords fileRecords |
+	records := self getRecordExamples.
+	otherRecords := {
+		                (DSPrintItRecord new
+			                 windowId: 0;
+			                 dateTime: (DateAndTime fromSeconds: 0)).
+		                (DSMouseLeaveWindowRecord new
+			                 windowId: 7;
+			                 dateTime: (DateAndTime fromSeconds: 7)).
+		                (DSMouseEnterWindowRecord new
+			                 windowId: 5;
+			                 dateTime: (DateAndTime fromSeconds: 5)).
+		                (DSInspectItRecord new
+			                 windowId: 6;
+			                 dateTime: (DateAndTime fromSeconds: 6)) }.
+
+	self generateRecordsFileFor: records.
+	self writeRecords: otherRecords inFile: self temporaryDirectory / 'otherRecords'.
+
+	fileRecords := browser getRecordsFromFileReference: self temporaryDirectory.
+	self assert: fileRecords size equals: 8.
+
+	self assertThat: fileRecords first equals: otherRecords first.
+	self assertThat: fileRecords second equals: records first.
+	self assertThat: fileRecords third equals: records second.
+	self assertThat: fileRecords fourth equals: records third.
+	self assertThat: fileRecords fifth equals: records fourth.
+	self assertThat: fileRecords sixth equals: otherRecords third.
+	self assertThat: fileRecords seventh equals: otherRecords fourth.
+	self assertThat: fileRecords eighth equals: otherRecords second
+]
+
+{ #category : 'tests' }
 DSRecordBrowserPresenterTest >> testGetWindowFromRecord [
 
 	| record fileRef window |
@@ -272,6 +320,15 @@ DSRecordBrowserPresenterTest >> testGetWindowFromRecord [
 ]
 
 { #category : 'tests' }
+DSRecordBrowserPresenterTest >> testIsFileAdded [
+
+	browser files: { 'aFolder' asFileReference } asOrderedCollection.
+	self assert: (browser isFileAdded: 'aFolder' asFileReference).
+	self assert: (browser isFileAdded: 'aFolder/testFile' asFileReference).
+	self deny: (browser isFileAdded: 'notAddedFile' asFileReference)
+]
+
+{ #category : 'tests' }
 DSRecordBrowserPresenterTest >> testRemoveFile [
 
 	| fileRef1 fileRef2 |
@@ -283,7 +340,7 @@ DSRecordBrowserPresenterTest >> testRemoveFile [
 	browser removeFile: fileRef1.
 
 	self assert: browser files size equals: 1.
-	self assert: self filesPresenter items size equals: 1.
+	self assert: self filesPresenter roots size equals: 1.
 	self assert: self filesPresenter selectedItem equals: fileRef2
 ]
 
@@ -297,7 +354,7 @@ DSRecordBrowserPresenterTest >> testRemoveLastFile [
 	browser removeFile: fileRef1.
 
 	self assert: browser files size equals: 0.
-	self assert: self filesPresenter items size equals: 0.
+	self assert: self filesPresenter roots size equals: 0.
 	self assert: self filesPresenter selectedItem equals: nil
 ]
 
@@ -421,4 +478,26 @@ DSRecordBrowserPresenterTest >> timelinePresenter [
 DSRecordBrowserPresenterTest >> windowsPresenter [
 
 	^ browser presenterAt: #windowsPresenter
+]
+
+{ #category : 'writing' }
+DSRecordBrowserPresenterTest >> writeRecords: someRecords inFile: aFileReference [
+	"Write the specified records in the specified file in STON format."
+
+	| writeStream |
+	aFileReference ensureCreateFile.
+	writeStream := aFileReference writeStream.
+
+	writeStream nextPut: $[.
+
+	someRecords doWithIndex: [ :record :index |
+			writeStream nextPutAll: (STON toString: record).
+
+			index = someRecords size ifFalse: [
+					writeStream nextPut: $,.
+					writeStream crlf ] ].
+
+	writeStream nextPut: $].
+	writeStream close.
+	^ aFileReference
 ]
