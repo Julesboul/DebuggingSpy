@@ -87,13 +87,6 @@ DSWindowActivityRecord >> events: anObject [
 	events := anObject
 ]
 
-{ #category : 'inspecting' }
-DSWindowActivityRecord >> inspectionAnnotation [
-
-	<inspectorPresentationOrder: 50 title: 'Annotation'>
-	^ DSWindowElementAnnotationPresenter on: self
-]
-
 { #category : 'merging' }
 DSWindowActivityRecord >> mergeWith: aDSWindowActivityRecord [
 	"Merge the windowActivity with another one. Be careful, aDSWindowActivityRecord must happen after self otherwise the result will be false"
