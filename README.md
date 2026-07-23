@@ -2,7 +2,9 @@
 
 [![Tests](https://github.com/Pharo-XP-Tools/DebuggingSpy/actions/workflows/dsspy.yaml/badge.svg)](https://github.com/Pharo-XP-Tools/DebuggingSpy/actions/workflows/dsspy.yaml)
 
-A tool to spy on debugging actions for research experiments.
+Debugging Spy provides a tool which spies the Pharo IDE and allows to get data about user's interaction with the Pharo IDE.
+
+The documentation bellow is for common users, however you can find [here](/technical_documentation.md) a technical documentation if you want to understand our system further or to contribute to this project.  
 
 In order to install this repository in a Pharo 14 image, launch the following code in a Playground:
 
