@@ -74,7 +74,7 @@ instrumentSystem
 
 #### `DSSpy` 
 
-It is mostly defining rules about instrumentation: does the code written has to be recorded? and the clipboard content? class' names? ... This class is also providing helper's methods for other classes in the package.
+It mostly defines rules about instrumentation: does the code written has to be recorded? and the clipboard content? class' names? ... This class also provides helper methods for other classes in the package.
 
 The provided API of `DSSpy class` is:
 
@@ -84,13 +84,13 @@ The provided API of `DSSpy class` is:
 
 #### `DSMetaLink` 
 
-These are specific MetaLinks for instrumentations done by Debugging Spy. It allows us to differentiate them from the classic MetaLinks.
+These are specific MetaLinks for instrumentations done by Debugging Spy. It allows us to differentiate them from `MetaLinks` and so to easily uninstall all of them (without side effects on Metalinks).
 
 `DSMetaLink` and `DSMetaLinkInstaller` just inherits from `MetaLink` and `MetaLinkInstaller` respectively. The only difference is that `DSMetaLinkInstaller` reinstalls links when an instrumented method is modified (so the instrumentation is not deleted).
 
 #### Extensions
 
-Some instrumentations are done by adding extensions to existing code.
+Some instrumentations are done by adding extensions into existing code.
 For example, `Halt` class is instrumented with:
 
 ```smalltalk
@@ -117,12 +117,14 @@ This way of recording actions avoids issues due to MetaLink or Announcements and
 Many recording classes exist in Debugging Spy. Indeed, wanted data are different from an action to another.
 So each recording class implement which data do we want to record and how it should be recorded.
 
-All records inherit from `DSAbstractEventRecord` and are then classify by abstract classes. 
+All records inherit from `DSAbstractEventRecord` and are then classified with abstract classes. 
 For example, we have `DSClipboardCopyRecord` (recording the action of copying) which inherits from `DSClipboardActionRecord` (the recording category) and then this class inherits from `DSAbstractEventRecord`.
 
-Here is an example of the hierarchy view in the browser : TODO add screenshots or schema
+Here is an example of the hierarchy view in the browser : 
 
-The main methods in recording class are: 
+![Recording classes hierarchy](/images/Recording_classes_hierarchy.png)
+
+The main methods in a recording class are: 
 
 - `DSAbstractEventRecord class >> for:` which is the entry point for recording (used for instrumentation)
 - `DSAbstractEventRecord >> record: anObject` which is re-defined by its subclass and specified what is recorded
@@ -139,11 +141,11 @@ This object logs records as STON file.
 
 #### `DSRecordHistory`
 
-The history object sorts records and infers information from them, it creates new objects which are mostly used for visualizations.
+The history object sorts records and infers information from them, it creates new objects which are mostly used for visualizations (see the dedicated section in [readme](/README.md)).
 
 ## Record data filtering
 
-Debugging Spy API defines a class `DSRecordDataFilter` which permits to instanciate filters that will be used to remove and transform some information in the records. A filter will define operations that will be applied on a record's slots.
+Debugging Spy API defines a class `DSRecordDataFilter` which permits to instantiate filters that will be used to remove and transform some information in the records. A filter will define operations that will be applied on a record's slots.
 
 The filters could keep the value of a slot when applied, which needs to be specified using the **with** method. 
 
@@ -174,7 +176,7 @@ Our tool uses a STON logger that is defined in the `DSSTONFileLogger` class. Thi
 
 ## Testing
 
-Most of the code is tested. To ensure that, we defined a testing strategy divided in two main categories: test scenarios and classical tests. 
+Most of the code is tested. To ensure that, we defined a testing strategy divided in two main categories: common tests and testing scenarios. 
 
 ### Common tests
 
@@ -184,4 +186,4 @@ As in all projects, you will find unit tests and functional tests.
 
 Testing scenarios were defined to ensure that we correctly record scenarios which often happen during experiments. 
 
-These scenarios are describing a succession of actions and the expected results. Our goal is then to match the result. 
+These scenarios describe a succession of actions and the expected result. The goal is then to match the result. 
