@@ -141,7 +141,7 @@ This object logs records as STON file.
 
 #### `DSRecordHistory`
 
-The history object sorts records and infers information from them, it creates new objects which are mostly used for visualizations (see the dedicated section in [readme](/README.md)).
+The history object sorts records and infers information from them, it creates new objects which are mostly used for visualizations (see the dedicated section in [readme](/README.md#build-event-history)).
 
 ## Record data filtering
 
@@ -180,10 +180,12 @@ Most of the code is tested. To ensure that, we defined a testing strategy divide
 
 ### Common tests
 
-As in all projects, you will find unit tests and functional tests. 
+As in all projects, you will find unit tests and functional tests in the packages `DebuggingSpy-Tests`, `DebuggingSpy-Browser-Tests` or `DebuggingSpy-Anonymizer-Tests`.
 
 ### Testing scenarios
 
 Testing scenarios were defined to ensure that we correctly record scenarios which often happen during experiments. 
 
 These scenarios describe a succession of actions and the expected result. The goal is then to match the result. 
+
+Still in progress, you can find them in "ScenarioTesting" folder. 
